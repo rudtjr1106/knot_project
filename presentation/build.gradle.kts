@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -11,7 +14,14 @@ android {
     namespace = "com.knot.presentation"
     compileSdk = 34
 
+    val localPropsFile = rootProject.file("local.properties")
+    val localProps = Properties()
+    if (localPropsFile.exists()) {
+        localProps.load(FileInputStream(localPropsFile))
+    }
+
     defaultConfig {
+        buildConfigField("String", "kakao_native_key", localProps.getProperty("kakao_native_key"))
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -66,5 +76,6 @@ dependencies {
     implementation(Google.HILT_CORE)
     kapt(Google.HILT_COMPILER)
 
+    implementation("com.kakao.sdk:v2-user:2.0.1")
     implementation(Google.GLIDE)
 }
