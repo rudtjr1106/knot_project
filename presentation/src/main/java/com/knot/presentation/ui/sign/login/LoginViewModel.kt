@@ -1,8 +1,10 @@
 package com.knot.presentation.ui.sign.login
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.knot.domain.usecase.sign.SignKaKaoUseCase
 import com.knot.domain.vo.UserInfoVo
+import com.knot.domain.vo.response.KaKaoSignResponseVo
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
 import com.knot.presentation.util.KnotLog
@@ -29,7 +31,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun handleSuccess(data : UserInfoVo){
-        KnotLog.D(data.toString())
+    private fun handleSuccess(data : KaKaoSignResponseVo){
+        if(data.isNewUser) emitEventFlow(LoginEvent.GoToSignUpEvent)
+        else emitEventFlow(LoginEvent.GoToMainEvent)
     }
 }

@@ -1,10 +1,6 @@
 package com.knot.presentation.ui.sign.login
 
-import android.util.Log
 import androidx.fragment.app.viewModels
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.ktx.functions
-import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.user.UserApiClient
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
@@ -60,6 +56,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, PageState.Default, Logi
     private fun inspectEvent(event: LoginEvent){
         when(event){
             LoginEvent.KaKaoLoginEvent -> signInKakao()
+            LoginEvent.GoToMainEvent -> {}
+            LoginEvent.GoToSignUpEvent -> {}
         }
     }
 
