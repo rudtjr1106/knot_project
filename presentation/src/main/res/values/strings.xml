@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">knot_project</string>
+    <string name="app_name">매듭</string>
+    <string name="kakao_native_key">kakao97efcfea85e19c27e2643767d2b69e12</string>
 </resources>
