@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.knot.domain.base.Response
 import com.knot.domain.repository.SignRepository
+import com.knot.domain.resultCode.ResultCode
 import com.knot.domain.vo.UserInfoVo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,7 +21,7 @@ class SignRepositoryImpl @Inject constructor() : SignRepository {
         Log.d("하이", "하이")
         val response = Response(
             data = UserInfoVo(nickName = "테스트", uid = "테스트uid"),
-            error = "성공"
+            result = ResultCode.SUCCESS
         )
         emit(response)
     }

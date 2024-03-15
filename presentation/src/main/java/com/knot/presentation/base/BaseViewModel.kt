@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.knot.domain.base.Response
+import com.knot.domain.resultCode.ResultCode
 import com.knot.presentation.PageState
 import com.knot.presentation.Event
 import com.knot.presentation.util.EventFlow
@@ -31,7 +33,12 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
         _isLoading.value = true
     }
 
-    protected fun endLoading(){
+    private fun endLoading(){
         _isLoading.value = false
+    }
+
+    protected fun<Vo> resultResponse(response: Response<Vo>, successCallback : (Vo) -> Unit, errorCallback : ((Int) -> Unit)? = null){
+        if(response.result == ResultCode.SUCCESS) successCallback.invoke(response.data)
+        else errorCallback?.invoke(response.result)
     }
 }

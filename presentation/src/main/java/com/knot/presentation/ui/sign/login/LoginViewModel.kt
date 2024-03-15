@@ -2,11 +2,11 @@ package com.knot.presentation.ui.sign.login
 
 import androidx.lifecycle.viewModelScope
 import com.knot.domain.usecase.sign.SignKaKaoUseCase
+import com.knot.domain.vo.UserInfoVo
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
 import com.knot.presentation.util.KnotLog
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,10 +23,13 @@ class LoginViewModel @Inject constructor(
 
     fun signInKaKao(){
         viewModelScope.launch {
-            KnotLog.D("테스트")
             signKaKaoUseCase(Unit).collect{
-                KnotLog.D(it.toString())
+                resultResponse(it, ::handleSuccess)
             }
         }
+    }
+
+    private fun handleSuccess(data : UserInfoVo){
+        KnotLog.D(data.toString())
     }
 }
