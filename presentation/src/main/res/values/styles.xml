@@ -3,6 +3,24 @@
 
     <!-- Bold -->
 
+    <style name="bold_24">
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">29sp</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+    </style>
+
+    <style name="bold_20">
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">24sp</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+    </style>
+
+    <style name="bold_18">
+        <item name="android:textSize">18sp</item>
+        <item name="lineHeight">22sp</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+    </style>
+
     <style name="bold_14">
         <item name="android:textSize">14sp</item>
         <item name="lineHeight">17sp</item>
@@ -11,6 +29,11 @@
 
 
     <!-- Medium -->
+    <style name="medium_16">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">18sp</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
 
     <style name="medium_12">
         <item name="android:textSize">12sp</item>
@@ -29,6 +52,12 @@
     <style name="regular_12">
         <item name="android:textSize">12sp</item>
         <item name="lineHeight">14sp</item>
+        <item name="fontFamily">@font/pretendard_regular</item>
+    </style>
+
+    <style name="regular_10">
+        <item name="android:textSize">10sp</item>
+        <item name="lineHeight">12sp</item>
         <item name="fontFamily">@font/pretendard_regular</item>
     </style>
 </resources>

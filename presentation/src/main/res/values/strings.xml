@@ -6,5 +6,16 @@
     <string name="sign_email">이메일로 시작하기</string>
     <string name="sign_already_account">이미 계정이 있으신가요?</string>
     <string name="sign_about_service_personal_info">가입을 진행할 경우, 서비스 이용약관 및\n개인정보처리 방침에 동의한 것으로 간주합니다.</string>
+    <string name="sign_sign_up">회원가입</string>
+    <string name="sign_id">아이디</string>
+    <string name="sign_input_id_hint">아이디를 입력하세요.</string>
+    <string name="sign_organization">학교/소속</string>
+    <string name="sign_input_organization_hint">학교 또는 소속을 입력하세요.</string>
+    <string name="sign_major">전공/소속부</string>
+    <string name="sign_input_major_hint">전공 또는 소속부를 입력하세요.</string>
+    <string name="sign_introduce">자기소개 (선택)</string>
+    <string name="sign_input_inroduce_hint">간단한 자기소개 또는 포토폴리오를 입력해주세요.</string>
+    <string name="sign_max_introduce_text">%s/150</string>
+    <string name="sign_start">시작하기</string>
 
 </resources>

@@ -32,6 +32,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun handleSuccess(data : KaKaoSignResponseVo){
+        KnotLog.D(data.uid)
         if(data.isNewUser) emitEventFlow(LoginEvent.GoToSignUpEvent)
         else emitEventFlow(LoginEvent.GoToMainEvent)
     }

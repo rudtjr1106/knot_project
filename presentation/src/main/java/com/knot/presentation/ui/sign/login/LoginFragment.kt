@@ -1,6 +1,7 @@
 package com.knot.presentation.ui.sign.login
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.user.UserApiClient
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
@@ -57,8 +58,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, PageState.Default, Logi
         when(event){
             LoginEvent.KaKaoLoginEvent -> signInKakao()
             LoginEvent.GoToMainEvent -> {}
-            LoginEvent.GoToSignUpEvent -> {}
+            LoginEvent.GoToSignUpEvent -> goToSignUp()
         }
+    }
+
+    private fun goToSignUp(){
+        val action = LoginFragmentDirections.actionLoginToSignUp()
+        findNavController().navigate(action)
     }
 
     override fun onStart() {

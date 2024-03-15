@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Knot_project"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
         </activity>
         <activity

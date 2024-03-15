@@ -1,4 +1,4 @@
-package com.knot.presentation.ui
+package com.knot.presentation.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
