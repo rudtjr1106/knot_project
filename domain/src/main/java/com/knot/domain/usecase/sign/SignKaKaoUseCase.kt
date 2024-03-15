@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class SignKaKaoUseCase @Inject constructor(
     private val signRepository: SignRepository
-) : UseCase<Unit, UserInfoVo>() {
-    override suspend operator fun invoke(request: Unit): Flow<Response<UserInfoVo>> {
-        return signRepository.kakaoLogin()
+) : UseCase<String, UserInfoVo>() {
+    override suspend operator fun invoke(request: String): Flow<Response<UserInfoVo>> {
+        return signRepository.kakaoLogin(request)
     }
 }

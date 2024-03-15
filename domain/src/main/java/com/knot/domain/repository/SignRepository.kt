@@ -5,5 +5,5 @@ import com.knot.domain.vo.UserInfoVo
 import kotlinx.coroutines.flow.Flow
 
 interface SignRepository {
-    suspend fun kakaoLogin() : Flow<Response<UserInfoVo>>
+    suspend fun kakaoLogin(request : String) : Flow<Response<UserInfoVo>>
 }

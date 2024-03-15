@@ -21,9 +21,9 @@ class LoginViewModel @Inject constructor(
         emitEventFlow(LoginEvent.KaKaoLoginEvent)
     }
 
-    fun signInKaKao(){
+    fun signInKaKao(accessToken : String){
         viewModelScope.launch {
-            signKaKaoUseCase(Unit).collect{
+            signKaKaoUseCase(accessToken).collect{
                 resultResponse(it, ::handleSuccess)
             }
         }
