@@ -19,4 +19,8 @@ class SignRepositoryImpl @Inject constructor() : SignRepository {
         emit(SignServer.signUp(request))
     }
 
+    override suspend fun login(request: String): Flow<Response<Boolean>> = flow {
+        emit(SignServer.login(request))
+    }
+
 }

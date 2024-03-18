@@ -78,9 +78,10 @@ dependencies {
 
     //FIREBASE
     implementation(platform(Google.FIREBASE_BOM))
-    implementation(Google.FIREBASE_FCM)
     implementation(Google.FIREBASE_ANALYTICS)
-    implementation("com.google.firebase:firebase-functions-ktx")
+    implementation(Google.FIREBASE_AUTH)
+    implementation(Google.FIREBASE_REALTIME_DB)
+    implementation(Google.FIREBASE_FUNCTIONS)
 
     implementation("com.kakao.sdk:v2-user:2.11.2")
     implementation(Google.GLIDE)

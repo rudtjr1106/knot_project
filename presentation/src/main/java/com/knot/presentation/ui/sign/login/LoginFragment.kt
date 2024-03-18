@@ -1,14 +1,12 @@
 package com.knot.presentation.ui.sign.login
 
+import android.content.Context
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kakao.sdk.auth.AuthApiClient
-import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentLoginBinding
-import com.knot.presentation.util.KnotLog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -62,12 +60,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, PageState.Default, Logi
             LoginEvent.KaKaoLoginEvent -> signInKakao()
             LoginEvent.GoToMainEvent -> {}
             LoginEvent.GoToSignUpEvent -> goToSignUp()
+            is LoginEvent.SaveUserTokenEvent -> saveToken(event.token)
         }
     }
 
     private fun goToSignUp(){
         val action = LoginFragmentDirections.actionLoginToSignUp()
         findNavController().navigate(action)
+    }
+
+    private fun saveToken(token : String){
+        val sharedPreferences = requireContext().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("token", token)
+        editor.apply()
     }
 
     override fun onStart() {

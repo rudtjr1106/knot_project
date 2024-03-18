@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface SignRepository {
     suspend fun kakaoLogin(request : String) : Flow<Response<KaKaoSignResponseVo>>
     suspend fun signUp(request: SignUpRequest) : Flow<Response<Boolean>>
+    suspend fun login(request: String): Flow<Response<Boolean>>
 }
