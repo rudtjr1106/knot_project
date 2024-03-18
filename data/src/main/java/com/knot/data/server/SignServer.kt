@@ -1,12 +1,12 @@
 package com.knot.data.server
 
-import android.util.Log
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import com.knot.data.repository.SignRepositoryImpl
+import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
-import com.knot.domain.vo.UserInfoVo
+import com.knot.domain.vo.request.SignUpRequest
 import com.knot.domain.vo.response.KaKaoSignResponseVo
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -14,6 +14,8 @@ import kotlin.coroutines.suspendCoroutine
 object SignServer {
 
     private const val FIREBASE_FUNCTION = "kakaoLogin"
+    private val db = FirebaseDatabase.getInstance()
+    private val authRef = db.getReference(Endpoints.USER)
 
     private val functions = Firebase.functions("asia-northeast3")
     suspend fun kakaoSign(accessToken : String) : Response<KaKaoSignResponseVo> = suspendCoroutine {
@@ -32,5 +34,16 @@ object SignServer {
             .addOnFailureListener { e ->
                 it.resume(Response(data = KaKaoSignResponseVo(), result = ResultCode.TEST_ERROR))
             }
+    }
+
+    suspend fun signUp(request: SignUpRequest) : Response<Boolean> = suspendCoroutine {
+        authRef.child(request.name).setValue(request).addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                it.resume(Response(data = true, result = ResultCode.SUCCESS))
+            }
+            else{
+                it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+            }
+        }
     }
 }

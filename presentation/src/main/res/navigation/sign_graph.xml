@@ -14,7 +14,9 @@
 
         <action
             android:id="@+id/action_login_to_sign_up"
-            app:destination="@id/signUpFragment"/>
+            app:destination="@id/signUpFragment"
+            app:exitAnim="@anim/slide_out"
+            app:enterAnim="@anim/slide_in" />
     </fragment>
 
     <fragment

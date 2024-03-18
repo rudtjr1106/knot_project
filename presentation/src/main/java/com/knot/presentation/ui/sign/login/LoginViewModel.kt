@@ -1,13 +1,14 @@
 package com.knot.presentation.ui.sign.login
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.kakao.sdk.user.UserApiClient
 import com.knot.domain.usecase.sign.SignKaKaoUseCase
-import com.knot.domain.vo.UserInfoVo
+import com.knot.domain.vo.normal.UserVo
 import com.knot.domain.vo.response.KaKaoSignResponseVo
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
 import com.knot.presentation.util.KnotLog
+import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,8 +33,17 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun handleSuccess(data : KaKaoSignResponseVo){
-        KnotLog.D(data.uid)
+        updateUserInfo()
         if(data.isNewUser) emitEventFlow(LoginEvent.GoToSignUpEvent)
         else emitEventFlow(LoginEvent.GoToMainEvent)
+    }
+
+    private fun updateUserInfo(){
+        UserApiClient.instance.me { user, error ->
+            UserInfo.updateInfo(UserVo(
+                name = user?.kakaoAccount?.profile?.nickname.toString(),
+                email = user?.kakaoAccount?.email.toString()
+            ))
+        }
     }
 }
