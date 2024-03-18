@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class SignRepositoryImpl @Inject constructor() : SignRepository {
+    //
     override suspend fun kakaoLogin(request : String): Flow<Response<KaKaoSignResponseVo>>  = flow {
         emit(SignServer.kakaoSign(request))
     }
