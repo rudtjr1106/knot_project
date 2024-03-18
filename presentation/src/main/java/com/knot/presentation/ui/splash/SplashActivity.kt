@@ -31,7 +31,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, PageState.Default, Sp
         binding.apply {
             vm = viewModel
             permissionCheck()
-            //goToLogin()
             viewModel.checkLogin(getToken())
         }
     }

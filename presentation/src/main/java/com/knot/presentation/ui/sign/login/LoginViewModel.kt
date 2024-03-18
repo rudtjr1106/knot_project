@@ -2,12 +2,15 @@ package com.knot.presentation.ui.sign.login
 
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.user.UserApiClient
+import com.knot.domain.usecase.sign.GetMyInfoUseCase
 import com.knot.domain.usecase.sign.LoginUseCase
 import com.knot.domain.usecase.sign.SignKaKaoUseCase
 import com.knot.domain.vo.normal.UserVo
-import com.knot.domain.vo.response.KaKaoSignResponseVo
+import com.knot.domain.vo.response.GetMyInfoResponse
+import com.knot.domain.vo.response.KaKaoSignResponse
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
+import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val signKaKaoUseCase: SignKaKaoUseCase,
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val getMyInfoUseCase: GetMyInfoUseCase
 ) : BaseViewModel<PageState.Default>() {
     override val uiState: PageState.Default
         get() = TODO("Not yet implemented")
@@ -33,13 +37,13 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun handleSuccess(data : KaKaoSignResponseVo){
+    private fun handleSuccess(data : KaKaoSignResponse){
         if(data.isNewUser) {
             updateUserInfo()
             emitEventFlow(LoginEvent.SaveUserTokenEvent(data.token))
             login(data.token)
         }
-        else emitEventFlow(LoginEvent.GoToMainEvent)
+        else { getMyInfo() }
     }
 
     private fun updateUserInfo(){
@@ -57,5 +61,31 @@ class LoginViewModel @Inject constructor(
                 resultResponse(it, { emitEventFlow(LoginEvent.GoToSignUpEvent) })
             }
         }
+    }
+
+    private fun getMyInfo(){
+        viewModelScope.launch {
+            getMyInfoUseCase(Unit).collect{
+                resultResponse(it, ::successGetMyInfo)
+            }
+        }
+    }
+
+    private fun successGetMyInfo(result : GetMyInfoResponse){
+        val userVo = UserVo(
+            email = result.email,
+            id = result.id,
+            intro = result.intro,
+            major = result.major,
+            name = result.name,
+            organization = result.organization
+        )
+        UserInfo.updateInfo(userVo)
+        goToMain()
+    }
+
+
+    private fun goToMain(){
+        emitEventFlow(LoginEvent.GoToMainEvent)
     }
 }

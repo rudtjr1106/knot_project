@@ -1,15 +1,18 @@
 package com.knot.data.server
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
 import com.knot.domain.vo.request.SignUpRequest
-import com.knot.domain.vo.response.KaKaoSignResponseVo
+import com.knot.domain.vo.response.GetMyInfoResponse
+import com.knot.domain.vo.response.KaKaoSignResponse
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -21,7 +24,7 @@ object SignServer {
     private val auth = FirebaseAuth.getInstance()
 
     private val functions = Firebase.functions("asia-northeast3")
-    suspend fun kakaoSign(accessToken : String) : Response<KaKaoSignResponseVo> = suspendCoroutine {
+    suspend fun kakaoSign(accessToken : String) : Response<KaKaoSignResponse> = suspendCoroutine {
         val data = hashMapOf("accessToken" to accessToken)
         functions
             .getHttpsCallable(FIREBASE_FUNCTION)
@@ -29,13 +32,13 @@ object SignServer {
             .addOnSuccessListener { result ->
                 val info = result.data as Map<String, Any>
                 val response = Response(
-                    data = KaKaoSignResponseVo(uid = info["uid"].toString(), isNewUser = info["isNewUser"] as Boolean, token = info["token"].toString()),
+                    data = KaKaoSignResponse(uid = info["uid"].toString(), isNewUser = info["isNewUser"] as Boolean, token = info["token"].toString()),
                     result = ResultCode.SUCCESS
                 )
                 it.resume(response)
             }
             .addOnFailureListener { e ->
-                it.resume(Response(data = KaKaoSignResponseVo(), result = ResultCode.TEST_ERROR))
+                it.resume(Response(data = KaKaoSignResponse(), result = ResultCode.TEST_ERROR))
             }
     }
 
@@ -60,5 +63,25 @@ object SignServer {
                     it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
                 }
             }
+    }
+
+    suspend fun getMyInfo() : Response<GetMyInfoResponse> = suspendCoroutine { coroutineScope ->
+        authRef.child(auth.uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val userVo = snapshot.getValue(GetMyInfoResponse::class.java)
+                    userVo?.let {
+                        coroutineScope.resume(Response(data = it, result = ResultCode.SUCCESS))
+                    }
+                }
+                else{
+                    coroutineScope.resume(Response(data = GetMyInfoResponse(), result = ResultCode.TEST_ERROR))
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                coroutineScope.resume(Response(data = GetMyInfoResponse(), result = ResultCode.TEST_ERROR))
+            }
+        })
     }
 }
