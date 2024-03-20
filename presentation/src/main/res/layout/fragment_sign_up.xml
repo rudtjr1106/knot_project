@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.sign.signup.SignUpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/sign_sign_up"
+            android:textAppearance="@style/bold_24"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/image_title_line"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_title"
+            app:layout_constraintEnd_toEndOf="@id/text_view_title"
+            app:layout_constraintStart_toStartOf="@id/text_view_title" />
+
+        <TextView
+            android:id="@+id/text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/sign_id"
+            android:textAppearance="@style/bold_18"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/text_view_title"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+        <EditText
+            android:id="@+id/edit_text_view_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@={vm.uiState.id}"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:hint="@string/sign_input_id_hint"
+            android:maxLines="1"
+            android:paddingVertical="4dp"
+            android:paddingStart="8dp"
+            android:singleLine="true"
+            android:textAppearance="@style/medium_16"
+            android:textColor="@color/black"
+            android:afterTextChanged="@{()->vm.onChangedTextAfter()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_view_id"
+            app:layout_constraintTop_toBottomOf="@id/text_view_id" />
+
+        <TextView
+            android:id="@+id/text_view_organization"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/sign_organization"
+            android:textAppearance="@style/bold_18"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/text_view_title"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_view_id" />
+
+        <EditText
+            android:id="@+id/edit_text_view_organization"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@={vm.uiState.organization}"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:hint="@string/sign_input_organization_hint"
+            android:maxLines="1"
+            android:paddingVertical="4dp"
+            android:paddingStart="8dp"
+            android:singleLine="true"
+            android:afterTextChanged="@{()->vm.onChangedTextAfter()}"
+            android:textAppearance="@style/medium_16"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_view_organization"
+            app:layout_constraintTop_toBottomOf="@id/text_view_organization" />
+
+        <TextView
+            android:id="@+id/text_view_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/sign_major"
+            android:textAppearance="@style/bold_18"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/text_view_title"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_view_organization" />
+
+        <EditText
+            android:id="@+id/edit_text_view_major"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:afterTextChanged="@{()->vm.onChangedTextAfter()}"
+            android:text="@={vm.uiState.major}"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:hint="@string/sign_input_major_hint"
+            android:maxLines="1"
+            android:paddingVertical="4dp"
+            android:paddingStart="8dp"
+            android:singleLine="true"
+            android:textAppearance="@style/medium_16"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_view_major"
+            app:layout_constraintTop_toBottomOf="@id/text_view_major" />
+
+        <TextView
+            android:id="@+id/text_view_introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/sign_introduce"
+            android:textAppearance="@style/bold_18"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/text_view_title"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_view_major" />
+
+        <EditText
+            android:id="@+id/edit_text_view_introduce"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:gravity="top"
+            android:afterTextChanged="@{()->vm.onChangedIntroTextAfter()}"
+            android:text="@={vm.uiState.introduce}"
+            android:hint="@string/sign_input_inroduce_hint"
+            android:maxLength="150"
+            android:minHeight="150dp"
+            android:maxHeight="200dp"
+            android:scrollbars="vertical"
+            android:paddingVertical="4dp"
+            android:paddingStart="8dp"
+            android:textAppearance="@style/medium_16"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_view_introduce"
+            app:layout_constraintTop_toBottomOf="@id/text_view_introduce" />
+
+        <TextView
+            android:id="@+id/text_view_max_introduce_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/sign_max_introduce_text"
+            android:textAppearance="@style/regular_10"
+            android:textColor="@color/color_8c8c8c"
+            app:layout_constraintEnd_toEndOf="@id/edit_text_view_introduce"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_view_introduce" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_start"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{()->vm.onClickStartButton()}"
+            android:enabled="@{vm.uiState.enableButton}"
+            android:background="@drawable/selector_f2f2f2_to_fcbe0e_radius_8"
+            android:elevation="0dp"
+            android:text="@string/sign_start"
+            android:textAppearance="@style/bold_14"
+            android:textColor="@drawable/selector_color_8c8c8c_to_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

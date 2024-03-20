@@ -16,6 +16,7 @@ object Google {
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val FIREBASE_FIRE_STORE = "com.google.firebase:firebase-firestore"
     const val FIREBASE_REALTIME_DB = "com.google.firebase:firebase-database-ktx"
+    const val FIREBASE_FUNCTIONS = "com.google.firebase:firebase-functions-ktx"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:${Versions.OKHTTP}"
     const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
@@ -29,8 +30,6 @@ object AndroidX{
     const val LIFECYCLE_VIEW_MODEL_KTX =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEW_MODEL_KTX}"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
-
-    const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
 
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"

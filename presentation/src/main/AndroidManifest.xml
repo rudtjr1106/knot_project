@@ -16,15 +16,37 @@
         android:theme="@style/Theme.Knot_project"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.RemoveSplash"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
             android:exported="true">
         </activity>
         <activity
             android:name=".ui.sign.SignActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
+        </activity>
+
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/kakao_native_key" />
             </intent-filter>
         </activity>
     </application>

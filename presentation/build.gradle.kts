@@ -52,6 +52,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
     implementation(AndroidX.CORE)
     implementation(AndroidX.APPCOMPAT)
     implementation(Google.MATERIAL)
@@ -64,8 +66,6 @@ dependencies {
     implementation(AndroidX.SPLASH)
     implementation(AndroidX.THREE_TEN)
     implementation(AndroidX.SWIPE_REFRESH)
-    //Timber
-    implementation(AndroidX.TIMBER)
 
     //코루틴
     implementation(Kotlin.COROUTINES_CORE)
@@ -76,6 +76,13 @@ dependencies {
     implementation(Google.HILT_CORE)
     kapt(Google.HILT_COMPILER)
 
-    implementation("com.kakao.sdk:v2-user:2.0.1")
+    //FIREBASE
+    implementation(platform(Google.FIREBASE_BOM))
+    implementation(Google.FIREBASE_ANALYTICS)
+    implementation(Google.FIREBASE_AUTH)
+    implementation(Google.FIREBASE_REALTIME_DB)
+    implementation(Google.FIREBASE_FUNCTIONS)
+
+    implementation("com.kakao.sdk:v2-user:2.11.2")
     implementation(Google.GLIDE)
 }

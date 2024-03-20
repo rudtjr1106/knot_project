@@ -51,6 +51,12 @@ dependencies {
     kapt(AndroidX.ROOM_COMPILER)
     implementation(AndroidX.ROOM)
 
+    //FIREBASE
+    implementation(platform(Google.FIREBASE_BOM))
+    implementation(Google.FIREBASE_ANALYTICS)
+    implementation(Google.FIREBASE_AUTH)
+    implementation(Google.FIREBASE_REALTIME_DB)
+    implementation(Google.FIREBASE_FUNCTIONS)
 
     //OKHTTP
     api(Google.OKHTTP)

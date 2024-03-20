@@ -28,8 +28,21 @@
             app:layout_constraintTop_toBottomOf="@id/image_view_app_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="180dp"
+            android:onClick="@{()->vm.onClickKaKaoLogin()}"
             android:background="@drawable/image_kaka_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textAppearance="@style/regular_12"
+            android:layout_marginBottom="18dp"
+            android:text="@string/sign_about_service_personal_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
