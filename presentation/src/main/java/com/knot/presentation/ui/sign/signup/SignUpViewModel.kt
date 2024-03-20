@@ -56,7 +56,7 @@ class SignUpViewModel @Inject constructor(
         val request = getSignUpRequest()
         viewModelScope.launch {
             signUpUseCase(request).collect {
-                resultResponse(it, ::handleSuccessSignUp)
+                resultResponse(it, {handleSuccessSignUp(request)})
             }
         }
     }
@@ -72,7 +72,15 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    private fun handleSuccessSignUp(result : Boolean){
-        KnotLog.D(result.toString())
+    private fun handleSuccessSignUp(result : SignUpRequest){
+        UserInfo.apply {
+            updateInfo(info.copy(
+                id = result.id,
+                intro = result.intro,
+                major = result.major,
+                organization = result.organization
+            ))
+        }
+        emitEventFlow(SignUpEvent.GoToMainEvent)
     }
 }
