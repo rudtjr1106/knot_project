@@ -54,15 +54,20 @@ object SignServer {
     }
 
     suspend fun login(token : String) : Response<Boolean> = suspendCoroutine {
-        auth.signInWithCustomToken(token)
-            .addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+        if(token.isNullOrEmpty()){
+            it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+        }
+        else{
+            auth.signInWithCustomToken(token)
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                    }
+                    else{
+                        it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                    }
                 }
-                else{
-                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
-                }
-            }
+        }
     }
 
     suspend fun getMyInfo() : Response<GetMyInfoResponse> = suspendCoroutine { coroutineScope ->

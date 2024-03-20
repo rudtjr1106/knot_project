@@ -86,6 +86,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, PageState.Default, Sp
     private fun getToken() : String {
         val sharedPreferences = getSharedPreferences(BuildConfig.shared_preferences_name, Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token", "")
+        KnotLog.D(token.toString())
         return token.toString()
     }
 }

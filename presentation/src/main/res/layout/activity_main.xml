@@ -1,18 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.sign.SignActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.main.MainActivityViewModel" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/constraint_layout_bottom_navigation"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/main_graph">
+        </androidx.fragment.app.FragmentContainerView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@drawable/bg_rectangle_filled_white_bottom_nav"
+            android:elevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_main"
+                app:layout_constraintTop_toTopOf="@id/constraint_layout_knot_create"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginEnd="36dp"
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_knot_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_main"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/ic_home_active_ffcc00"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_main"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_main"
+                    app:layout_constraintStart_toStartOf="@id/image_view_main"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_main"
+                    android:text="@string/word_main"
+                    android:textAppearance="@style/bold_10"
+                    android:textColor="@color/color_ffcc00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_knot_list"
+                app:layout_constraintTop_toTopOf="@id/constraint_layout_knot_create"
+                app:layout_constraintStart_toEndOf="@id/constraint_layout_main"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintEnd_toEndOf="@id/constraint_layout_knot_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_knot_list"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/ic_knot_list_inactive_c4c4c4"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_knot_list"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_knot_list"
+                    app:layout_constraintStart_toStartOf="@id/image_view_knot_list"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_knot_list"
+                    android:text="@string/word_knot_list"
+                    android:textAppearance="@style/bold_10"
+                    android:textColor="@color/color_c4c4c4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_knot_create"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/bg_rectangle_filled_f09035_radius_10"
+                android:layout_width="36dp"
+                android:layout_height="36dp">
+                
+                <ImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/ic_add_white"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_profile"
+                app:layout_constraintTop_toTopOf="@id/constraint_layout_knot_create"
+                app:layout_constraintStart_toEndOf="@id/constraint_layout_knot_create"
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_setting"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginEnd="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_profile"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/ic_profile_inactive_c4c4c4"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_profile"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_profile"
+                    app:layout_constraintStart_toStartOf="@id/image_view_profile"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_profile"
+                    android:text="@string/word_profile"
+                    android:textAppearance="@style/bold_10"
+                    android:textColor="@color/color_c4c4c4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_setting"
+                app:layout_constraintTop_toTopOf="@id/constraint_layout_knot_create"
+                app:layout_constraintStart_toEndOf="@id/constraint_layout_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_setting"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/ic_setting_inactive_c4c4c4"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_setting"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_setting"
+                    app:layout_constraintStart_toStartOf="@id/image_view_setting"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_setting"
+                    android:text="@string/word_setting"
+                    android:textAppearance="@style/bold_10"
+                    android:textColor="@color/color_c4c4c4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
