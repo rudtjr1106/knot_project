@@ -25,4 +25,7 @@ object Versions {
     const val NAVIGATION = "2.5.1"
     const val ROOM = "2.4.3"
     const val REFRESH = "1.1.0"
+
+    /* [ Kakao ] */
+    const val KAKAO = "2.11.2"
 }

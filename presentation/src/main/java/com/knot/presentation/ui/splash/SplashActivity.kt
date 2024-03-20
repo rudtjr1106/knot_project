@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.knot.presentation.BuildConfig
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseActivity
 import com.knot.presentation.databinding.ActivitySplashBinding
@@ -51,8 +52,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, PageState.Default, Sp
         when(event){
             SplashEvent.GoToLoginEvent -> goToLogin()
             SplashEvent.GoToMainEvent -> goToMain()
-            is SplashEvent.ErrorServerEvent -> showServerErrorDialog(event.content)
-            SplashEvent.ErrorVersionEvent -> showVersionErrorDialog()
         }
     }
 
@@ -84,30 +83,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, PageState.Default, Sp
         }
     }
 
-    private fun showServerErrorDialog(errorContent : String){
-//        commonDialog
-//            .setTitle(R.string.dialog_server_error_title)
-//            .setDescription(errorContent)
-//            .setPositiveButton(R.string.word_confirm){
-//                commonDialog.dismiss()
-//                finish()
-//            }
-//            .show()
-    }
-
-    private fun showVersionErrorDialog(){
-//        commonDialog
-//            .setTitle(R.string.dialog_version_error_title)
-//            .setDescription(R.string.dialog_version_error_content)
-//            .setPositiveButton(R.string.word_confirm){
-//                commonDialog.dismiss()
-//                finish()
-//            }
-//            .show()
-    }
-
     private fun getToken() : String {
-        val sharedPreferences = getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(BuildConfig.shared_preferences_name, Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token", "")
         return token.toString()
     }

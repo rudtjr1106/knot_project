@@ -22,6 +22,7 @@ android {
 
     defaultConfig {
         buildConfigField("String", "kakao_native_key", localProps.getProperty("kakao_native_key"))
+        buildConfigField("String", "shared_preferences_name", localProps.getProperty("shared_preferences_name"))
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -83,6 +84,6 @@ dependencies {
     implementation(Google.FIREBASE_REALTIME_DB)
     implementation(Google.FIREBASE_FUNCTIONS)
 
-    implementation("com.kakao.sdk:v2-user:2.11.2")
+    implementation(KAKAO.AUTH)
     implementation(Google.GLIDE)
 }

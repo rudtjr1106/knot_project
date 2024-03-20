@@ -42,3 +42,7 @@ object AndroidX{
     const val SWIPE_REFRESH = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.REFRESH}"
 }
 
+object KAKAO{
+    const val AUTH = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
+}
+
