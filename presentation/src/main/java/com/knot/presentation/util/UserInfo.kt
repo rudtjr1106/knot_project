@@ -10,6 +10,4 @@ object UserInfo {
     fun updateInfo(info: UserVo) {
         this.info = info
     }
-
-    const val APP_VERSION = "1.0.0"
 }

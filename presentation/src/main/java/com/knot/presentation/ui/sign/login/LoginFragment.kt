@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.user.UserApiClient
+import com.knot.presentation.BuildConfig
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentLoginBinding
@@ -70,7 +71,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, PageState.Default, Logi
     }
 
     private fun saveToken(token : String){
-        val sharedPreferences = requireContext().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences = requireContext().getSharedPreferences(BuildConfig.shared_preferences_name, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("token", token)
         editor.apply()
