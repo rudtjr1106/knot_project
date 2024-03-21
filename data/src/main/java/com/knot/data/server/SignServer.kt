@@ -10,6 +10,7 @@ import com.google.firebase.ktx.Firebase
 import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
+import com.knot.domain.vo.normal.UserVo
 import com.knot.domain.vo.request.SignUpRequest
 import com.knot.domain.vo.response.GetMyInfoResponse
 import com.knot.domain.vo.response.KaKaoSignResponse
@@ -24,7 +25,7 @@ object SignServer {
     private val auth = FirebaseAuth.getInstance()
 
     private val functions = Firebase.functions("asia-northeast3")
-    suspend fun kakaoSign(accessToken : String) : Response<KaKaoSignResponse> = suspendCoroutine {
+    suspend fun kakaoSign(accessToken: String): Response<KaKaoSignResponse> = suspendCoroutine {
         val data = hashMapOf("accessToken" to accessToken)
         functions
             .getHttpsCallable(FIREBASE_FUNCTION)
@@ -32,7 +33,11 @@ object SignServer {
             .addOnSuccessListener { result ->
                 val info = result.data as Map<String, Any>
                 val response = Response(
-                    data = KaKaoSignResponse(uid = info["uid"].toString(), isNewUser = info["isNewUser"] as Boolean, token = info["token"].toString()),
+                    data = KaKaoSignResponse(
+                        uid = info["uid"].toString(),
+                        isNewUser = info["isNewUser"] as Boolean,
+                        token = info["token"].toString()
+                    ),
                     result = ResultCode.SUCCESS
                 )
                 it.resume(response)
@@ -42,50 +47,75 @@ object SignServer {
             }
     }
 
-    suspend fun signUp(request: SignUpRequest) : Response<Boolean> = suspendCoroutine {
+    suspend fun signUp(request: SignUpRequest): Response<Boolean> = suspendCoroutine {
         authRef.child(auth.uid.toString()).setValue(request).addOnCompleteListener { task ->
-            if(task.isSuccessful){
+            if (task.isSuccessful) {
                 it.resume(Response(data = true, result = ResultCode.SUCCESS))
-            }
-            else{
+            } else {
                 it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
             }
         }
     }
 
-    suspend fun login(token : String) : Response<Boolean> = suspendCoroutine {
-        if(token.isNullOrEmpty()){
+    suspend fun login(token: String): Response<Boolean> = suspendCoroutine {
+        if (token.isNullOrEmpty()) {
             it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
-        }
-        else{
+        } else {
             auth.signInWithCustomToken(token)
                 .addOnCompleteListener { task ->
-                    if(task.isSuccessful){
+                    if (task.isSuccessful) {
                         it.resume(Response(data = true, result = ResultCode.SUCCESS))
-                    }
-                    else{
+                    } else {
                         it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
                     }
                 }
         }
     }
 
-    suspend fun getMyInfo() : Response<GetMyInfoResponse> = suspendCoroutine { coroutineScope ->
-        authRef.child(auth.uid.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val userVo = snapshot.getValue(GetMyInfoResponse::class.java)
-                    userVo?.let {
-                        coroutineScope.resume(Response(data = it, result = ResultCode.SUCCESS))
+    suspend fun getMyInfo(): Response<GetMyInfoResponse> = suspendCoroutine { coroutineScope ->
+        authRef.child(auth.uid.toString())
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val userVo = snapshot.getValue(GetMyInfoResponse::class.java)
+                        userVo?.let {
+                            coroutineScope.resume(Response(data = it, result = ResultCode.SUCCESS))
+                        }
+                    } else {
+                        coroutineScope.resume(
+                            Response(
+                                data = GetMyInfoResponse(),
+                                result = ResultCode.TEST_ERROR
+                            )
+                        )
                     }
                 }
-                else{
-                    coroutineScope.resume(Response(data = GetMyInfoResponse(), result = ResultCode.TEST_ERROR))
+
+                override fun onCancelled(error: DatabaseError) {
+                    coroutineScope.resume(
+                        Response(
+                            data = GetMyInfoResponse(),
+                            result = ResultCode.TEST_ERROR
+                        )
+                    )
                 }
+            })
+    }
+
+    suspend fun checkAutoLogin(): Response<Boolean> = suspendCoroutine {
+        authRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var isLogin = false
+                for (dataSnapshot in snapshot.children) {
+                    if(dataSnapshot.key.toString() == auth.uid){
+                        isLogin = true
+                    }
+                }
+                it.resume(Response(data = isLogin, result = ResultCode.SUCCESS))
             }
 
             override fun onCancelled(error: DatabaseError) {
-                coroutineScope.resume(Response(data = GetMyInfoResponse(), result = ResultCode.TEST_ERROR))
+                it.resume(Response(data = false, result = ResultCode.SUCCESS))
             }
         })
     }

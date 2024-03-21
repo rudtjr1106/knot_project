@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_sunday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_monday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_sunday_circle"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_circle_today_ffcc00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/word_sunday"
+                android:textAppearance="@style/medium_10"
+                android:textColor="@color/color_e05744"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_sunday_circle" />
+
+            <TextView
+                android:id="@+id/text_view_sunday_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/color_e05744"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_sunday"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/image_view_sunday_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_ffcc00"
+                app:layout_constraintTop_toBottomOf="@id/text_view_sunday_date" />
+
+            <View
+                android:id="@+id/image_view_sunday_gathering_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/image_view_sunday_schedule_line" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_monday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_tuesday"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_sunday"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_monday_circle"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_circle_today_ffcc00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/word_monday"
+                android:textAppearance="@style/medium_10"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_monday_circle" />
+
+            <TextView
+                android:id="@+id/text_view_monday_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_monday"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/image_view_monday_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_ffcc00"
+                app:layout_constraintTop_toBottomOf="@id/text_view_monday_date" />
+
+            <View
+                android:id="@+id/image_view_monday_gathering_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/image_view_monday_schedule_line" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_tuesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_wednesday"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_monday"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_tuesday_circle"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_circle_today_ffcc00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/word_tuesday"
+                android:textAppearance="@style/medium_10"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_tuesday_circle" />
+
+            <TextView
+                android:id="@+id/text_view_tuesday_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_tuesday"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/image_view_tuesday_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_ffcc00"
+                app:layout_constraintTop_toBottomOf="@id/text_view_tuesday_date" />
+
+            <View
+                android:id="@+id/image_view_tuesday_gathering_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/image_view_tuesday_schedule_line" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_wednesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_thursday"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_tuesday"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_wednesday_circle"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_circle_today_ffcc00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/word_wednesday"
+                android:textAppearance="@style/medium_10"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_wednesday_circle" />
+
+            <TextView
+                android:id="@+id/text_view_wednesday_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_wednesday"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/image_view_wednesday_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_ffcc00"
+                app:layout_constraintTop_toBottomOf="@id/text_view_wednesday_date" />
+
+            <View
+                android:id="@+id/image_view_wednesday_gathering_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/image_view_wednesday_schedule_line" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_thursday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_friday"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_wednesday"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_thursday_circle"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_circle_today_ffcc00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/word_thursday"
+                android:textAppearance="@style/medium_10"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_thursday_circle" />
+
+            <TextView
+                android:id="@+id/text_view_thursday_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_thursday"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/image_view_thursday_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_ffcc00"
+                app:layout_constraintTop_toBottomOf="@id/text_view_thursday_date" />
+
+            <View
+                android:id="@+id/image_view_thursday_gathering_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/image_view_thursday_schedule_line" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_friday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_saturday"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_thursday"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_friday_circle"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_circle_today_ffcc00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/word_friday"
+                android:textAppearance="@style/medium_10"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_friday_circle" />
+
+            <TextView
+                android:id="@+id/text_view_friday_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_friday"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/image_view_friday_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_ffcc00"
+                app:layout_constraintTop_toBottomOf="@id/text_view_friday_date" />
+
+            <View
+                android:id="@+id/image_view_friday_gathering_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/image_view_friday_schedule_line" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_saturday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_friday"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_saturday_circle"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_circle_today_ffcc00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_saturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/word_saturday"
+                android:textAppearance="@style/medium_10"
+                android:textColor="@color/color_1976d2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_saturday_circle" />
+
+            <TextView
+                android:id="@+id/text_view_saturday_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/color_1976d2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_saturday"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/image_view_saturday_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_ffcc00"
+                app:layout_constraintTop_toBottomOf="@id/text_view_saturday_date" />
+
+            <View
+                android:id="@+id/image_view_saturday_gathering_schedule_line"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rectangle_filled_e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/image_view_saturday_schedule_line" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

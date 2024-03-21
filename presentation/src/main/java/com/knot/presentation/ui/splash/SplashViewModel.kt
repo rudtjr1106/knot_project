@@ -1,6 +1,7 @@
 package com.knot.presentation.ui.splash
 
 import androidx.lifecycle.viewModelScope
+import com.knot.domain.usecase.sign.CheckAutoLoginUseCase
 import com.knot.domain.usecase.sign.GetMyInfoUseCase
 import com.knot.domain.usecase.sign.LoginUseCase
 import com.knot.domain.vo.normal.UserVo
@@ -15,15 +16,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase,
+    private val checkAutoLoginUseCase: CheckAutoLoginUseCase,
     private val getMyInfoUseCase: GetMyInfoUseCase
 ) : BaseViewModel<PageState.Default>() {
     override val uiState: PageState.Default
         get() = TODO("Not yet implemented")
 
-    fun checkLogin(token : String){
+    fun checkLogin(){
         viewModelScope.launch {
-            loginUseCase(token).collect{
+            checkAutoLoginUseCase(Unit).collect{
                 resultResponse(it, {successLogin()}, {goToLogin()})
             }
         }

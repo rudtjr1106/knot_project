@@ -40,7 +40,6 @@ class LoginViewModel @Inject constructor(
     private fun handleSuccess(data : KaKaoSignResponse){
         if(data.isNewUser) {
             updateUserInfo()
-            emitEventFlow(LoginEvent.SaveUserTokenEvent(data.token))
             login(data.token)
         }
         else { getMyInfo() }

@@ -21,6 +21,12 @@
         <item name="fontFamily">@font/pretendard_bold</item>
     </style>
 
+    <style name="bold_16">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">19sp</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+    </style>
+
     <style name="bold_14">
         <item name="android:textSize">14sp</item>
         <item name="lineHeight">17sp</item>

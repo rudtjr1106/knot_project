@@ -63,7 +63,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, PageState.Default, Logi
             LoginEvent.KaKaoLoginEvent -> signInKakao()
             LoginEvent.GoToMainEvent -> goToMain()
             LoginEvent.GoToSignUpEvent -> goToSignUp()
-            is LoginEvent.SaveUserTokenEvent -> saveToken(event.token)
         }
     }
 
@@ -76,13 +75,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, PageState.Default, Logi
         val intent = Intent(requireContext(), MainActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
-    }
-
-    private fun saveToken(token : String){
-        val sharedPreferences = requireContext().getSharedPreferences(BuildConfig.shared_preferences_name, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("token", token)
-        editor.apply()
     }
 
     override fun onStart() {

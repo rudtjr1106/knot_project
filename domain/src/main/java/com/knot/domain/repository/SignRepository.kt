@@ -11,4 +11,5 @@ interface SignRepository {
     suspend fun signUp(request: SignUpRequest) : Flow<Response<Boolean>>
     suspend fun login(request: String): Flow<Response<Boolean>>
     suspend fun getMyInfo() : Flow<Response<GetMyInfoResponse>>
+    suspend fun checkAutoLogin() : Flow<Response<Boolean>>
 }
