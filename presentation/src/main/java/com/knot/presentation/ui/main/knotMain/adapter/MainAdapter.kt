@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.knot.domain.enums.MainVIewType
 import com.knot.domain.vo.normal.MainLayoutVo
 import com.knot.presentation.databinding.RecyclerLayoutMainParticipatingKnotBinding
+import com.knot.presentation.databinding.RecyclerLayoutMainTodoListBinding
 import com.knot.presentation.databinding.RecyclerLayoutMainTopBinding
 import com.knot.presentation.ui.main.knotMain.viewHolder.MainParticipatingKnotViewHolder
+import com.knot.presentation.ui.main.knotMain.viewHolder.MainToDoListViewHolder
 import com.knot.presentation.ui.main.knotMain.viewHolder.MainTopViewHolder
 
 class MainAdapter(
@@ -22,7 +24,8 @@ class MainAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MainTopViewHolder -> holder.bind(currentList[position].todoList)
-            is MainParticipatingKnotViewHolder -> holder.bind(currentList[position].participatingKnotList)
+            is MainParticipatingKnotViewHolder -> holder.bind(currentList[position].todoList)
+            is MainToDoListViewHolder -> holder.bind(currentList[position].todoList)
         }
     }
 
@@ -35,6 +38,10 @@ class MainAdapter(
             MainVIewType.PARTICIPATING_KNOT -> {
                 val binding = RecyclerLayoutMainParticipatingKnotBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 MainParticipatingKnotViewHolder(binding, listener)
+            }
+            MainVIewType.TODO_LIST -> {
+                val binding = RecyclerLayoutMainTodoListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MainToDoListViewHolder(binding, listener)
             }
         }
     }

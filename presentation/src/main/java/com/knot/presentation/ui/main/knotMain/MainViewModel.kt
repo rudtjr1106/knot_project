@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor() : BaseViewModel<MainPageState>() {
 
     fun getData(){
         viewModelScope.launch {
-            mainLayoutStateFlow.update { getWeekDates() + getTestKnot() }
+            mainLayoutStateFlow.update { getWeekDates() + getTestKnot() + getTestTodo() }
         }
     }
 
@@ -82,5 +82,28 @@ class MainViewModel @Inject constructor() : BaseViewModel<MainPageState>() {
         )
     }
 
+    private fun getTestTodo(): List<MainLayoutVo> {
+        val dates = mutableListOf<String>()
+        val dateFormat = SimpleDateFormat("dd")
+        val calendar = Calendar.getInstance()
 
+        // 오늘 날짜를 기준으로 설정
+        calendar.time = Date()
+
+        // 이번 주의 첫 번째 날(일요일)로 설정
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+
+        // 일요일부터 토요일까지 날짜를 리스트에 추가
+        for (i in 1..7) {
+            dates.add(dateFormat.format(calendar.time))
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        return listOf(
+            MainLayoutVo(
+                type = MainVIewType.TODO_LIST,
+                todoList = dates
+            )
+        )
+    }
 }

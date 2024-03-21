@@ -13,6 +13,7 @@
     <string name="word_thursday">목</string>
     <string name="word_friday">금</string>
     <string name="word_saturday">토</string>
+    <string name="word_see_more">더보기</string>
 
 
     <!-- Sign -->
@@ -34,7 +35,8 @@
     <!-- Main -->
     <string name="main_week_schedule">이번주 일정</string>
     <string name="main_participating_knot">진행중인 매듭</string>
-    <string name="word_see_more">더보기</string>
     <string name="main_participating_knot_number">매듭 %s</string>
+    <string name="main_todo_list">전체 할 일</string>
+    <string name="main_todo_content">%s ~ %s | %s</string>
 
 </resources>

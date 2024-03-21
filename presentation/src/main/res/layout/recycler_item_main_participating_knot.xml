@@ -36,9 +36,9 @@
         
         <ImageView
             android:id="@+id/image_view_people"
-            app:layout_constraintTop_toBottomOf="@id/text_view_knot_title"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/text_view_knot_title"
-            android:layout_marginTop="12dp"
+            android:layout_marginBottom="5dp"
             android:layout_width="14dp"
             android:background="@drawable/ic_people_black"
             android:layout_height="14dp"/>
