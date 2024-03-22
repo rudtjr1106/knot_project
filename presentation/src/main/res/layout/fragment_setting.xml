@@ -13,9 +13,12 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <TextView
             android:id="@+id/recycler_view_main"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="여기는 세팅"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
