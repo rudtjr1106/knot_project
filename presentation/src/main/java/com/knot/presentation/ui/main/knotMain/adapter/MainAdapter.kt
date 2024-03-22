@@ -23,7 +23,7 @@ class MainAdapter(
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MainTopViewHolder -> holder.bind(currentList[position].todoList)
+            is MainTopViewHolder -> holder.bind(currentList[position].todoList, currentList[position].gatheringList)
             is MainParticipatingKnotViewHolder -> holder.bind(currentList[position].participatingKnotList)
             is MainToDoListViewHolder -> holder.bind(currentList[position].todoList)
         }

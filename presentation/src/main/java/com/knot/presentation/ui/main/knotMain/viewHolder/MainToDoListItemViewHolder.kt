@@ -5,6 +5,7 @@ import com.knot.domain.vo.TodoVo
 import com.knot.presentation.R
 import com.knot.presentation.databinding.RecyclerItemMainTodoListBinding
 import com.knot.presentation.ui.main.knotMain.adapter.MainTodoListAdapter
+import com.knot.presentation.util.DateTimeFormatter
 
 class MainToDoListItemViewHolder(
     private val binding: RecyclerItemMainTodoListBinding,
@@ -19,7 +20,8 @@ class MainToDoListItemViewHolder(
     fun bind(item : TodoVo) {
         binding.apply {
             textViewTodoTitle.text = item.title
-            textViewTodoContent.text = root.context.getString(R.string.main_todo_content, item.startDay, item.endDay, item.content)
+            textViewTodoContent.text = root.context.getString(R.string.main_todo_content,
+                DateTimeFormatter.getMonthAndDayKor(item.startDay), DateTimeFormatter.getMonthAndDayKor(item.endDay), item.content)
             textViewKnotTitle.text = item.knotTitle
         }
     }

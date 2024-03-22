@@ -3,6 +3,7 @@ package com.knot.presentation.ui.main.knotMain
 import androidx.lifecycle.viewModelScope
 import com.knot.domain.enums.MainVIewType
 import com.knot.domain.usecase.sign.GetMyInfoUseCase
+import com.knot.domain.vo.GatheringVo
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.MainLayoutVo
 import com.knot.domain.vo.TodoVo
@@ -43,7 +44,8 @@ class MainViewModel @Inject constructor(
         UserInfo.updateInfo(result)
         val todoList = getTodoList(result.knotList)
         val knotList = getKnotList(result.knotList)
-        updateMainLayout(getTopView(todoList) + getParticipatingKnotView(knotList) + getTodoListView(todoList))
+        val gatheringList = getGatheringList(result.knotList)
+        updateMainLayout(getTopView(todoList, gatheringList) + getParticipatingKnotView(knotList) + getTodoListView(todoList))
     }
 
     private fun getTodoList(knotMap : HashMap<String, KnotVo>) : List<TodoVo>{
@@ -56,6 +58,17 @@ class MainViewModel @Inject constructor(
         return todoList
     }
 
+    private fun getGatheringList(knotMap : HashMap<String, KnotVo>) : List<GatheringVo>{
+        val gatheringList = mutableListOf<GatheringVo>()
+        knotMap.forEach{
+            it.value.gatheringList.forEach { gathering ->
+                gatheringList.add(gathering.value)
+            }
+        }
+        return gatheringList
+    }
+
+
     private fun getKnotList(knotMap : HashMap<String, KnotVo>) : List<KnotVo>{
         val knotList = mutableListOf<KnotVo>()
         knotMap.forEach{
@@ -64,11 +77,12 @@ class MainViewModel @Inject constructor(
         return knotList
     }
 
-    private fun getTopView(list : List<TodoVo>) : List<MainLayoutVo>{
+    private fun getTopView(todoList : List<TodoVo>, gatheringList : List<GatheringVo>) : List<MainLayoutVo>{
         return listOf(
             MainLayoutVo(
                 type = MainVIewType.TOP,
-                todoList = list
+                todoList = todoList,
+                gatheringList = gatheringList
             )
         )
     }
