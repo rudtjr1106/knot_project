@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.knot.domain.vo.KnotVo
 import com.knot.presentation.databinding.RecyclerItemMainParticipatingKnotBinding
 import com.knot.presentation.ui.main.knotMain.viewHolder.MainParticipatingKnotItemViewHolder
 class MainParticipatingKnotAdapter(
     private val listener : MainParticipatingKnotDelegate
-) : ListAdapter<String, RecyclerView.ViewHolder>(MainParticipatingKnotDiffCallBack()) {
+) : ListAdapter<KnotVo, RecyclerView.ViewHolder>(MainParticipatingKnotDiffCallBack()) {
 
     interface MainParticipatingKnotDelegate {
 
@@ -26,7 +27,7 @@ class MainParticipatingKnotAdapter(
     }
 }
 
-class MainParticipatingKnotDiffCallBack : DiffUtil.ItemCallback<String>() {
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
+class MainParticipatingKnotDiffCallBack : DiffUtil.ItemCallback<KnotVo>() {
+    override fun areItemsTheSame(oldItem: KnotVo, newItem: KnotVo): Boolean = oldItem.knotId == newItem.knotId
+    override fun areContentsTheSame(oldItem: KnotVo, newItem: KnotVo): Boolean = oldItem == newItem
 }

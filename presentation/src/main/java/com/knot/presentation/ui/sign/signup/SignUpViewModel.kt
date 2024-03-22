@@ -1,16 +1,13 @@
 package com.knot.presentation.ui.sign.signup
 
 import androidx.lifecycle.viewModelScope
-import com.kakao.sdk.user.UserApiClient
 import com.knot.domain.usecase.sign.SignUpUseCase
-import com.knot.domain.vo.request.SignUpRequest
+import com.knot.domain.vo.UserVo
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -61,8 +58,8 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun getSignUpRequest() : SignUpRequest {
-        return SignUpRequest(
+    private fun getSignUpRequest() : UserVo {
+        return UserVo(
             email = UserInfo.info.email,
             id = idStateFlow.value,
             intro = introduceStateFlow.value,
@@ -72,7 +69,7 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    private fun handleSuccessSignUp(result : SignUpRequest){
+    private fun handleSuccessSignUp(result : UserVo){
         UserInfo.apply {
             updateInfo(info.copy(
                 id = result.id,

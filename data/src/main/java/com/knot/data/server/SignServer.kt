@@ -10,10 +10,8 @@ import com.google.firebase.ktx.Firebase
 import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
-import com.knot.domain.vo.normal.UserVo
-import com.knot.domain.vo.request.SignUpRequest
-import com.knot.domain.vo.response.GetMyInfoResponse
-import com.knot.domain.vo.response.KaKaoSignResponse
+import com.knot.domain.vo.KaKaoSignResponse
+import com.knot.domain.vo.UserVo
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -47,8 +45,11 @@ object SignServer {
             }
     }
 
-    suspend fun signUp(request: SignUpRequest): Response<Boolean> = suspendCoroutine {
-        authRef.child(auth.uid.toString()).setValue(request).addOnCompleteListener { task ->
+    suspend fun signUp(request: UserVo): Response<Boolean> = suspendCoroutine {
+        val requestVo = request.copy(
+            uid = auth.uid.toString()
+        )
+        authRef.child(auth.uid.toString()).setValue(requestVo).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 it.resume(Response(data = true, result = ResultCode.SUCCESS))
             } else {
@@ -72,19 +73,19 @@ object SignServer {
         }
     }
 
-    suspend fun getMyInfo(): Response<GetMyInfoResponse> = suspendCoroutine { coroutineScope ->
+    suspend fun getMyInfo(): Response<UserVo> = suspendCoroutine { coroutineScope ->
         authRef.child(auth.uid.toString())
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        val userVo = snapshot.getValue(GetMyInfoResponse::class.java)
+                        val userVo = snapshot.getValue(UserVo::class.java)
                         userVo?.let {
                             coroutineScope.resume(Response(data = it, result = ResultCode.SUCCESS))
                         }
                     } else {
                         coroutineScope.resume(
                             Response(
-                                data = GetMyInfoResponse(),
+                                data = UserVo(),
                                 result = ResultCode.TEST_ERROR
                             )
                         )
@@ -94,7 +95,7 @@ object SignServer {
                 override fun onCancelled(error: DatabaseError) {
                     coroutineScope.resume(
                         Response(
-                            data = GetMyInfoResponse(),
+                            data = UserVo(),
                             result = ResultCode.TEST_ERROR
                         )
                     )
@@ -103,20 +104,12 @@ object SignServer {
     }
 
     suspend fun checkAutoLogin(): Response<Boolean> = suspendCoroutine {
-        authRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var isLogin = false
-                for (dataSnapshot in snapshot.children) {
-                    if(dataSnapshot.key.toString() == auth.uid){
-                        isLogin = true
-                    }
-                }
-                it.resume(Response(data = isLogin, result = ResultCode.SUCCESS))
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                it.resume(Response(data = false, result = ResultCode.SUCCESS))
-            }
-        })
+        var isLogin = auth.currentUser?.uid != null
+        if(isLogin){
+            it.resume(Response(data = isLogin, result = ResultCode.SUCCESS))
+        }
+        else{
+            it.resume(Response(data = isLogin, result = ResultCode.TEST_ERROR))
+        }
     }
 }

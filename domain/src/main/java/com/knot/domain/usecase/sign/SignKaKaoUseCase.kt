@@ -3,7 +3,7 @@ package com.knot.domain.usecase.sign
 import com.knot.domain.base.Response
 import com.knot.domain.repository.SignRepository
 import com.knot.domain.base.UseCase
-import com.knot.domain.vo.response.KaKaoSignResponse
+import com.knot.domain.vo.KaKaoSignResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

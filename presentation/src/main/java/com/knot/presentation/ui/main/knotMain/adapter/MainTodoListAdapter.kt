@@ -5,14 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.knot.presentation.databinding.RecyclerItemMainParticipatingKnotBinding
+import com.knot.domain.vo.TodoVo
 import com.knot.presentation.databinding.RecyclerItemMainTodoListBinding
-import com.knot.presentation.ui.main.knotMain.viewHolder.MainParticipatingKnotItemViewHolder
 import com.knot.presentation.ui.main.knotMain.viewHolder.MainToDoListItemViewHolder
 
 class MainTodoListAdapter(
     private val listener : MainTodoListDelegate
-) : ListAdapter<String, RecyclerView.ViewHolder>(MainTodoListDiffCallBack()) {
+) : ListAdapter<TodoVo, RecyclerView.ViewHolder>(MainTodoListDiffCallBack()) {
 
     interface MainTodoListDelegate {
 
@@ -29,7 +28,7 @@ class MainTodoListAdapter(
     }
 }
 
-class MainTodoListDiffCallBack : DiffUtil.ItemCallback<String>() {
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
+class MainTodoListDiffCallBack : DiffUtil.ItemCallback<TodoVo>() {
+    override fun areItemsTheSame(oldItem: TodoVo, newItem: TodoVo): Boolean = oldItem.todoId == newItem.todoId
+    override fun areContentsTheSame(oldItem: TodoVo, newItem: TodoVo): Boolean = oldItem == newItem
 }

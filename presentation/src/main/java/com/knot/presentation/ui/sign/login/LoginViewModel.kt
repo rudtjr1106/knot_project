@@ -5,12 +5,10 @@ import com.kakao.sdk.user.UserApiClient
 import com.knot.domain.usecase.sign.GetMyInfoUseCase
 import com.knot.domain.usecase.sign.LoginUseCase
 import com.knot.domain.usecase.sign.SignKaKaoUseCase
-import com.knot.domain.vo.normal.UserVo
-import com.knot.domain.vo.response.GetMyInfoResponse
-import com.knot.domain.vo.response.KaKaoSignResponse
+import com.knot.domain.vo.UserVo
+import com.knot.domain.vo.KaKaoSignResponse
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -47,10 +45,12 @@ class LoginViewModel @Inject constructor(
 
     private fun updateUserInfo(){
         UserApiClient.instance.me { user, error ->
-            UserInfo.updateInfo(UserVo(
+            UserInfo.updateInfo(
+                UserVo(
                 name = user?.kakaoAccount?.profile?.nickname.toString(),
                 email = user?.kakaoAccount?.email.toString()
-            ))
+            )
+            )
         }
     }
 
@@ -70,7 +70,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun successGetMyInfo(result : GetMyInfoResponse){
+    private fun successGetMyInfo(result : UserVo){
         val userVo = UserVo(
             email = result.email,
             id = result.id,

@@ -3,12 +3,9 @@ package com.knot.presentation.ui.splash
 import androidx.lifecycle.viewModelScope
 import com.knot.domain.usecase.sign.CheckAutoLoginUseCase
 import com.knot.domain.usecase.sign.GetMyInfoUseCase
-import com.knot.domain.usecase.sign.LoginUseCase
-import com.knot.domain.vo.normal.UserVo
-import com.knot.domain.vo.response.GetMyInfoResponse
+import com.knot.domain.vo.UserVo
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,30 +22,9 @@ class SplashViewModel @Inject constructor(
     fun checkLogin(){
         viewModelScope.launch {
             checkAutoLoginUseCase(Unit).collect{
-                resultResponse(it, {successLogin()}, {goToLogin()})
+                resultResponse(it, {goToMain()}, {goToLogin()})
             }
         }
-    }
-
-    private fun successLogin(){
-        viewModelScope.launch {
-            getMyInfoUseCase(Unit).collect{
-                resultResponse(it, ::successGetMyInfo)
-            }
-        }
-    }
-
-    private fun successGetMyInfo(result : GetMyInfoResponse){
-        val userVo = UserVo(
-            email = result.email,
-            id = result.id,
-            intro = result.intro,
-            major = result.major,
-            name = result.name,
-            organization = result.organization
-        )
-        UserInfo.updateInfo(userVo)
-        goToMain()
     }
 
     private fun goToMain(){

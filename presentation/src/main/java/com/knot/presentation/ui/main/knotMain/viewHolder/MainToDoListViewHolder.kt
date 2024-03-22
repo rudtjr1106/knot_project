@@ -2,6 +2,7 @@ package com.knot.presentation.ui.main.knotMain.viewHolder
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.knot.domain.vo.TodoVo
 import com.knot.presentation.databinding.RecyclerLayoutMainTodoListBinding
 import com.knot.presentation.ui.main.knotMain.adapter.MainAdapter
 import com.knot.presentation.ui.main.knotMain.adapter.MainTodoListAdapter
@@ -26,7 +27,7 @@ class MainToDoListViewHolder(
         }
     }
 
-    fun bind(item : List<String>) {
+    fun bind(item : List<TodoVo>) {
         mainTodoListAdapter.submitList(item)
     }
 }

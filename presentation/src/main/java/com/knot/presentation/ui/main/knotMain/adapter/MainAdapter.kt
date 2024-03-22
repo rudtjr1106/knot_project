@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.knot.domain.enums.MainVIewType
-import com.knot.domain.vo.normal.MainLayoutVo
+import com.knot.domain.vo.MainLayoutVo
 import com.knot.presentation.databinding.RecyclerLayoutMainParticipatingKnotBinding
 import com.knot.presentation.databinding.RecyclerLayoutMainTodoListBinding
 import com.knot.presentation.databinding.RecyclerLayoutMainTopBinding
@@ -24,7 +24,7 @@ class MainAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MainTopViewHolder -> holder.bind(currentList[position].todoList)
-            is MainParticipatingKnotViewHolder -> holder.bind(currentList[position].todoList)
+            is MainParticipatingKnotViewHolder -> holder.bind(currentList[position].participatingKnotList)
             is MainToDoListViewHolder -> holder.bind(currentList[position].todoList)
         }
     }

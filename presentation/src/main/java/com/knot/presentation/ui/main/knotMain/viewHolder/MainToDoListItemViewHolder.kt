@@ -1,6 +1,7 @@
 package com.knot.presentation.ui.main.knotMain.viewHolder
 
 import androidx.recyclerview.widget.RecyclerView
+import com.knot.domain.vo.TodoVo
 import com.knot.presentation.R
 import com.knot.presentation.databinding.RecyclerItemMainTodoListBinding
 import com.knot.presentation.ui.main.knotMain.adapter.MainTodoListAdapter
@@ -15,11 +16,11 @@ class MainToDoListItemViewHolder(
         }
     }
 
-    fun bind(item : String) {
+    fun bind(item : TodoVo) {
         binding.apply {
-            textViewTodoTitle.text = item
-            textViewTodoContent.text = root.context.getString(R.string.main_todo_content, "오늘", "내일", "테스트 보내기")
-            textViewKnotTitle.text = "테스트"
+            textViewTodoTitle.text = item.title
+            textViewTodoContent.text = root.context.getString(R.string.main_todo_content, item.startDay, item.endDay, item.content)
+            textViewKnotTitle.text = item.knotTitle
         }
     }
 }

@@ -32,7 +32,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
                 adapter = mainAdapter
             }
 
-            viewModel.getData()
+            viewModel.getMyInfo()
         }
     }
 
