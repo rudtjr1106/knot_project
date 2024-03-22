@@ -1,4 +1,4 @@
-package com.knot.domain.vo.response
+package com.knot.domain.vo
 
 data class KaKaoSignResponse(
     val uid : String = "",

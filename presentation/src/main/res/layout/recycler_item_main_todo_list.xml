@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_rectangle_filled_white_radius_10">
+
+        <ImageButton
+            android:id="@+id/image_button_check"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_check_blank_ffcc00"
+            android:layout_width="16dp"
+            android:layout_height="16dp"/>
+
+        <TextView
+            android:id="@+id/text_view_todo_title"
+            app:layout_constraintTop_toTopOf="@id/image_button_check"
+            app:layout_constraintStart_toEndOf="@id/image_button_check"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_check"
+            android:layout_marginStart="10dp"
+            tools:text="자료 조사 하기"
+            android:textColor="@color/black"
+            android:textAppearance="@style/bold_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_todo_content"
+            app:layout_constraintStart_toStartOf="@id/text_view_todo_title"
+            app:layout_constraintTop_toBottomOf="@id/text_view_todo_title"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/color_8c8c8c"
+            android:text="@string/main_todo_content"
+            android:textAppearance="@style/medium_12"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_knot_title"
+            app:layout_constraintStart_toStartOf="@id/text_view_todo_title"
+            app:layout_constraintTop_toBottomOf="@id/text_view_todo_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/color_c4c4c4"
+            tools:text="유니버설 디자인 조별과제"
+            android:textAppearance="@style/medium_10"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"/>
+        
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

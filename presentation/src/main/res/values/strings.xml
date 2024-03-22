@@ -2,6 +2,20 @@
     <string name="app_name">매듭</string>
     <string name="kakao_native_key">kakao97efcfea85e19c27e2643767d2b69e12</string>
 
+    <string name="word_main">메인</string>
+    <string name="word_knot_list">매듭 리스트</string>
+    <string name="word_profile">프로필</string>
+    <string name="word_setting">설정</string>
+    <string name="word_sunday">일</string>
+    <string name="word_monday">월</string>
+    <string name="word_tuesday">화</string>
+    <string name="word_wednesday">수</string>
+    <string name="word_thursday">목</string>
+    <string name="word_friday">금</string>
+    <string name="word_saturday">토</string>
+    <string name="word_see_more">더보기</string>
+
+
     <!-- Sign -->
     <string name="sign_email">이메일로 시작하기</string>
     <string name="sign_already_account">이미 계정이 있으신가요?</string>
@@ -17,5 +31,12 @@
     <string name="sign_input_inroduce_hint">간단한 자기소개 또는 포토폴리오를 입력해주세요.</string>
     <string name="sign_max_introduce_text">%s/150</string>
     <string name="sign_start">시작하기</string>
+
+    <!-- Main -->
+    <string name="main_week_schedule">이번주 일정</string>
+    <string name="main_participating_knot">진행중인 매듭</string>
+    <string name="main_participating_knot_number">매듭 %s</string>
+    <string name="main_todo_list">전체 할 일</string>
+    <string name="main_todo_content">%s ~ %s | %s</string>
 
 </resources>

@@ -3,9 +3,8 @@ package com.knot.data.repository
 import com.knot.data.server.SignServer
 import com.knot.domain.base.Response
 import com.knot.domain.repository.SignRepository
-import com.knot.domain.vo.request.SignUpRequest
-import com.knot.domain.vo.response.GetMyInfoResponse
-import com.knot.domain.vo.response.KaKaoSignResponse
+import com.knot.domain.vo.KaKaoSignResponse
+import com.knot.domain.vo.UserVo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -15,7 +14,7 @@ class SignRepositoryImpl @Inject constructor() : SignRepository {
         emit(SignServer.kakaoSign(request))
     }
 
-    override suspend fun signUp(request: SignUpRequest): Flow<Response<Boolean>> = flow {
+    override suspend fun signUp(request: UserVo): Flow<Response<Boolean>> = flow {
         emit(SignServer.signUp(request))
     }
 
@@ -23,8 +22,12 @@ class SignRepositoryImpl @Inject constructor() : SignRepository {
         emit(SignServer.login(request))
     }
 
-    override suspend fun getMyInfo(): Flow<Response<GetMyInfoResponse>> = flow {
+    override suspend fun getMyInfo(): Flow<Response<UserVo>> = flow {
         emit(SignServer.getMyInfo())
+    }
+
+    override suspend fun checkAutoLogin(): Flow<Response<Boolean>> = flow {
+        emit(SignServer.checkAutoLogin())
     }
 
 }

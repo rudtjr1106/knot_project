@@ -1,6 +1,6 @@
 package com.knot.presentation.util
 
-import com.knot.domain.vo.normal.UserVo
+import com.knot.domain.vo.UserVo
 
 object UserInfo {
 
