@@ -1,17 +1,19 @@
 package com.knot.presentation.util
 
 import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.TextStyle
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 object DateTimeFormatter {
     const val YEAR_INDEX = 0
     const val MONTH_INDEX = 1
     const val DAY_INDEX = 2
     fun getTodayDayOfWeek(): Int {
-        val days = arrayOf("일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일")
         val calendar = Calendar.getInstance()
         val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
         return dayOfWeek - 1
@@ -57,19 +59,33 @@ object DateTimeFormatter {
         val dates = mutableListOf<String>()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val calendar = Calendar.getInstance()
-
-        // 오늘 날짜를 기준으로 설정
         calendar.time = Date()
-
-        // 이번 주의 첫 번째 날(일요일)로 설정
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-
-        // 일요일부터 토요일까지 날짜를 리스트에 추가
         for (i in 1..7) {
             dates.add(dateFormat.format(calendar.time))
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
 
         return dates
+    }
+    fun printMonthDetails(year: Int, month: Int) {
+        // 해당 월의 첫날과 마지막날을 구함
+        val startOfMonth = YearMonth.of(year, month).atDay(1)
+        val endOfMonth = YearMonth.of(year, month).atEndOfMonth()
+
+        // 시작 요일과 끝 요일을 구함
+        val startDayOfWeek = startOfMonth.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
+        val endDayOfWeek = endOfMonth.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
+
+        println("Start Day of Week: $startDayOfWeek")
+        println("End Day of Week: $endDayOfWeek")
+        println("Dates of $month month, $year:")
+
+        // 해당 월의 모든 날짜를 순회하며 출력
+        var currentDate = startOfMonth
+        while (currentDate.isBefore(endOfMonth) || currentDate.isEqual(endOfMonth)) {
+            println(currentDate)
+            currentDate = currentDate.plusDays(1)
+        }
     }
 }
