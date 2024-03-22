@@ -38,5 +38,6 @@
     <string name="main_participating_knot_number">매듭 %s</string>
     <string name="main_todo_list">전체 할 일</string>
     <string name="main_todo_content">%s ~ %s | %s</string>
+    <string name="word_calendar">캘린더</string>
 
 </resources>

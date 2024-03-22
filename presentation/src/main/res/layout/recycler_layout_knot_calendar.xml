@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <ImageButton
+            android:id="@+id/image_button_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_knot_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:textAppearance="@style/bold_16"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_back"
+            app:layout_constraintStart_toEndOf="@id/image_button_back"
+            app:layout_constraintTop_toTopOf="@id/image_button_back"
+            tools:text="유니버설 디자인 조별과제" />
+
+        <TextView
+            android:id="@+id/text_view_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/word_calendar"
+            android:paddingHorizontal="3dp"
+            android:textAppearance="@style/bold_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_button_back" />
+
+        <ImageView
+            app:layout_constraintBottom_toBottomOf="@id/text_view_calendar"
+            app:layout_constraintStart_toStartOf="@id/text_view_calendar"
+            app:layout_constraintEnd_toEndOf="@id/text_view_calendar"
+            android:background="@drawable/image_title_line"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@id/text_view_calendar"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10"
+            android:layout_marginHorizontal="17dp"
+            android:layout_width="match_parent"
+            tools:layout_height="320dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_view_year"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="17dp"
+                android:layout_marginStart="22dp"
+                tools:text="2024."
+                android:textColor="@color/black"
+                android:textAppearance="@style/regular_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/text_view_month"
+                app:layout_constraintTop_toBottomOf="@id/text_view_year"
+                tools:text="12월"
+                android:textAppearance="@style/bold_20"
+                app:layout_constraintStart_toStartOf="@id/text_view_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                app:layout_constraintTop_toBottomOf="@id/text_view_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/include_layout_week_kor"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
