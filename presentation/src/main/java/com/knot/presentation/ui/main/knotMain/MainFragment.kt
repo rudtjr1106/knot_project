@@ -1,6 +1,7 @@
 package com.knot.presentation.ui.main.knotMain
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
@@ -19,7 +20,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
 
     private val mainAdapter : MainAdapter by lazy {
         MainAdapter(object : MainAdapter.MainDelegate{
-
+            override fun onClickWeek() {
+                goToCalendar()
+            }
         })
     }
 
@@ -52,6 +55,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
                 }
             }
         }
+    }
+
+    private fun goToCalendar(){
+        val action = MainFragmentDirections.actionMainToCalendar()
+        findNavController().navigate(action)
     }
 
     override fun onStart() {

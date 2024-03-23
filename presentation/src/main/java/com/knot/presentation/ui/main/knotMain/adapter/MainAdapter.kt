@@ -19,7 +19,7 @@ class MainAdapter(
 ) : ListAdapter<MainLayoutVo, RecyclerView.ViewHolder>(MainDiffCallBack()) {
 
     interface MainDelegate {
-
+        fun onClickWeek()
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

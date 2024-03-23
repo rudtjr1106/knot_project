@@ -1,23 +1,36 @@
 package com.knot.presentation.ui.main.knotMain.calendar
 
 import androidx.fragment.app.viewModels
-import com.knot.presentation.PageState
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentCalendarBinding
-import com.knot.presentation.databinding.FragmentKnotListBinding
+import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CalendarFragment : BaseFragment<FragmentCalendarBinding, PageState.Default, CalendarViewModel>(
+class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState, CalendarViewModel>(
     FragmentCalendarBinding::inflate
 ) {
 
     override val viewModel: CalendarViewModel by viewModels()
 
+    private val calendarAdapter : CalendarAdapter by lazy {
+        CalendarAdapter(object : CalendarAdapter.CalendarDelegate{
+
+        })
+    }
+
     override fun initView() {
         binding.apply {
             vm = viewModel
+
+            recyclerViewCalendar.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = calendarAdapter
+            }
+
+            viewModel.getData()
         }
     }
 
@@ -25,6 +38,11 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, PageState.Default
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                viewModel.uiState.calendarLayoutList.collect {
+                    calendarAdapter.submitList(it)
+                }
+            }
             launch {
                 viewModel.eventFlow.collect {
 

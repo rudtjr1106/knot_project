@@ -38,6 +38,10 @@ class MainTopViewHolder(
             includeLayoutWeek.textViewThursdayDate.text = DateTimeFormatter.getDay(dates[THURSDAY])
             includeLayoutWeek.textViewFridayDate.text = DateTimeFormatter.getDay(dates[FRIDAY])
             includeLayoutWeek.textViewSaturdayDate.text = DateTimeFormatter.getDay(dates[SATURDAY])
+
+            constraintLayoutWeek.setOnClickListener {
+                listener.onClickWeek()
+            }
         }
     }
 

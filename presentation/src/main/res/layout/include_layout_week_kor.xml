@@ -96,9 +96,10 @@
             app:layout_constraintTop_toBottomOf="@id/text_view_sunday" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_calendar"
             app:layout_constraintTop_toBottomOf="@id/image_view_divide_line"
+            android:layout_marginHorizontal="4dp"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="19dp"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content"/>
 
