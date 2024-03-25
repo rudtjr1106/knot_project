@@ -1,6 +1,9 @@
 package com.knot.presentation.ui.main.knotMain.calendar.viewHolder
 
+import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.view.View
+import android.widget.DatePicker
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,27 +16,41 @@ import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.R
 import com.knot.presentation.databinding.RecyclerLayoutKnotCalendarBinding
-import com.knot.presentation.ui.main.knotMain.adapter.MainTodoListAdapter
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarAdapter
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarDayAdapter
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarTodoAdapter
 import com.knot.presentation.util.DateTimeFormatter
-import com.knot.presentation.util.KnotLog
+import org.threeten.bp.LocalDate
 
 class CalendarViewHolder(
     private val binding: RecyclerLayoutKnotCalendarBinding,
     private val listener: CalendarAdapter.CalendarDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    companion object{
+        const val ITEM_SPAN_COUNT = 7
+    }
+
     private val today = DateTimeFormatter.getToday()
-    private val todayYear = DateTimeFormatter.getYear(today)
-    private val todayMonth = DateTimeFormatter.getMonth(today)
+    private var year = DateTimeFormatter.getYear(today).toInt()
+    private var month = DateTimeFormatter.getMonth(today).toInt()
+    private var selectDay = today
+    private val onDateSetListener = DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+        this.year = year
+        this.month = month + 1
+        val selectedDate = LocalDate.of(this.year, this.month, dayOfMonth)
+        selectDay = selectedDate.format(org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        bind(knotVo)
+    }
+
     private lateinit var knotVo: KnotVo
 
     private val calendarDayAdapter : CalendarDayAdapter by lazy {
         CalendarDayAdapter(object : CalendarDayAdapter.CalendarDayDelegate{
             override fun onClickDay(day: String) {
-                setTodoView(day)
+                if(DateTimeFormatter.getYear(day).toInt() == year && DateTimeFormatter.getMonth(day).toInt() == month){
+                    setTodoView(day)
+                }
             }
         })
     }
@@ -51,9 +68,16 @@ class CalendarViewHolder(
             imageButtonDownArrow.setOnClickListener {
                 listener.onClickKnotTitle()
             }
+            textViewYear.setOnClickListener {
+                showDatePickerDialog()
+            }
+            textViewMonth.setOnClickListener {
+                showDatePickerDialog()
+            }
 
             includeLayoutCalendar.recyclerViewCalendar.apply {
-                layoutManager = GridLayoutManager(root.context, 7)
+                layoutManager = GridLayoutManager(root.context, ITEM_SPAN_COUNT)
+                itemAnimator = null
                 adapter = calendarDayAdapter
             }
 
@@ -69,11 +93,11 @@ class CalendarViewHolder(
         knotVo = item
         binding.apply {
             textViewKnotTitle.text = item.title
-            textViewYear.text = root.context.getString(R.string.main_calendar_year, todayYear)
-            textViewMonth.text = root.context.getString(R.string.main_calendar_month, todayMonth.toInt().toString())
+            textViewYear.text = root.context.getString(R.string.main_calendar_year, year.toString())
+            textViewMonth.text = root.context.getString(R.string.main_calendar_month, month.toString())
         }
         calendarDayAdapter.submitList(getDayList(item))
-        setTodoView(today)
+        setTodoView(selectDay)
     }
 
     private fun setTodoView(day : String){
@@ -85,7 +109,7 @@ class CalendarViewHolder(
     }
 
     private fun getDayList(knotVo: KnotVo) : List<CalendarDayVo> {
-        val dayList = DateTimeFormatter.getMonthDays(todayYear.toInt(), todayMonth.toInt())
+        val dayList = DateTimeFormatter.getMonthDays(year, month)
         val calendarDayList = mutableListOf<CalendarDayVo>()
 
         dayList.forEach {
@@ -100,23 +124,13 @@ class CalendarViewHolder(
                 )
             )
         }
-
-        return getEmptyStartDayList() + calendarDayList + getEmptyEndDayList()
+        return getEmptyStartDayList() + calendarDayList
     }
 
     private fun getEmptyStartDayList() : List<CalendarDayVo>{
-        val startDay = DateTimeFormatter.getStartDayOfWeek(todayYear.toInt(), todayMonth.toInt())
+        val startDay = DateTimeFormatter.getStartDayOfWeek(year, month)
         val list = mutableListOf<CalendarDayVo>()
         for (i in 0 until startDay){
-            list.add(CalendarDayVo(type = CalendarDayViewType.GONE))
-        }
-        return list
-    }
-
-    private fun getEmptyEndDayList() : List<CalendarDayVo>{
-        val endDay = DateTimeFormatter.getEndDayOfWeek(todayYear.toInt(), todayMonth.toInt())
-        val list = mutableListOf<CalendarDayVo>()
-        for (i in 0 until 6 - endDay){
             list.add(CalendarDayVo(type = CalendarDayViewType.GONE))
         }
         return list
@@ -170,5 +184,10 @@ class CalendarViewHolder(
         }
 
         return gatheringList
+    }
+
+    private fun showDatePickerDialog() {
+        DatePickerDialog(binding.root.context, AlertDialog.THEME_HOLO_LIGHT, onDateSetListener,
+            year, month -1, DateTimeFormatter.getDay(selectDay).toInt()).show()
     }
 }

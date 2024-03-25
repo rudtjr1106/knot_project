@@ -2,7 +2,6 @@ package com.knot.presentation.ui.main.knotMain.calendar.viewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.knot.domain.enums.CalendarDayViewType
 import com.knot.domain.vo.CalendarDayVo
 import com.knot.presentation.R
 import com.knot.presentation.databinding.RecyclerItemCalendarDayBinding
@@ -14,12 +13,12 @@ class CalendarDayViewHolder(
     private val listener: CalendarDayAdapter.CalendarDayDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var day = ""
+    private var calendarDayVo : CalendarDayVo = CalendarDayVo()
 
     init {
         binding.apply {
             constraintLayoutDay.setOnClickListener {
-                if(day.isNotEmpty()) listener.onClickDay(day)
+                if(calendarDayVo.day.isNotEmpty()) listener.onClickDay(calendarDayVo.day)
             }
         }
     }
@@ -28,10 +27,10 @@ class CalendarDayViewHolder(
         val textColor = getTextColor(item)
         binding.apply {
             imageViewTodayCircle.visibility = if(item.day == DateTimeFormatter.getToday()) View.VISIBLE else View.INVISIBLE
-            if(item.type == CalendarDayViewType.GONE) textViewDayDate.visibility = View.INVISIBLE
+            if(item.day.isEmpty()) textViewDayDate.text = ""
             else {
                 textViewDayDate.setTextColor(root.context.getColor(textColor))
-                day = item.day
+                calendarDayVo = item
                 textViewDayDate.text = DateTimeFormatter.getDay(item.day).toInt().toString()
             }
             imageViewDayScheduleLine.visibility = if(item.isTodoExist) View.VISIBLE else View.INVISIBLE
