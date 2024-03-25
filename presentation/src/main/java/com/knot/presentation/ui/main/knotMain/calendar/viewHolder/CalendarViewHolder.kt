@@ -1,9 +1,13 @@
 package com.knot.presentation.ui.main.knotMain.calendar.viewHolder
 
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.knot.domain.enums.CalendarDayViewType
+import com.knot.domain.enums.CalendarTodoType
 import com.knot.domain.vo.CalendarDayVo
+import com.knot.domain.vo.CalendarTodoVo
 import com.knot.domain.vo.GatheringVo
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TodoVo
@@ -12,6 +16,7 @@ import com.knot.presentation.databinding.RecyclerLayoutKnotCalendarBinding
 import com.knot.presentation.ui.main.knotMain.adapter.MainTodoListAdapter
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarAdapter
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarDayAdapter
+import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarTodoAdapter
 import com.knot.presentation.util.DateTimeFormatter
 import com.knot.presentation.util.KnotLog
 
@@ -23,12 +28,17 @@ class CalendarViewHolder(
     private val today = DateTimeFormatter.getToday()
     private val todayYear = DateTimeFormatter.getYear(today)
     private val todayMonth = DateTimeFormatter.getMonth(today)
+    private lateinit var knotVo: KnotVo
 
     private val calendarDayAdapter : CalendarDayAdapter by lazy {
         CalendarDayAdapter(object : CalendarDayAdapter.CalendarDayDelegate{
-
+            override fun onClickDay(day: String) {
+                setTodoView(day)
+            }
         })
     }
+
+    private val calendarTodoAdapter : CalendarTodoAdapter by lazy { CalendarTodoAdapter() }
 
     init {
         binding.apply {
@@ -36,16 +46,32 @@ class CalendarViewHolder(
                 layoutManager = GridLayoutManager(root.context, 7)
                 adapter = calendarDayAdapter
             }
+
+            recyclerViewTodo.apply {
+                layoutManager = LinearLayoutManager(root.context)
+                itemAnimator = null
+                adapter = calendarTodoAdapter
+            }
         }
     }
 
     fun bind(item : KnotVo) {
+        knotVo = item
         binding.apply {
             textViewKnotTitle.text = item.title
             textViewYear.text = root.context.getString(R.string.main_calendar_year, todayYear)
-            textViewMonth.text = todayMonth
+            textViewMonth.text = root.context.getString(R.string.main_calendar_month, todayMonth.toInt().toString())
         }
         calendarDayAdapter.submitList(getDayList(item))
+        setTodoView(today)
+    }
+
+    private fun setTodoView(day : String){
+        binding.apply {
+            constraintLayoutTodayBox.visibility = if(day == today) View.VISIBLE else View.INVISIBLE
+            textViewDay.text = root.context.getString(R.string.main_calendar_day_with_week, DateTimeFormatter.getDay(day).toInt(), DateTimeFormatter.getDayOfWeek(day))
+            calendarTodoAdapter.submitList(getCalendarTodoList(day))
+        }
     }
 
     private fun getDayList(knotVo: KnotVo) : List<CalendarDayVo> {
@@ -105,5 +131,34 @@ class CalendarViewHolder(
         }
 
         return isEqual
+    }
+
+    private fun getCalendarTodoList(day : String) : List<CalendarTodoVo>{
+        return getTodoList(day) + getGatheringList(day)
+    }
+
+    private fun getTodoList(day: String) : List<CalendarTodoVo>{
+        val todoList = mutableListOf<CalendarTodoVo>()
+        knotVo.todoList.forEach { todo ->
+            val betweenDay = DateTimeFormatter.getDatesBetween(todo.value.startDay, todo.value.endDay)
+            betweenDay.forEach { dayItem ->
+                if(dayItem == day) todoList.add(
+                    CalendarTodoVo(type = CalendarTodoType.TODO, todo = todo.value)
+                )
+            }
+        }
+
+        return todoList
+    }
+
+    private fun getGatheringList(day: String) : List<CalendarTodoVo>{
+        val gatheringList = mutableListOf<CalendarTodoVo>()
+        knotVo.gatheringList.forEach {
+            if(it.value.gatheringDate == day) gatheringList.add(
+                CalendarTodoVo(type = CalendarTodoType.GATHERING, gathering = it.value)
+            )
+        }
+
+        return gatheringList
     }
 }

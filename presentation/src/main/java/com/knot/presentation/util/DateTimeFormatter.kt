@@ -3,7 +3,6 @@ package com.knot.presentation.util
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.TextStyle
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -17,6 +16,23 @@ object DateTimeFormatter {
         val calendar = Calendar.getInstance()
         val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
         return dayOfWeek - 1
+    }
+
+    fun getDayOfWeek(dateStr : String) : String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = dateFormat.parse(dateStr)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return when(calendar.get(Calendar.DAY_OF_WEEK)){
+            Calendar.SUNDAY -> "일"
+            Calendar.MONDAY -> "월"
+            Calendar.TUESDAY -> "화"
+            Calendar.WEDNESDAY -> "수"
+            Calendar.THURSDAY -> "목"
+            Calendar.FRIDAY -> "금"
+            Calendar.SATURDAY -> "토"
+            else -> ""
+        }
     }
 
     fun getYear(date : String) : String {

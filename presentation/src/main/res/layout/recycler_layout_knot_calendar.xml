@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_calendar"
             app:layout_constraintTop_toBottomOf="@id/text_view_calendar"
             android:layout_marginTop="22dp"
             android:background="@drawable/bg_rectangle_filled_white_radius_10"
@@ -90,6 +91,62 @@
                     layout="@layout/include_layout_week_kor"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_calendar"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10"
+            android:layout_marginHorizontal="17dp"
+            android:paddingBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_today_box"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/bg_rectangle_filled_ffcc00_radius_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/bold_6"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="1dp"
+                    android:text="@string/word_today"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            
+            <TextView
+                android:id="@+id/text_view_day"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_today_box"
+                app:layout_constraintStart_toStartOf="@id/constraint_layout_today_box"
+                android:layout_marginStart="1dp"
+                android:text="@string/main_calendar_day_with_week"
+                android:textColor="@color/black"
+                android:textAppearance="@style/bold_16"
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_todo"
+                app:layout_constraintTop_toBottomOf="@id/text_view_day"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

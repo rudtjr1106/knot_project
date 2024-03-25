@@ -14,25 +14,34 @@ class CalendarDayViewHolder(
     private val listener: CalendarDayAdapter.CalendarDayDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private var day = ""
+
     init {
         binding.apply {
-
+            constraintLayoutDay.setOnClickListener {
+                if(day.isNotEmpty()) listener.onClickDay(day)
+            }
         }
     }
 
     fun bind(item : CalendarDayVo) {
-        val textColor = if(item.isHoliday) R.color.color_e05744
-                        else if(item.isSaturday) R.color.color_1976d2
-                        else R.color.black
+        val textColor = getTextColor(item)
         binding.apply {
             imageViewTodayCircle.visibility = if(item.day == DateTimeFormatter.getToday()) View.VISIBLE else View.INVISIBLE
             if(item.type == CalendarDayViewType.GONE) textViewDayDate.visibility = View.INVISIBLE
             else {
                 textViewDayDate.setTextColor(root.context.getColor(textColor))
+                day = item.day
                 textViewDayDate.text = DateTimeFormatter.getDay(item.day).toInt().toString()
             }
             imageViewDayScheduleLine.visibility = if(item.isTodoExist) View.VISIBLE else View.INVISIBLE
             imageViewDayGatheringScheduleLine.visibility = if(item.isGatheringExist) View.VISIBLE else View.INVISIBLE
         }
+    }
+
+    private fun getTextColor(item: CalendarDayVo) : Int{
+        return if(item.isHoliday) R.color.color_e05744
+               else if(item.isSaturday) R.color.color_1976d2
+               else R.color.black
     }
 }

@@ -15,7 +15,7 @@
     <string name="word_saturday">토</string>
     <string name="word_see_more">더보기</string>
     <string name="word_calendar">캘린더</string>
-
+    <string name="word_today">TODAY</string>
 
     <!-- Sign -->
     <string name="sign_email">이메일로 시작하기</string>
@@ -39,8 +39,11 @@
     <string name="main_participating_knot_number">매듭 %s</string>
     <string name="main_todo_list">전체 할 일</string>
     <string name="main_todo_content">%s ~ %s | %s</string>
+    <string name="main_gathering_content">%s | %s</string>
     
     <!-- Main_Calendar -->
     <string name="main_calendar_year">%s.</string>
+    <string name="main_calendar_month">%s월</string>
+    <string name="main_calendar_day_with_week">%d. %s</string>
 
 </resources>

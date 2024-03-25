@@ -14,6 +14,7 @@ class CalendarDayAdapter(
 ) : ListAdapter<CalendarDayVo, RecyclerView.ViewHolder>(CalendarDayDiffCallBack()) {
 
     interface CalendarDayDelegate {
+        fun onClickDay(day : String)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

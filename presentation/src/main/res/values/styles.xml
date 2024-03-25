@@ -39,6 +39,12 @@
         <item name="fontFamily">@font/pretendard_bold</item>
     </style>
 
+    <style name="bold_6">
+        <item name="android:textSize">6sp</item>
+        <item name="lineHeight">7sp</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+    </style>
+
 
     <!-- Medium -->
     <style name="medium_16">

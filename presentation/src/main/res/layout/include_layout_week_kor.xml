@@ -100,7 +100,6 @@
             app:layout_constraintTop_toBottomOf="@id/image_view_divide_line"
             android:layout_marginHorizontal="4dp"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
