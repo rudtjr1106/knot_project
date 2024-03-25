@@ -14,6 +14,8 @@ class CalendarAdapter(
 ) : ListAdapter<CalendarLayoutVo, RecyclerView.ViewHolder>(CalendarDiffCallBack()) {
 
     interface CalendarDelegate {
+        fun onClickBack()
+        fun onClickKnotTitle()
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

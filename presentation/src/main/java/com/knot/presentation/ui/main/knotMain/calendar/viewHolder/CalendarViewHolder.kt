@@ -42,6 +42,16 @@ class CalendarViewHolder(
 
     init {
         binding.apply {
+            imageButtonBack.setOnClickListener {
+                listener.onClickBack()
+            }
+            textViewKnotTitle.setOnClickListener {
+                listener.onClickKnotTitle()
+            }
+            imageButtonDownArrow.setOnClickListener {
+                listener.onClickKnotTitle()
+            }
+
             includeLayoutCalendar.recyclerViewCalendar.apply {
                 layoutManager = GridLayoutManager(root.context, 7)
                 adapter = calendarDayAdapter

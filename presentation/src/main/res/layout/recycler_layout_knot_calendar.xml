@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         android:background="@color/background">
 
         <ImageButton
@@ -29,6 +30,15 @@
             app:layout_constraintStart_toEndOf="@id/image_button_back"
             app:layout_constraintTop_toTopOf="@id/image_button_back"
             tools:text="유니버설 디자인 조별과제" />
+        
+        <ImageButton
+            android:id="@+id/image_button_down_arrow"
+            app:layout_constraintTop_toTopOf="@id/text_view_knot_title"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_knot_title"
+            app:layout_constraintStart_toEndOf="@id/text_view_knot_title"
+            android:background="@drawable/ic_down_arrow"
+            android:layout_width="16dp"
+            android:layout_height="16dp"/>
 
         <TextView
             android:id="@+id/text_view_calendar"
@@ -98,7 +108,6 @@
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_calendar"
             android:background="@drawable/bg_rectangle_filled_white_radius_10"
             android:layout_marginHorizontal="17dp"
-            android:paddingBottom="16dp"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
