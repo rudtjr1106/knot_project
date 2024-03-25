@@ -52,7 +52,7 @@ object DateTimeFormatter {
 
     fun getMonthAndDayKor(date : String) : String {
         val dates = date.split("-")
-        return "${dates[MONTH_INDEX]}월 ${dates[DAY_INDEX]}일"
+        return "${dates[MONTH_INDEX].toInt()}월 ${dates[DAY_INDEX].toInt()}일"
     }
 
     fun getDatesBetween(startDateStr: String, endDateStr: String): List<String> {
