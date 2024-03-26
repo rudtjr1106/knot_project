@@ -7,7 +7,6 @@ import android.widget.DatePicker
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.knot.domain.enums.CalendarDayViewType
 import com.knot.domain.enums.CalendarTodoType
 import com.knot.domain.vo.CalendarDayVo
 import com.knot.domain.vo.CalendarTodoVo
@@ -115,7 +114,6 @@ class CalendarViewHolder(
         dayList.forEach {
             calendarDayList.add(
                 CalendarDayVo(
-                    type = CalendarDayViewType.VISIBLE,
                     isHoliday = DateTimeFormatter.isSunday(it),
                     isSaturday = DateTimeFormatter.isSaturday(it),
                     day = it,
@@ -131,7 +129,7 @@ class CalendarViewHolder(
         val startDay = DateTimeFormatter.getStartDayOfWeek(year, month)
         val list = mutableListOf<CalendarDayVo>()
         for (i in 0 until startDay){
-            list.add(CalendarDayVo(type = CalendarDayViewType.GONE))
+            list.add(CalendarDayVo())
         }
         return list
     }
