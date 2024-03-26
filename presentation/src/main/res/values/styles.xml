@@ -53,6 +53,12 @@
         <item name="fontFamily">@font/pretendard_medium</item>
     </style>
 
+    <style name="medium_14">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">17sp</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
+
     <style name="medium_12">
         <item name="android:textSize">12sp</item>
         <item name="lineHeight">14sp</item>

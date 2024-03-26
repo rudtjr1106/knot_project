@@ -16,6 +16,7 @@
     <string name="word_see_more">더보기</string>
     <string name="word_calendar">캘린더</string>
     <string name="word_today">TODAY</string>
+    <string name="word_statistics">통계</string>
 
     <!-- Sign -->
     <string name="sign_email">이메일로 시작하기</string>
@@ -45,5 +46,10 @@
     <string name="main_calendar_year">%s.</string>
     <string name="main_calendar_month">%s월</string>
     <string name="main_calendar_day_with_week">%d. %s</string>
+
+    <!-- Main_Detail_Knot -->
+    <string name="main_knot_detail_my_statistics">나의 참여율</string>
+    <string name="main_knot_detail_personal_statistics">개인 참여율</string>
+    <string name="main_knot_detail_personal_percent">%s %d%</string>
 
 </resources>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <ImageButton
+            android:id="@+id/image_button_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_knot_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/bold_16"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_button_back"
+            tools:text="유니버설 디자인 조별과제" />
+
+        <ImageButton
+            android:id="@+id/image_button_menu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_menu"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_button_back"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_back"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@id/text_view_knot_title"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10"
+            android:paddingBottom="24dp"
+            android:layout_height="wrap_content">
+
+            <View
+                app:layout_constraintBottom_toBottomOf="@id/text_view_statistics"
+                app:layout_constraintStart_toStartOf="@id/text_view_statistics"
+                app:layout_constraintEnd_toEndOf="@id/text_view_statistics"
+                android:background="@drawable/image_title_line"
+                android:layout_width="0dp"
+                android:layout_height="4dp"/>
+
+            <TextView
+                android:id="@+id/text_view_statistics"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/word_statistics"
+                android:textAppearance="@style/bold_18"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            
+            <ImageButton
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ic_right_arrow_c4c4c4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+            
+            <TextView
+                android:id="@+id/text_view_my_statistics"
+                app:layout_constraintTop_toBottomOf="@id/text_view_statistics"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/text_view_statistics"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/color_8c8c8c"
+                android:textAppearance="@style/medium_12"
+                android:text="@string/main_knot_detail_my_statistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/progress_par_percent"
+                app:layout_constraintStart_toEndOf="@id/text_view_my_statistics"
+                app:layout_constraintTop_toTopOf="@id/text_view_my_statistics"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_my_statistics"
+                app:layout_constraintEnd_toStartOf="@id/text_view_my_statistics_percent"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="15dp"
+                android:max="100"
+                tools:progress="67"
+                android:progressDrawable="@drawable/bg_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="6dp"/>
+
+            <TextView
+                android:id="@+id/text_view_my_statistics_percent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_view_my_statistics"
+                android:layout_marginEnd="43dp"
+                android:text="67%"
+                android:textColor="@color/color_ffcc00"
+                android:textAppearance="@style/bold_14"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_my_statistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/text_view_personal_statistics"
+                app:layout_constraintTop_toBottomOf="@id/text_view_my_statistics"
+                android:layout_marginTop="11dp"
+                app:layout_constraintStart_toStartOf="@id/text_view_statistics"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/color_8c8c8c"
+                android:textAppearance="@style/medium_12"
+                android:text="@string/main_knot_detail_personal_statistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                app:layout_constraintTop_toBottomOf="@id/text_view_my_statistics"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@id/progress_par_percent"
+                app:layout_constraintEnd_toEndOf="@id/text_view_my_statistics_percent"
+                android:layout_marginEnd="9dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
