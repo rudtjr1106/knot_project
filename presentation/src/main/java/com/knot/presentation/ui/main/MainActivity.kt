@@ -29,7 +29,7 @@ class MainActivity :
         super.initState()
         repeatOnStarted {
             viewModel.eventFlow.collect {
-                inspectEvent(it as MainEvent)
+                inspectEvent(it as MainActivityEvent)
             }
         }
     }
@@ -43,22 +43,22 @@ class MainActivity :
         }
     }
 
-    private fun inspectEvent(event: MainEvent) {
+    private fun inspectEvent(event: MainActivityEvent) {
         when (event) {
-            MainEvent.GoToCreateKnot -> {}
-            MainEvent.GoToKnotList -> {
+            MainActivityEvent.GoToCreateKnot -> {}
+            MainActivityEvent.GoToKnotList -> {
                 navController.navigate(R.id.knotListFragment)
             }
 
-            MainEvent.GoToMain -> {
+            MainActivityEvent.GoToMain -> {
                 navController.navigate(R.id.mainFragment)
             }
 
-            MainEvent.GoToProfile -> {
+            MainActivityEvent.GoToProfile -> {
                 navController.navigate(R.id.profileFragment)
             }
 
-            MainEvent.GoToSetting -> {
+            MainActivityEvent.GoToSetting -> {
                 navController.navigate(R.id.settingFragment)
             }
         }

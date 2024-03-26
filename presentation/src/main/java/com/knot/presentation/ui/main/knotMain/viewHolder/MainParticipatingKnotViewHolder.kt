@@ -20,6 +20,10 @@ class MainParticipatingKnotViewHolder(
 
     init {
         binding.apply {
+            textViewSeeMore.setOnClickListener {
+                listener.onClickSeeMoreParticipatingKnot()
+            }
+
             recyclerViewParticipatingKnot.apply {
                 layoutManager = LinearLayoutManager(root.context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = mainParticipatingKnotAdapter

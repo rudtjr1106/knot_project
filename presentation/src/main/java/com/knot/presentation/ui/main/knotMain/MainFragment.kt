@@ -20,6 +20,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
 
     private val mainAdapter : MainAdapter by lazy {
         MainAdapter(object : MainAdapter.MainDelegate{
+            override fun onClickSeeMoreParticipatingKnot() {
+                goToParticipatingKnotMore()
+            }
+
             override fun onClickWeek() {
                 goToCalendar()
             }
@@ -59,6 +63,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
 
     private fun goToCalendar(){
         val action = MainFragmentDirections.actionMainToCalendar()
+        findNavController().navigate(action)
+    }
+
+    private fun goToParticipatingKnotMore(){
+        val action = MainFragmentDirections.actionMainToParticipatingKnot()
         findNavController().navigate(action)
     }
 

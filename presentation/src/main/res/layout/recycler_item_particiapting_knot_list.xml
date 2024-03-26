@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_rectangle_filled_white_radius_10">
+
+        <TextView
+            android:id="@+id/text_view_knot_number"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/main_participating_knot_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_knot_title"
+            app:layout_constraintTop_toBottomOf="@id/text_view_knot_number"
+            android:layout_marginTop="8dp"
+            tools:text="유니버설 디자인 조별과제"
+            android:layout_marginHorizontal="10dp"
+            android:maxLines="2"
+            android:textAppearance="@style/bold_14"
+            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_knot_content"
+            app:layout_constraintTop_toBottomOf="@id/text_view_knot_title"
+            android:layout_marginTop="8dp"
+            tools:text="유니버설 디자인 조별과제"
+            android:layout_marginHorizontal="10dp"
+            android:maxLines="1"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/image_view_people"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_view_knot_title"
+            android:layout_marginBottom="5dp"
+            android:layout_width="14dp"
+            android:background="@drawable/ic_people_black"
+            android:layout_height="14dp"/>
+
+        <TextView
+            android:id="@+id/text_view_participate_people"
+            app:layout_constraintTop_toTopOf="@id/image_view_people"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_people"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintStart_toEndOf="@id/image_view_people"
+            android:layout_marginStart="4dp"
+            tools:text="4"
+            android:textAppearance="@style/regular_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

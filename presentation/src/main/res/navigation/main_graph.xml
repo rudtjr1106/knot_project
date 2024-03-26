@@ -15,6 +15,10 @@
         <action
             android:id="@+id/action_main_to_calendar"
             app:destination="@id/calendarFragment"/>
+
+        <action
+            android:id="@+id/action_main_to_participating_knot"
+            app:destination="@id/participatingKnotFragment"/>
     </fragment>
 
     <fragment
@@ -22,6 +26,13 @@
         android:name="com.knot.presentation.ui.main.knotMain.calendar.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar">
+    </fragment>
+
+    <fragment
+        android:id="@+id/participatingKnotFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.participatingKnot.ParticipatingKnotFragment"
+        android:label="fragment_participating_knot"
+        tools:layout="@layout/fragment_participating_knot">
     </fragment>
 
     <fragment
