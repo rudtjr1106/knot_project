@@ -3,7 +3,6 @@ package com.knot.presentation.util
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.TextStyle
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -17,6 +16,23 @@ object DateTimeFormatter {
         val calendar = Calendar.getInstance()
         val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
         return dayOfWeek - 1
+    }
+
+    fun getDayOfWeek(dateStr : String) : String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = dateFormat.parse(dateStr)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return when(calendar.get(Calendar.DAY_OF_WEEK)){
+            Calendar.SUNDAY -> "일"
+            Calendar.MONDAY -> "월"
+            Calendar.TUESDAY -> "화"
+            Calendar.WEDNESDAY -> "수"
+            Calendar.THURSDAY -> "목"
+            Calendar.FRIDAY -> "금"
+            Calendar.SATURDAY -> "토"
+            else -> ""
+        }
     }
 
     fun getYear(date : String) : String {
@@ -36,7 +52,7 @@ object DateTimeFormatter {
 
     fun getMonthAndDayKor(date : String) : String {
         val dates = date.split("-")
-        return "${dates[MONTH_INDEX]}월 ${dates[DAY_INDEX]}일"
+        return "${dates[MONTH_INDEX].toInt()}월 ${dates[DAY_INDEX].toInt()}일"
     }
 
     fun getDatesBetween(startDateStr: String, endDateStr: String): List<String> {
@@ -55,6 +71,7 @@ object DateTimeFormatter {
         return dates
     }
 
+    // 이번 주 날짜들 구하는거
     fun getWeekDates(): List<String> {
         val dates = mutableListOf<String>()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -68,24 +85,53 @@ object DateTimeFormatter {
 
         return dates
     }
-    fun printMonthDetails(year: Int, month: Int) {
-        // 해당 월의 첫날과 마지막날을 구함
+
+    // 특정 년도와 월에 해당하는 날짜들을 구하기
+    fun getMonthDays(year: Int, month: Int) : List<String>{
+        val dayList = mutableListOf<String>()
         val startOfMonth = YearMonth.of(year, month).atDay(1)
         val endOfMonth = YearMonth.of(year, month).atEndOfMonth()
 
-        // 시작 요일과 끝 요일을 구함
-        val startDayOfWeek = startOfMonth.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
-        val endDayOfWeek = endOfMonth.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
-
-        println("Start Day of Week: $startDayOfWeek")
-        println("End Day of Week: $endDayOfWeek")
-        println("Dates of $month month, $year:")
-
-        // 해당 월의 모든 날짜를 순회하며 출력
         var currentDate = startOfMonth
         while (currentDate.isBefore(endOfMonth) || currentDate.isEqual(endOfMonth)) {
-            println(currentDate)
+            dayList.add(currentDate.toString())
             currentDate = currentDate.plusDays(1)
         }
+        return dayList
     }
+
+    // 특정 년도와 월에 해당하는 시작 요일 구하기 2024 3월 시작 요일
+    fun getStartDayOfWeek(year: Int, month: Int) : Int {
+        val startOfMonth = YearMonth.of(year, month).atDay(1)
+        return (startOfMonth.dayOfWeek + 1).value - 1
+    }
+
+    // 특정 년도와 월에 해당하는 끝 요일 구하기 ex) 2024 3월 마지막 요일
+    fun getEndDayOfWeek(year: Int, month: Int) : Int {
+        val endOfMonth = YearMonth.of(year, month).atEndOfMonth()
+        return (endOfMonth.dayOfWeek + 1).value - 1
+    }
+
+    fun getToday(): String {
+        val currentDate = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return currentDate.format(formatter)
+    }
+
+    fun isSunday(dateStr: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = dateFormat.parse(dateStr)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+    }
+
+    fun isSaturday(dateStr: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = dateFormat.parse(dateStr)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+    }
+
 }

@@ -35,7 +35,7 @@ object AndroidX{
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"
     const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}"
     const val SPLASH = "androidx.core:core-splashscreen:1.0.0"
-    const val THREE_TEN = "com.jakewharton.threetenabp:threetenabp:1.3.0"
+    const val THREE_TEN = "com.jakewharton.threetenabp:threetenabp:1.3.1"
     const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM}"
     const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
     const val ROOM = "androidx.room:room-ktx:${Versions.ROOM}"

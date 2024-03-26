@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/text_view_sunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="22dp"
+            android:text="@string/word_sunday"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/color_e05744"
+            app:layout_constraintStart_toStartOf="@id/image_view_divide_line"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_monday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_monday"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/text_view_tuesday"
+            app:layout_constraintStart_toEndOf="@id/text_view_sunday"
+            app:layout_constraintTop_toTopOf="@id/text_view_sunday" />
+
+        <TextView
+            android:id="@+id/text_view_tuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_tuesday"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/text_view_wednesday"
+            app:layout_constraintStart_toEndOf="@id/text_view_monday"
+            app:layout_constraintTop_toTopOf="@id/text_view_sunday" />
+
+        <TextView
+            android:id="@+id/text_view_wednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_wednesday"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/text_view_thursday"
+            app:layout_constraintStart_toEndOf="@id/text_view_tuesday"
+            app:layout_constraintTop_toTopOf="@id/text_view_sunday" />
+
+        <TextView
+            android:id="@+id/text_view_thursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_thursday"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/text_view_friday"
+            app:layout_constraintStart_toEndOf="@id/text_view_wednesday"
+            app:layout_constraintTop_toTopOf="@id/text_view_sunday" />
+
+        <TextView
+            android:id="@+id/text_view_friday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_friday"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/text_view_saturday"
+            app:layout_constraintStart_toEndOf="@id/text_view_thursday"
+            app:layout_constraintTop_toTopOf="@id/text_view_sunday" />
+
+        <TextView
+            android:id="@+id/text_view_saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_saturday"
+            android:textAppearance="@style/medium_12"
+            android:textColor="@color/color_1976d2"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintEnd_toEndOf="@id/image_view_divide_line"
+            app:layout_constraintTop_toTopOf="@id/text_view_sunday" />
+
+
+        <ImageView
+            android:id="@+id/image_view_divide_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="19dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/image_line_f2f2f2"
+            app:layout_constraintTop_toBottomOf="@id/text_view_sunday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_calendar"
+            app:layout_constraintTop_toBottomOf="@id/image_view_divide_line"
+            android:layout_marginHorizontal="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

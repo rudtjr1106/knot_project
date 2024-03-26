@@ -11,6 +11,17 @@
         android:name="com.knot.presentation.ui.main.knotMain.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_main_to_calendar"
+            app:destination="@id/calendarFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar">
     </fragment>
 
     <fragment
