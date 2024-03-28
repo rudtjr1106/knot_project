@@ -48,6 +48,7 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     private fun getKnotDetail(knotId: String){
+        showLoading()
         viewModelScope.launch {
             getKnotDetailUseCase(knotId).collect {
                 resultResponse(it, ::successGetKnotDetail)

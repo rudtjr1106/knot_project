@@ -33,6 +33,7 @@ class MainViewModel @Inject constructor(
         mainLayoutStateFlow.asStateFlow()
     )
     fun getMyInfo(){
+        showLoading()
         viewModelScope.launch {
             getMyInfoUseCase(Unit).collect{
                 resultResponse(it, ::successGetMyInfo)

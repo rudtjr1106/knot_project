@@ -17,6 +17,7 @@
     <string name="word_calendar">캘린더</string>
     <string name="word_today">TODAY</string>
     <string name="word_statistics">통계</string>
+    <string name="word_loading">로딩중...</string>
 
     <!-- Sign -->
     <string name="sign_email">이메일로 시작하기</string>
