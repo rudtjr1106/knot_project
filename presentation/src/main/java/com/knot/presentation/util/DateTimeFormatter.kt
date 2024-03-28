@@ -1,6 +1,7 @@
 package com.knot.presentation.util
 
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 import java.text.SimpleDateFormat
@@ -134,4 +135,15 @@ object DateTimeFormatter {
         return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
     }
 
+    fun getNowTimeWithSecond() : String {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("a h:mm:ss")
+        return currentDateTime.format(formatter)
+    }
+
+    fun getNowTimeWithoutSecond() : String {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("a h:mm")
+        return currentDateTime.format(formatter)
+    }
 }

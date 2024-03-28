@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_knot"
         android:layout_width="120dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"

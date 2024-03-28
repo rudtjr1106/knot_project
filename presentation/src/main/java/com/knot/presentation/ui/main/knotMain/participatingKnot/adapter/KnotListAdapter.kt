@@ -14,7 +14,7 @@ class KnotListAdapter(
 ) : ListAdapter<KnotVo, RecyclerView.ViewHolder>(KnotListDiffCallBack()) {
 
     interface KnotListDelegate {
-
+        fun onClickKnot(id : String)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

@@ -19,6 +19,11 @@
         <action
             android:id="@+id/action_main_to_participating_knot"
             app:destination="@id/participatingKnotFragment"/>
+
+        <action
+            android:id="@+id/action_main_to_knot_detail"
+            app:destination="@id/knotDetailFragment"/>
+
     </fragment>
 
     <fragment
@@ -33,6 +38,23 @@
         android:name="com.knot.presentation.ui.main.knotMain.participatingKnot.ParticipatingKnotFragment"
         android:label="fragment_participating_knot"
         tools:layout="@layout/fragment_participating_knot">
+
+        <action
+            android:id="@+id/action_participating_knot_to_knot_detail"
+            app:destination="@id/knotDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotDetailFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.KnotDetailFragment"
+        android:label="fragment_knot_detail"
+        tools:layout="@layout/fragment_knot_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+
     </fragment>
 
     <fragment

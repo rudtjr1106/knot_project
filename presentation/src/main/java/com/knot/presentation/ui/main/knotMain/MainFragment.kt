@@ -27,6 +27,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
             override fun onClickWeek() {
                 goToCalendar()
             }
+
+            override fun onClickKnot(id: String) {
+                goToKnotDetail(id)
+            }
         })
     }
 
@@ -68,6 +72,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
 
     private fun goToParticipatingKnotMore(){
         val action = MainFragmentDirections.actionMainToParticipatingKnot()
+        findNavController().navigate(action)
+    }
+
+    private fun goToKnotDetail(knotId : String){
+        val action = MainFragmentDirections.actionMainToKnotDetail(knotId)
         findNavController().navigate(action)
     }
 

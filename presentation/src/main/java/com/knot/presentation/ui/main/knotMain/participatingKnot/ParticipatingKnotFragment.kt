@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentParticipatingKnotBinding
+import com.knot.presentation.ui.main.knotMain.MainFragmentDirections
 import com.knot.presentation.ui.main.knotMain.adapter.MainParticipatingKnotAdapter
 import com.knot.presentation.ui.main.knotMain.participatingKnot.adapter.KnotListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +21,9 @@ class ParticipatingKnotFragment : BaseFragment<FragmentParticipatingKnotBinding,
 
     private val knotListAdapter : KnotListAdapter by lazy {
         KnotListAdapter(object : KnotListAdapter.KnotListDelegate{
-
+            override fun onClickKnot(id: String) {
+                goToKnotDetail(id)
+            }
         })
     }
 
@@ -59,6 +62,11 @@ class ParticipatingKnotFragment : BaseFragment<FragmentParticipatingKnotBinding,
         when(event){
             ParticipatingKnotEvent.GoToBack -> findNavController().popBackStack()
         }
+    }
+
+    private fun goToKnotDetail(knotId : String){
+        val action = ParticipatingKnotFragmentDirections.actionParticipatingKnotToKnotDetail(knotId)
+        findNavController().navigate(action)
     }
 
     override fun onStart() {

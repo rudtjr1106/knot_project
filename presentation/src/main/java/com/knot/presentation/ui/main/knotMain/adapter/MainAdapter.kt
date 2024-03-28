@@ -21,6 +21,7 @@ class MainAdapter(
     interface MainDelegate {
         fun onClickSeeMoreParticipatingKnot()
         fun onClickWeek()
+        fun onClickKnot(id : String)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
