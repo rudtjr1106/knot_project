@@ -1,4 +1,4 @@
-package com.knot.presentation.ui.main.knotMain.calendar.bottomsheet
+package com.knot.presentation.ui.common.bottomsheet
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,13 +18,13 @@ class KnotBottomSheetAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is KnotBottomSheetViewHolder -> holder.bind(currentList[position])
+            is CommonBottomSheetViewHolder -> holder.bind(currentList[position])
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemKnotBottomSheetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return KnotBottomSheetViewHolder(binding,listener)
+        return CommonBottomSheetViewHolder(binding,listener)
     }
 }
 

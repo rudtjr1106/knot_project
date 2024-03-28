@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentCalendarBinding
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarAdapter
-import com.knot.presentation.ui.main.knotMain.calendar.bottomsheet.KnotBottomSheet
+import com.knot.presentation.ui.common.bottomsheet.CommonBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -67,7 +67,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
     }
 
     private fun showBottomSheet(list: List<String>){
-        KnotBottomSheet.newInstance(list) {
+        CommonBottomSheet.newInstance(list) {
             viewModel.onClickMenu(it)
         }.show(parentFragmentManager, "")
     }

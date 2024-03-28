@@ -1,9 +1,9 @@
-package com.knot.presentation.ui.main.knotMain.calendar.bottomsheet
+package com.knot.presentation.ui.common.bottomsheet
 
 import androidx.recyclerview.widget.RecyclerView
 import com.knot.presentation.databinding.ItemKnotBottomSheetBinding
 
-class KnotBottomSheetViewHolder(
+class CommonBottomSheetViewHolder(
     private val binding: ItemKnotBottomSheetBinding,
     private val listener: KnotBottomSheetAdapter.Delegate
 ) : RecyclerView.ViewHolder(binding.root) {
