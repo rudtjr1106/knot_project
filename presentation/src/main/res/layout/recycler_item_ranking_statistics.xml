@@ -9,6 +9,7 @@
 
         <TextView
             android:id="@+id/text_view_rank"
+            android:layout_marginTop="5dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textAppearance="@style/medium_10"
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/medium_10"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="4dp"
             tools:text="경석"
             app:layout_constraintTop_toTopOf="parent"

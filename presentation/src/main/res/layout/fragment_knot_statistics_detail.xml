@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.main.knotMain.detail.statistics.StatisticsDetailViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -21,6 +24,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="3dp"
+                android:onClick="@{()->vm.onClickBack()}"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/bold_16"
                 android:textColor="@color/black"
+                android:text="@{vm.uiState.knotDetail.title}"
                 app:layout_constraintBottom_toBottomOf="@id/image_button_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +80,7 @@
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:max="100"
+                android:progress="@{vm.uiState.myAllStatistics}"
                 android:progressDrawable="@drawable/bg_progress"
                 app:layout_constraintTop_toBottomOf="@id/text_view_my_statistics"
                 app:layout_constraintStart_toStartOf="@id/text_view_my_statistics"
@@ -150,6 +156,7 @@
                     app:layout_constraintStart_toStartOf="@id/text_view_best_team_name"
                     app:layout_constraintEnd_toEndOf="@id/text_view_best_team_name"
                     android:textColor="@color/white"
+                    android:text="@string/main_knot_detail_best_team_all_statistics"
                     tools:text="(25%)"
                     android:layout_marginTop="-4dp"
                     android:textAppearance="@style/regular_16"
@@ -160,7 +167,7 @@
                     android:id="@+id/text_view_chat_statistics"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="89dp"
+                    android:layout_marginEnd="96dp"
                     android:layout_marginTop="19dp"
                     android:textAppearance="@style/medium_12"
                     android:textColor="@color/white"

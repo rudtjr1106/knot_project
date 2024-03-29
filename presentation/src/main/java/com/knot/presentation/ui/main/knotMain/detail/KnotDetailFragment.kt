@@ -90,7 +90,8 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
     }
 
     private fun goToStatistics(){
-
+        val action = KnotDetailFragmentDirections.actionKnotDetailToStatisticsDetail(knotDetailFragmentArgs.knotId)
+        findNavController().navigate(action)
     }
 
     override fun onStart() {

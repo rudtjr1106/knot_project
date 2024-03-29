@@ -7,7 +7,7 @@ import com.knot.domain.usecase.knot.GetKnotDetailUseCase
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
-import com.knot.domain.vo.TeamStatisticsVo
+import com.knot.domain.vo.TeamStatisticsDetailVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.base.BaseViewModel
 import com.knot.presentation.util.UserInfo
@@ -35,7 +35,7 @@ class KnotDetailViewModel @Inject constructor(
     private val todoListStateFlow : MutableStateFlow<List<TodoVo>> = MutableStateFlow(emptyList())
     private val myAllStatisticsStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val lastChatStateFlow : MutableStateFlow<ChatVo> = MutableStateFlow(ChatVo())
-    private val otherStatisticsListStateFlow : MutableStateFlow<List<TeamStatisticsVo>> = MutableStateFlow(emptyList())
+    private val otherStatisticsListStateFlow : MutableStateFlow<List<TeamStatisticsDetailVo>> = MutableStateFlow(emptyList())
 
     override val uiState: KnotDetailPageState = KnotDetailPageState(
         knotDetailStateFlow.asStateFlow(),
@@ -105,9 +105,9 @@ class KnotDetailViewModel @Inject constructor(
         if(knotDetailStateFlow.value.knotId.isEmpty() || chatList.isEmpty()){
             return
         }
-        val list = mutableListOf<TeamStatisticsVo>()
+        val list = mutableListOf<TeamStatisticsDetailVo>()
         knotDetailStateFlow.value.teamList.forEach {
-            list.add(TeamStatisticsVo(id = it.value.id, name = it.value.name, statistics = getAllStatistics(it.value.id).toString()))
+            list.add(TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getAllStatistics(it.value.id).toString()))
         }
         list.removeIf { it.id == UserInfo.info.id }
         updateOtherStatistics(list)
@@ -159,7 +159,7 @@ class KnotDetailViewModel @Inject constructor(
         }
     }
 
-    private fun updateOtherStatistics(list : List<TeamStatisticsVo>){
+    private fun updateOtherStatistics(list : List<TeamStatisticsDetailVo>){
         viewModelScope.launch {
             otherStatisticsListStateFlow.update { list }
         }

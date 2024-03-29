@@ -61,6 +61,8 @@
     <string name="main_knot_detail_chat_statistics">대화 참여율</string>
     <string name="main_knot_detail_gathering_statistics">모임 참여</string>
     <string name="main_knot_detail_todo_statistics">완료한 일</string>
-    <string name="main_knot_detail_ranking">%s위.</string>
+    <string name="main_knot_detail_rank_statistics">전체 순위</string>
+    <string name="main_knot_detail_ranking">%d위.</string>
+    <string name="main_knot_detail_best_team_all_statistics">(%s%%)</string>
 
 </resources>

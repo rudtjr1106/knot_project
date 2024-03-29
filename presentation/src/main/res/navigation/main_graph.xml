@@ -55,6 +55,23 @@
             android:defaultValue=""
             app:argType="string"/>
 
+        <action
+            android:id="@+id/action_knot_detail_to_statistics_detail"
+            app:destination="@id/statisticsDetailFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/statisticsDetailFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.statistics.StatisticsDetailFragment"
+        android:label="fragment_statistics_detail"
+        tools:layout="@layout/fragment_knot_statistics_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+
     </fragment>
 
     <fragment

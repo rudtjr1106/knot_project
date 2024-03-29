@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.knot.domain.vo.TeamStatisticsVo
+import com.knot.domain.vo.TeamStatisticsDetailVo
 import com.knot.presentation.databinding.RecyclerItemPersonalStatisticsPercentBinding
 import com.knot.presentation.ui.main.knotMain.detail.viewHolder.TeamStatisticsViewHolder
 
-class TeamStatisticsAdapter : ListAdapter<TeamStatisticsVo, RecyclerView.ViewHolder>(TeamStatisticsDiffCallBack()) {
+class TeamStatisticsAdapter : ListAdapter<TeamStatisticsDetailVo, RecyclerView.ViewHolder>(TeamStatisticsDiffCallBack()) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -23,7 +23,7 @@ class TeamStatisticsAdapter : ListAdapter<TeamStatisticsVo, RecyclerView.ViewHol
     }
 }
 
-class TeamStatisticsDiffCallBack : DiffUtil.ItemCallback<TeamStatisticsVo>() {
-    override fun areItemsTheSame(oldItem: TeamStatisticsVo, newItem: TeamStatisticsVo): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: TeamStatisticsVo, newItem: TeamStatisticsVo): Boolean = oldItem == newItem
+class TeamStatisticsDiffCallBack : DiffUtil.ItemCallback<TeamStatisticsDetailVo>() {
+    override fun areItemsTheSame(oldItem: TeamStatisticsDetailVo, newItem: TeamStatisticsDetailVo): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: TeamStatisticsDetailVo, newItem: TeamStatisticsDetailVo): Boolean = oldItem == newItem
 }
