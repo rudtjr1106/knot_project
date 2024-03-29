@@ -3,7 +3,7 @@ package com.knot.presentation.ui.main.knotMain.detail
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.knot.presentation.PageState
+import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.presentation.R
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentKnotDetailBinding
@@ -22,7 +22,9 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
 
     private val todoListAdapter : MainTodoListAdapter by lazy {
         MainTodoListAdapter(object : MainTodoListAdapter.MainTodoListDelegate{
-
+            override fun onClickComplete(request: CheckKnotTodoRequest) {
+                viewModel.onClickComplete(request)
+            }
         })
     }
 

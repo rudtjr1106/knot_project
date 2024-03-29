@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.knot.domain.enums.MainVIewType
+import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.MainLayoutVo
 import com.knot.presentation.databinding.RecyclerLayoutMainParticipatingKnotBinding
 import com.knot.presentation.databinding.RecyclerLayoutMainTodoListBinding
@@ -22,6 +23,7 @@ class MainAdapter(
         fun onClickSeeMoreParticipatingKnot()
         fun onClickWeek()
         fun onClickKnot(id : String)
+        fun onClickCheckButton(request: CheckKnotTodoRequest)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

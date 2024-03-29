@@ -1,10 +1,12 @@
 package com.knot.presentation.ui.main.knotMain.detail
 
 import androidx.lifecycle.viewModelScope
+import com.knot.domain.usecase.knot.CheckKnotTodoUseCase
 import com.knot.domain.usecase.knot.GetChatListUseCase
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
 import com.knot.domain.vo.ChatListVo
 import com.knot.domain.vo.ChatVo
+import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.base.BaseViewModel
@@ -13,6 +15,7 @@ import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,7 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class KnotDetailViewModel @Inject constructor(
     private val getKnotDetailUseCase: GetKnotDetailUseCase,
-    private val getChatListUseCase: GetChatListUseCase
+    private val getChatListUseCase: GetChatListUseCase,
+    private val checkKnotTodoUseCase: CheckKnotTodoUseCase
 ) : BaseViewModel<KnotDetailPageState>() {
 
     companion object{
@@ -136,6 +140,14 @@ class KnotDetailViewModel @Inject constructor(
     private fun updateMyAllStatistics(statistics : Int){
         viewModelScope.launch {
             myAllStatisticsStateFlow.update { statistics }
+        }
+    }
+
+    fun onClickComplete(request: CheckKnotTodoRequest){
+        viewModelScope.launch {
+            checkKnotTodoUseCase(request).collect{
+                resultResponse(it, {getDetail(request.knotId)})
+            }
         }
     }
 }

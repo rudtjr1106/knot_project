@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.databinding.RecyclerItemMainTodoListBinding
 import com.knot.presentation.ui.main.knotMain.viewHolder.MainToDoListItemViewHolder
@@ -14,7 +15,7 @@ class MainTodoListAdapter(
 ) : ListAdapter<TodoVo, RecyclerView.ViewHolder>(MainTodoListDiffCallBack()) {
 
     interface MainTodoListDelegate {
-
+        fun onClickComplete(request: CheckKnotTodoRequest)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

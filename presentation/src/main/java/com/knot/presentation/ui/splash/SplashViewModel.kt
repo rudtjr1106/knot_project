@@ -22,9 +22,22 @@ class SplashViewModel @Inject constructor(
     fun checkLogin(){
         viewModelScope.launch {
             checkAutoLoginUseCase(Unit).collect{
-                resultResponse(it, {goToMain()}, {goToLogin()})
+                resultResponse(it, {getMyInfo()}, {goToLogin()})
             }
         }
+    }
+
+    private fun getMyInfo(){
+        viewModelScope.launch {
+            getMyInfoUseCase(Unit).collect{
+                resultResponse(it, ::successGetMyInfo) { goToLogin() }
+            }
+        }
+    }
+
+    private fun successGetMyInfo(result : UserVo){
+        UserInfo.updateInfo(result)
+        goToMain()
     }
 
     private fun goToMain(){
