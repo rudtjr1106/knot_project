@@ -8,18 +8,12 @@ import com.google.firebase.database.ValueEventListener
 import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
-import com.knot.domain.vo.ChatListVo
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
-import com.knot.domain.vo.UserVo
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -75,27 +69,26 @@ object KnotServer {
             })
     }
 
-    suspend fun getChatList(knotId: String) : Flow<Response<ChatListVo>> = callbackFlow {
+    suspend fun getChatList(knotId: String) : Flow<Response<List<ChatVo>>> = callbackFlow {
+        val chatList = mutableListOf<ChatVo>()
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    val chatList: MutableList<ChatVo> = mutableListOf()
                     for (dataSnapshot in snapshot.children) {
-                        val chatVo = dataSnapshot.getValue(ChatVo::class.java)
-                        chatVo?.let {
-                            chatList.add(it)
+                        dataSnapshot.children.forEach {
+                            val chatVo = it.getValue(ChatVo::class.java)
+                            chatVo?.let { chat -> chatList.add(chat) }
                         }
                     }
-                    val response = Response(data = ChatListVo(chatList), result = ResultCode.SUCCESS)
-                    trySend(response)
+                    trySend(Response(data = chatList, result = ResultCode.SUCCESS))
                 }
                 else{
-                    trySend(Response(data = ChatListVo(), result = ResultCode.TEST_ERROR))
+                    trySend(Response(data = chatList, result = ResultCode.TEST_ERROR))
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                trySend(Response(data = ChatListVo(), result = ResultCode.TEST_ERROR))
+                trySend(Response(data = chatList, result = ResultCode.TEST_ERROR))
             }
         }
         chatRef.child(knotId).addValueEventListener(listener)

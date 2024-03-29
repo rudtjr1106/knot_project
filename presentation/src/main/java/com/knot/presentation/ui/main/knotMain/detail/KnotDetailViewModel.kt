@@ -4,13 +4,13 @@ import androidx.lifecycle.viewModelScope
 import com.knot.domain.usecase.knot.CheckKnotTodoUseCase
 import com.knot.domain.usecase.knot.GetChatListUseCase
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
-import com.knot.domain.vo.ChatListVo
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TeamStatisticsVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.base.BaseViewModel
+import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 @HiltViewModel
 class KnotDetailViewModel @Inject constructor(
@@ -79,16 +80,16 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     private fun updateTodoList(todoMap : HashMap<String, TodoVo>){
-        val todoList = todoMap.values.toList().take(5)
+        val todoList = todoMap.values.toList().filter { it.userId == UserInfo.info.id }.take(5)
         viewModelScope.launch {
             todoListStateFlow.update { todoList }
         }
     }
 
-    private fun successGetChatList(result : ChatListVo){
+    private fun successGetChatList(result : List<ChatVo>){
         viewModelScope.launch {
-            chatList = result.chatList
-            lastChatStateFlow.update { result.chatList.last() }
+            chatList = result
+            lastChatStateFlow.update { result.last() }
             calculateMyStatistics()
             calculateOtherStatistics()
         }
@@ -119,7 +120,7 @@ class KnotDetailViewModel @Inject constructor(
         val chatStatistics = getChatStatistics(id)
         val allStatistics = ((gatheringStatistics + todoCompleteStatistics + chatStatistics) /
                 ALL_PERCENT_COUNT) * PERCENT_COUNT
-        return allStatistics.toInt()
+        return allStatistics.roundToInt()
     }
 
     private fun getGatheringStatistics(id : String) : Double {
