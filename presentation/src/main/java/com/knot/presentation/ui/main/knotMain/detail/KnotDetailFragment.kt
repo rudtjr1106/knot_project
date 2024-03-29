@@ -84,8 +84,13 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
 
     private fun inspectEvent(event: KnotDetailEvent){
         when(event){
-            KnotDetailEvent.GoToBack -> findNavController().popBackStack()
+            KnotDetailEvent.GoToBackEvent -> findNavController().popBackStack()
+            KnotDetailEvent.GoToStatisticsEvent -> goToStatistics()
         }
+    }
+
+    private fun goToStatistics(){
+
     }
 
     override fun onStart() {

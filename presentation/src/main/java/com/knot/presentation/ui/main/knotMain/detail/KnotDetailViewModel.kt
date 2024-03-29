@@ -10,7 +10,6 @@ import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TeamStatisticsVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -175,6 +174,10 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     fun onClickBack(){
-        emitEventFlow(KnotDetailEvent.GoToBack)
+        emitEventFlow(KnotDetailEvent.GoToBackEvent)
+    }
+
+    fun onClickStatistics(){
+        emitEventFlow(KnotDetailEvent.GoToStatisticsEvent)
     }
 }
