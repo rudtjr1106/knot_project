@@ -25,6 +25,7 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="12dp"
+                android:onClick="@{()->vm.onClickBack()}"
                 android:background="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -144,6 +145,7 @@
                     app:layout_constraintTop_toBottomOf="@id/text_view_my_statistics" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_team_statistics"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

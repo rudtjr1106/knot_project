@@ -51,7 +51,7 @@
     <!-- Main_Detail_Knot -->
     <string name="main_knot_detail_my_statistics">나의 참여율</string>
     <string name="main_knot_detail_personal_statistics">개인 참여율</string>
-    <string name="main_knot_detail_personal_percent">%s %d\%</string>
+    <string name="main_knot_detail_personal_percent">%s %s%%</string>
     <string name="main_knot_detail_only_percent">%d%%</string>
     <string name="main_knot_detail_team_chat">팀 대화</string>
 

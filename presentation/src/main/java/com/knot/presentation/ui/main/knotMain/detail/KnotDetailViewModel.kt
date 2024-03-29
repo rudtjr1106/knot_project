@@ -8,14 +8,13 @@ import com.knot.domain.vo.ChatListVo
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
+import com.knot.domain.vo.TeamStatisticsVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,12 +35,14 @@ class KnotDetailViewModel @Inject constructor(
     private val todoListStateFlow : MutableStateFlow<List<TodoVo>> = MutableStateFlow(emptyList())
     private val myAllStatisticsStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val lastChatStateFlow : MutableStateFlow<ChatVo> = MutableStateFlow(ChatVo())
+    private val otherStatisticsListStateFlow : MutableStateFlow<List<TeamStatisticsVo>> = MutableStateFlow(emptyList())
 
     override val uiState: KnotDetailPageState = KnotDetailPageState(
         knotDetailStateFlow.asStateFlow(),
         todoListStateFlow.asStateFlow(),
         myAllStatisticsStateFlow.asStateFlow(),
         lastChatStateFlow.asStateFlow(),
+        otherStatisticsListStateFlow.asStateFlow()
     )
 
     private var chatList : List<ChatVo> = emptyList()
@@ -73,6 +74,7 @@ class KnotDetailViewModel @Inject constructor(
         viewModelScope.launch {
             knotDetailStateFlow.update { result }
             calculateMyStatistics()
+            calculateOtherStatistics()
         }
     }
 
@@ -88,6 +90,7 @@ class KnotDetailViewModel @Inject constructor(
             chatList = result.chatList
             lastChatStateFlow.update { result.chatList.last() }
             calculateMyStatistics()
+            calculateOtherStatistics()
         }
     }
 
@@ -95,51 +98,70 @@ class KnotDetailViewModel @Inject constructor(
         if(knotDetailStateFlow.value.knotId.isEmpty() || chatList.isEmpty()){
             return
         }
-        val gatheringStatistics = getGatheringStatistics()
-        val todoCompleteStatistics = getTodoCompleteStatistics()
-        val chatStatistics = getChatStatistics()
-        val myAllStatistics = ((gatheringStatistics + todoCompleteStatistics + chatStatistics) /
-                ALL_PERCENT_COUNT) * PERCENT_COUNT
-        KnotLog.D(gatheringStatistics.toString())
-        KnotLog.D(todoCompleteStatistics.toString())
-        KnotLog.D(chatStatistics.toString())
-        updateMyAllStatistics(myAllStatistics.toInt())
+        updateMyAllStatistics(getAllStatistics(UserInfo.info.id))
     }
 
-    private fun getGatheringStatistics() : Double {
+    private fun calculateOtherStatistics(){
+        if(knotDetailStateFlow.value.knotId.isEmpty() || chatList.isEmpty()){
+            return
+        }
+        val list = mutableListOf<TeamStatisticsVo>()
+        knotDetailStateFlow.value.teamList.forEach {
+            list.add(TeamStatisticsVo(id = it.value.id, name = it.value.name, statistics = getAllStatistics(it.value.id).toString()))
+        }
+        list.removeIf { it.id == UserInfo.info.id }
+        updateOtherStatistics(list)
+    }
+
+    private fun getAllStatistics(id : String) : Int {
+        val gatheringStatistics = getGatheringStatistics(id)
+        val todoCompleteStatistics = getTodoCompleteStatistics(id)
+        val chatStatistics = getChatStatistics(id)
+        val allStatistics = ((gatheringStatistics + todoCompleteStatistics + chatStatistics) /
+                ALL_PERCENT_COUNT) * PERCENT_COUNT
+        return allStatistics.toInt()
+    }
+
+    private fun getGatheringStatistics(id : String) : Double {
         val gatheringList = knotDetailStateFlow.value.gatheringList.values.toList()
-        var myParticipateCount = 0
+        var participateCount = 0
         gatheringList.forEach { gathering ->
             gathering.participants.values.forEach { user ->
-                if(user.id == UserInfo.info.id) myParticipateCount++
+                if(user.id == id) participateCount++
             }
         }
 
-        return (myParticipateCount / gatheringList.size.toDouble()) * PERCENT_COUNT
+        return (participateCount / gatheringList.size.toDouble()) * PERCENT_COUNT
     }
 
-    private fun getTodoCompleteStatistics() : Double {
+    private fun getTodoCompleteStatistics(id : String) : Double {
         val todoList = knotDetailStateFlow.value.todoList.values.toList()
-        var myTodoCompleteCount = 0
+        var todoCompleteCount = 0
         todoList.forEach { todo ->
-            if((todo.userId == UserInfo.info.id) && todo.complete) myTodoCompleteCount++
+            if((todo.userId == id) && todo.complete) todoCompleteCount++
         }
 
-        return (myTodoCompleteCount / todoList.size.toDouble()) * PERCENT_COUNT
+        return (todoCompleteCount / todoList.size.toDouble()) * PERCENT_COUNT
     }
 
-    private fun getChatStatistics() : Double {
-        var myChatCount = 0
+    private fun getChatStatistics(id : String) : Double {
+        var chatCount = 0
         chatList.forEach { chat ->
-            if(chat.id == UserInfo.info.id) myChatCount++
+            if(chat.id == id) chatCount++
         }
 
-        return (myChatCount / chatList.size.toDouble()) * PERCENT_COUNT
+        return (chatCount / chatList.size.toDouble()) * PERCENT_COUNT
     }
 
     private fun updateMyAllStatistics(statistics : Int){
         viewModelScope.launch {
             myAllStatisticsStateFlow.update { statistics }
+        }
+    }
+
+    private fun updateOtherStatistics(list : List<TeamStatisticsVo>){
+        viewModelScope.launch {
+            otherStatisticsListStateFlow.update { list }
         }
     }
 
@@ -149,5 +171,9 @@ class KnotDetailViewModel @Inject constructor(
                 resultResponse(it, {getDetail(request.knotId)})
             }
         }
+    }
+
+    fun onClickBack(){
+        emitEventFlow(KnotDetailEvent.GoToBack)
     }
 }

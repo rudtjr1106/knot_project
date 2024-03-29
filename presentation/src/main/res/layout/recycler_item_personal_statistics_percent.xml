@@ -7,6 +7,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/text_view_name_statistics"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
