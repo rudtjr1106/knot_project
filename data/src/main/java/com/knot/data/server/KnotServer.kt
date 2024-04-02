@@ -8,6 +8,7 @@ import com.google.firebase.database.ValueEventListener
 import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
+import com.knot.domain.vo.AddChatRequest
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
@@ -70,9 +71,9 @@ object KnotServer {
     }
 
     suspend fun getChatList(knotId: String) : Flow<Response<List<ChatVo>>> = callbackFlow {
-        val chatList = mutableListOf<ChatVo>()
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val chatList = mutableListOf<ChatVo>()
                 if(snapshot.exists()){
                     for (dataSnapshot in snapshot.children) {
                         dataSnapshot.children.forEach {
@@ -88,7 +89,7 @@ object KnotServer {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                trySend(Response(data = chatList, result = ResultCode.TEST_ERROR))
+                trySend(Response(data = emptyList(), result = ResultCode.TEST_ERROR))
             }
         }
         chatRef.child(knotId).addValueEventListener(listener)
@@ -125,5 +126,18 @@ object KnotServer {
                     callback(false)
                 }
             }
+    }
+
+    suspend fun addChat(request : AddChatRequest) : Response<Boolean> = suspendCoroutine {
+        val key = request.chat.id + "-" + request.time
+        chatRef.child(request.knotId).child(request.chat.date).child(key).setValue(request.chat)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                }
+                else{
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                }
+        }
     }
 }

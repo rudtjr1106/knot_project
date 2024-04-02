@@ -86,11 +86,17 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
         when(event){
             KnotDetailEvent.GoToBackEvent -> findNavController().popBackStack()
             KnotDetailEvent.GoToStatisticsEvent -> goToStatistics()
+            KnotDetailEvent.GoToChatEvent -> goToChat()
         }
     }
 
     private fun goToStatistics(){
         val action = KnotDetailFragmentDirections.actionKnotDetailToStatisticsDetail(knotDetailFragmentArgs.knotId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToChat(){
+        val action = KnotDetailFragmentDirections.actionKnotDetailToChatDetail(knotDetailFragmentArgs.knotId)
         findNavController().navigate(action)
     }
 

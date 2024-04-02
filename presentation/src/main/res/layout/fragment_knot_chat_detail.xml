@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.main.knotMain.detail.chat.ChatDetailViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background">
@@ -24,6 +31,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/bold_16"
             android:textColor="@color/black"
+            android:text="@{vm.uiState.knotDetail.title}"
             app:layout_constraintBottom_toBottomOf="@id/image_button_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +80,7 @@
             android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_chat"
             app:layout_constraintTop_toBottomOf="@id/text_view_team_chat"
             app:layout_constraintBottom_toTopOf="@id/constraint_layout_insert_chat"
             android:layout_marginTop="12dp"
@@ -96,13 +105,14 @@
                 android:background="@drawable/ic_send_ffcc00"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
-            
+
             <EditText
                 android:id="@+id/edit_text_chat"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image_view_send"
                 android:background="@android:color/transparent"
+                android:text="@={vm.uiState.chatText}"
                 android:textColor="@color/black"
                 android:textColorHint="@color/color_c4c4c4"
                 android:textAppearance="@style/medium_14"
@@ -118,6 +128,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp"
+                android:onClick="@{()->vm.onClickSend()}"
                 android:background="@drawable/bg_rectangle_filled_ffcc00_radius_4"
                 android:text="@string/word_send"
                 style="@style/Widget.AppCompat.Button.Borderless"

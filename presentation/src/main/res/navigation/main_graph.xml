@@ -59,6 +59,10 @@
             android:id="@+id/action_knot_detail_to_statistics_detail"
             app:destination="@id/statisticsDetailFragment"/>
 
+        <action
+            android:id="@+id/action_knot_detail_to_chat_detail"
+            app:destination="@id/chatDetailFragment"/>
+
     </fragment>
 
     <fragment
@@ -72,6 +76,18 @@
             android:defaultValue=""
             app:argType="string"/>
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatDetailFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.chat.ChatDetailFragment"
+        android:label="fragment_chat_detail"
+        tools:layout="@layout/fragment_knot_chat_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
     <fragment
