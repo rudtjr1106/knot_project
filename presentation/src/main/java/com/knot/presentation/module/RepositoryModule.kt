@@ -1,6 +1,8 @@
 package com.knot.presentation.module
 
+import com.knot.data.repository.KnotRepositoryImpl
 import com.knot.data.repository.SignRepositoryImpl
+import com.knot.domain.repository.KnotRepository
 import com.knot.domain.repository.SignRepository
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun provideSignRepository(signRepositoryImpl: SignRepositoryImpl): SignRepository
+
+    @Singleton
+    @Binds
+    abstract fun provideKnotRepository(knotRepositoryImpl: KnotRepositoryImpl): KnotRepository
 }

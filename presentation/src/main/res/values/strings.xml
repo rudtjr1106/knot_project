@@ -16,6 +16,9 @@
     <string name="word_see_more">더보기</string>
     <string name="word_calendar">캘린더</string>
     <string name="word_today">TODAY</string>
+    <string name="word_statistics">통계</string>
+    <string name="word_loading">로딩중...</string>
+    <string name="word_all_statistics">종합 통계</string>
 
     <!-- Sign -->
     <string name="sign_email">이메일로 시작하기</string>
@@ -45,5 +48,21 @@
     <string name="main_calendar_year">%s.</string>
     <string name="main_calendar_month">%s월</string>
     <string name="main_calendar_day_with_week">%d. %s</string>
+
+    <!-- Main_Detail_Knot -->
+    <string name="main_knot_detail_my_statistics">나의 참여율</string>
+    <string name="main_knot_detail_personal_statistics">개인 참여율</string>
+    <string name="main_knot_detail_personal_percent">%s %s%%</string>
+    <string name="main_knot_detail_only_percent">%d%%</string>
+    <string name="main_knot_detail_only_count">%d회</string>
+    <string name="main_knot_detail_only_object_count">%d개</string>
+    <string name="main_knot_detail_team_chat">팀 대화</string>
+    <string name="main_knot_detail_best_team">참여 BEST</string>
+    <string name="main_knot_detail_chat_statistics">대화 참여율</string>
+    <string name="main_knot_detail_gathering_statistics">모임 참여</string>
+    <string name="main_knot_detail_todo_statistics">완료한 일</string>
+    <string name="main_knot_detail_rank_statistics">전체 순위</string>
+    <string name="main_knot_detail_ranking">%d위.</string>
+    <string name="main_knot_detail_best_team_all_statistics">(%s%%)</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.knot.presentation.ui.main.knotMain
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentMainBinding
@@ -20,8 +21,20 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
 
     private val mainAdapter : MainAdapter by lazy {
         MainAdapter(object : MainAdapter.MainDelegate{
+            override fun onClickSeeMoreParticipatingKnot() {
+                goToParticipatingKnotMore()
+            }
+
             override fun onClickWeek() {
                 goToCalendar()
+            }
+
+            override fun onClickKnot(id: String) {
+                goToKnotDetail(id)
+            }
+
+            override fun onClickCheckButton(request: CheckKnotTodoRequest) {
+                viewModel.onClickComplete(request)
             }
         })
     }
@@ -35,7 +48,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
                 adapter = mainAdapter
             }
 
-            viewModel.getMyInfo()
+            viewModel.getMyKnotList()
         }
     }
 
@@ -59,6 +72,16 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainViewMo
 
     private fun goToCalendar(){
         val action = MainFragmentDirections.actionMainToCalendar()
+        findNavController().navigate(action)
+    }
+
+    private fun goToParticipatingKnotMore(){
+        val action = MainFragmentDirections.actionMainToParticipatingKnot()
+        findNavController().navigate(action)
+    }
+
+    private fun goToKnotDetail(knotId : String){
+        val action = MainFragmentDirections.actionMainToKnotDetail(knotId)
         findNavController().navigate(action)
     }
 

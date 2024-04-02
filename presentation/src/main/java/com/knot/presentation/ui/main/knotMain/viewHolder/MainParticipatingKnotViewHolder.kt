@@ -14,12 +14,18 @@ class MainParticipatingKnotViewHolder(
 
     private val mainParticipatingKnotAdapter : MainParticipatingKnotAdapter by lazy {
         MainParticipatingKnotAdapter(object : MainParticipatingKnotAdapter.MainParticipatingKnotDelegate{
-
+            override fun onClickKnot(id: String) {
+                listener.onClickKnot(id)
+            }
         })
     }
 
     init {
         binding.apply {
+            textViewSeeMore.setOnClickListener {
+                listener.onClickSeeMoreParticipatingKnot()
+            }
+
             recyclerViewParticipatingKnot.apply {
                 layoutManager = LinearLayoutManager(root.context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = mainParticipatingKnotAdapter

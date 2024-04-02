@@ -28,27 +28,27 @@ class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPa
 
     fun onClickMain() {
         activeMain()
-        emitEventFlow(MainEvent.GoToMain)
+        emitEventFlow(MainActivityEvent.GoToMain)
     }
 
     fun onClickKnotList() {
         activeKnotList()
-        emitEventFlow(MainEvent.GoToKnotList)
+        emitEventFlow(MainActivityEvent.GoToKnotList)
     }
 
     fun onClickCreateKnot() {
         goneNavigation()
-        emitEventFlow(MainEvent.GoToCreateKnot)
+        emitEventFlow(MainActivityEvent.GoToCreateKnot)
     }
 
     fun onClickProfile() {
         activeProfile()
-        emitEventFlow(MainEvent.GoToProfile)
+        emitEventFlow(MainActivityEvent.GoToProfile)
     }
 
     fun onClickSetting() {
         activieSetting()
-        emitEventFlow(MainEvent.GoToSetting)
+        emitEventFlow(MainActivityEvent.GoToSetting)
     }
 
     fun activeMain(){

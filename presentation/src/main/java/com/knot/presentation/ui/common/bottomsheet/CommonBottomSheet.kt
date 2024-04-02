@@ -1,4 +1,4 @@
-package com.knot.presentation.ui.main.knotMain.calendar.bottomsheet
+package com.knot.presentation.ui.common.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.knot.presentation.databinding.KnotBottomSheetBinding
+import com.knot.presentation.databinding.CommonBottomSheetBinding
 import com.knot.presentation.util.serializable
 import java.io.Serializable
 
-class KnotBottomSheet : BottomSheetDialogFragment() {
+class CommonBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
         private const val KEY_MENU_TYPE = "KEY_MENU_TYPE"
@@ -22,7 +22,7 @@ class KnotBottomSheet : BottomSheetDialogFragment() {
             menuList: List<String>,
             selectedMenu: String? = null,
             menuClick: (String) -> Unit
-        ) = KnotBottomSheet().apply {
+        ) = CommonBottomSheet().apply {
             this.menuClick = menuClick
             arguments = Bundle().apply {
                 putSerializable(KEY_MENU_TYPE, menuList as Serializable)
@@ -39,8 +39,8 @@ class KnotBottomSheet : BottomSheetDialogFragment() {
         arguments?.serializable(KEY_SELECTED_MENU_TYPE)
     }
 
-    private val binding: KnotBottomSheetBinding by lazy {
-        KnotBottomSheetBinding.inflate(layoutInflater)
+    private val binding: CommonBottomSheetBinding by lazy {
+        CommonBottomSheetBinding.inflate(layoutInflater)
     }
 
     private val listAdapter: KnotBottomSheetAdapter by lazy {

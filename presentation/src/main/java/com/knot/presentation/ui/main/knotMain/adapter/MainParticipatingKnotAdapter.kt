@@ -13,7 +13,7 @@ class MainParticipatingKnotAdapter(
 ) : ListAdapter<KnotVo, RecyclerView.ViewHolder>(MainParticipatingKnotDiffCallBack()) {
 
     interface MainParticipatingKnotDelegate {
-
+        fun onClickKnot(id : String)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

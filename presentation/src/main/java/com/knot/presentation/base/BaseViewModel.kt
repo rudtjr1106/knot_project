@@ -40,5 +40,6 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
     protected fun<Vo> resultResponse(response: Response<Vo>, successCallback : (Vo) -> Unit, errorCallback : ((Int) -> Unit)? = null){
         if(response.result == ResultCode.SUCCESS) successCallback.invoke(response.data)
         else errorCallback?.invoke(response.result)
+        endLoading()
     }
 }
