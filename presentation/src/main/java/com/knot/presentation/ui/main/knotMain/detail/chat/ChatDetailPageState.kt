@@ -10,4 +10,5 @@ data class ChatDetailPageState(
     val knotDetail: StateFlow<KnotVo>,
     val chatList : StateFlow<List<ChatLayoutVo>>,
     var chatText : MutableStateFlow<String>,
+    val insideChatRoomMember : StateFlow<HashMap<String, Boolean>>
 ) : PageState

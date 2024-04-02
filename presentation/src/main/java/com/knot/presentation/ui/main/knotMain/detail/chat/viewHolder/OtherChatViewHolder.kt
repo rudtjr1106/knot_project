@@ -15,12 +15,19 @@ class OtherChatViewHolder(
 
     fun bind(item : ChatVo, type : ChatType) {
         binding.apply {
-            if(type == ChatType.OTHER_SAME_CHAT) textViewName.visibility = View.GONE
+            if(type == ChatType.OTHER_SAME_CHAT || type == ChatType.OTHER_SAME_TIME_CHAT) textViewName.visibility = View.GONE
+            else textViewName.visibility = View.VISIBLE
+
             textViewName.text = item.name
             textViewMyChat.text = item.content
+
             val readCount = getReadCount(item.readWho.values.toList())
             textViewReadCount.text = readCount.toString()
             if(readCount == 0) textViewReadCount.visibility = View.GONE
+            else textViewReadCount.visibility = View.VISIBLE
+
+            if(type == ChatType.OTHER_SAME_TIME_CHAT) textViewChatTime.visibility = View.GONE
+            else textViewChatTime.visibility = View.VISIBLE
             textViewChatTime.text = item.time
         }
     }

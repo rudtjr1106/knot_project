@@ -6,6 +6,8 @@ import com.knot.domain.repository.KnotRepository
 import com.knot.domain.vo.AddChatRequest
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
+import com.knot.domain.vo.InsideChatRequest
+import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -32,5 +34,11 @@ class KnotRepositoryImpl @Inject constructor() : KnotRepository {
 
     override suspend fun addChat(request: AddChatRequest): Flow<Response<Boolean>> = flow {
         emit(KnotServer.addChat(request))
+    }
+
+    override suspend fun insideChat(request: InsideChatRequest): Flow<Response<InsideChatResponse>> = flow{
+        KnotServer.insideChat(request).collect{
+            emit(it)
+        }
     }
 }

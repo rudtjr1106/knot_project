@@ -20,7 +20,7 @@ class ChatAdapter: ListAdapter<ChatLayoutVo, RecyclerView.ViewHolder>(ChatDiffCa
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is DivideChatViewHolder -> holder.bind(currentList[position].chat.date)
-            is MyChatViewHolder -> holder.bind(currentList[position].chat)
+            is MyChatViewHolder -> holder.bind(currentList[position].chat, currentList[position].type)
             is OtherChatViewHolder -> holder.bind(currentList[position].chat, currentList[position].type)
         }
     }
@@ -31,10 +31,12 @@ class ChatAdapter: ListAdapter<ChatLayoutVo, RecyclerView.ViewHolder>(ChatDiffCa
                 val binding = RecyclerItemChatDivideLineBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 DivideChatViewHolder(binding)
             }
+            ChatType.MY_SAME_TIME_CHAT,
             ChatType.MY_CHAT -> {
                 val binding = RecyclerItemMyChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 MyChatViewHolder(binding)
             }
+            ChatType.OTHER_SAME_TIME_CHAT,
             ChatType.OTHER_SAME_CHAT,
             ChatType.OTHER_CHAT -> {
                 val binding = RecyclerItemOtherChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)

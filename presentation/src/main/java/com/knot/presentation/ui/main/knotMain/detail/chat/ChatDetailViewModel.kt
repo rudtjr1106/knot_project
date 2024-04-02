@@ -5,9 +5,12 @@ import com.knot.domain.enums.ChatType
 import com.knot.domain.usecase.knot.AddChatUseCase
 import com.knot.domain.usecase.knot.GetChatListUseCase
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
+import com.knot.domain.usecase.knot.InsideChatUseCase
 import com.knot.domain.vo.AddChatRequest
 import com.knot.domain.vo.ChatLayoutVo
 import com.knot.domain.vo.ChatVo
+import com.knot.domain.vo.InsideChatRequest
+import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TeamStatisticsVo
 import com.knot.presentation.PageState
@@ -29,7 +32,8 @@ import javax.inject.Inject
 class ChatDetailViewModel @Inject constructor(
     private val getKnotDetailUseCase: GetKnotDetailUseCase,
     private val getChatListUseCase: GetChatListUseCase,
-    private val addChatUseCase: AddChatUseCase
+    private val addChatUseCase: AddChatUseCase,
+    private val insideChatUseCase: InsideChatUseCase,
 ) : BaseViewModel<ChatDetailPageState>() {
 
     private val knotDetailStateFlow : MutableStateFlow<KnotVo> = MutableStateFlow(KnotVo())
@@ -37,14 +41,19 @@ class ChatDetailViewModel @Inject constructor(
         emptyList()
     )
     private val chatTextStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val insideChatRoomMemberStateFlow : MutableStateFlow<HashMap<String, Boolean>> = MutableStateFlow(
+        hashMapOf()
+    )
 
     override val uiState: ChatDetailPageState = ChatDetailPageState(
         knotDetailStateFlow.asStateFlow(),
         chatListStateFlow.asStateFlow(),
-        chatTextStateFlow
+        chatTextStateFlow,
+        insideChatRoomMemberStateFlow.asStateFlow()
     )
 
     fun getDetail(knotId : String){
+        insideChatRoom(knotId, true)
         getKnotDetail(knotId)
         getChatList(knotId)
     }
@@ -76,7 +85,21 @@ class ChatDetailViewModel @Inject constructor(
         val chatList = getSortedList(result)
         viewModelScope.launch {
             chatListStateFlow.update { addDivideLine(chatList) }
-            emitEventFlow(ChatDetailEvent.ScrollDownEvent)
+        }
+    }
+
+    private fun insideChatRoom(knotId: String, isInside : Boolean){
+        val request = InsideChatRequest(knotId = knotId, id = UserInfo.info.id, isInside = isInside)
+        viewModelScope.launch {
+            insideChatUseCase(request).collect{
+                resultResponse(it, ::successInsideChatRoom)
+            }
+        }
+    }
+
+    private fun successInsideChatRoom(result : InsideChatResponse){
+        viewModelScope.launch {
+            insideChatRoomMemberStateFlow.update { result.member }
         }
     }
 
@@ -98,12 +121,18 @@ class ChatDetailViewModel @Inject constructor(
                 chatList.add(ChatLayoutVo(type = ChatType.DIVIDE, chat = list[i].chat))
                 chatList.add(list[i])
             }
-            else if(list[i].chat.date != list[i - 1].chat.date){
+            else if(isDifferentDate(list[i], list[i - 1])){
                 chatList.add(ChatLayoutVo(type = ChatType.DIVIDE, chat = list[i].chat))
                 chatList.add(list[i])
             }
-            else if(list[i].type != ChatType.MY_CHAT && list[i].chat.id == list[i - 1].chat.id){
+            else if(i != list.lastIndex && isOtherChatSameTime(list[i], list[i + 1])){
+                chatList.add(ChatLayoutVo(type = ChatType.OTHER_SAME_TIME_CHAT, chat = list[i].chat))
+            }
+            else if(isOtherChatSame(list[i], list[i - 1])){
                 chatList.add(ChatLayoutVo(type = ChatType.OTHER_SAME_CHAT, chat = list[i].chat))
+            }
+            else if(i != list.lastIndex && isMyChatSameTime(list[i], list[i + 1])){
+                chatList.add(ChatLayoutVo(type = ChatType.MY_SAME_TIME_CHAT, chat = list[i].chat))
             }
             else{
                 chatList.add(list[i])
@@ -113,12 +142,26 @@ class ChatDetailViewModel @Inject constructor(
         return chatList
     }
 
+    private fun isDifferentDate(compare1 : ChatLayoutVo, compare2: ChatLayoutVo) : Boolean{
+        return compare1.chat.date != compare2.chat.date
+    }
+
+    private fun isOtherChatSameTime(compare1 : ChatLayoutVo, compare2: ChatLayoutVo) : Boolean{
+        return compare1.type != ChatType.MY_CHAT && compare1.chat.id == compare2.chat.id
+                && compare1.chat.time == compare2.chat.time
+    }
+
+    private fun isOtherChatSame(compare1 : ChatLayoutVo, compare2: ChatLayoutVo) : Boolean{
+        return compare1.type != ChatType.MY_CHAT && compare1.chat.id == compare2.chat.id
+    }
+
+    private fun isMyChatSameTime(compare1 : ChatLayoutVo, compare2: ChatLayoutVo) : Boolean{
+        return compare1.type == ChatType.MY_CHAT && compare1.chat.id == compare2.chat.id
+                && compare1.chat.time == compare2.chat.time
+    }
+
     fun onClickSend(){
         if(chatTextStateFlow.value.trim().isNotEmpty()) {
-            val readMap = hashMapOf<String, Boolean>()
-            knotDetailStateFlow.value.teamList.forEach {
-                if (it.value.id != UserInfo.info.id) readMap[it.value.id] = false
-            }
             val request = AddChatRequest(
                 knotId = knotDetailStateFlow.value.knotId,
                 time = DateTimeFormatter.getNowTimeWithSecond(),
@@ -127,7 +170,7 @@ class ChatDetailViewModel @Inject constructor(
                     date = DateTimeFormatter.getToday(),
                     id = UserInfo.info.id,
                     name = UserInfo.info.name,
-                    readWho = readMap,
+                    readWho = insideChatRoomMemberStateFlow.value,
                     time = DateTimeFormatter.getNowTimeWithoutSecond()
                 )
             )
@@ -143,5 +186,9 @@ class ChatDetailViewModel @Inject constructor(
         viewModelScope.launch {
             chatTextStateFlow.update { "" }
         }
+    }
+
+    fun outChatRoom(knotId: String){
+        insideChatRoom(knotId, false)
     }
 }

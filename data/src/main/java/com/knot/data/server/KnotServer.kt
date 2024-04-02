@@ -11,6 +11,8 @@ import com.knot.domain.resultCode.ResultCode
 import com.knot.domain.vo.AddChatRequest
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
+import com.knot.domain.vo.InsideChatRequest
+import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -23,6 +25,7 @@ object KnotServer {
     private val db = FirebaseDatabase.getInstance()
     private val knotRef = db.getReference(Endpoints.KNOT)
     private val chatRef = db.getReference(Endpoints.CHAT)
+    private val chatMemberRef = db.getReference(Endpoints.CHAT_MEMBER)
     private val authRef = db.getReference(Endpoints.USER)
     private val auth = FirebaseAuth.getInstance()
 
@@ -139,5 +142,55 @@ object KnotServer {
                     it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
                 }
         }
+    }
+
+    suspend fun insideChat(request : InsideChatRequest) : Flow<Response<InsideChatResponse>> = callbackFlow {
+        if (request.isInside) readAllChat(request)
+        val listener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val map = hashMapOf<String, Boolean>()
+                for (dataSnapshot in snapshot.children) {
+                    if(dataSnapshot.key.toString() != request.id){
+                        map[dataSnapshot.key.toString()] = dataSnapshot.value.toString().toBoolean()
+                    }
+                }
+                trySend(Response(data = InsideChatResponse(map), result = ResultCode.SUCCESS))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(Response(data = InsideChatResponse(), result = ResultCode.TEST_ERROR))
+            }
+        }
+        chatMemberRef.child(request.knotId).child(request.id).setValue(request.isInside)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    chatMemberRef.child(request.knotId).addValueEventListener(listener)
+                }
+                else{
+                    trySend(Response(data = InsideChatResponse(), result = ResultCode.TEST_ERROR))
+                }
+            }
+        awaitClose { chatMemberRef.child(request.knotId).removeEventListener(listener) }
+    }
+
+    private fun readAllChat(request : InsideChatRequest){
+        chatRef.child(request.knotId).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (dataSnapshot in snapshot.children) {
+                    dataSnapshot.children.forEach {
+                        val chatVo = it.getValue(ChatVo::class.java)
+                        if (chatVo != null) {
+                            if(chatVo.id != request.id){
+                                chatRef.child(request.knotId).child(dataSnapshot.key.toString()).child(it.key.toString())
+                                    .child(Endpoints.CHAT_READ_MEMBER).child(request.id).setValue(request.isInside)
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 }

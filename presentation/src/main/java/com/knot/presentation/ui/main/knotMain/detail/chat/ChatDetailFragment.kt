@@ -34,6 +34,7 @@ class ChatDetailFragment : BaseFragment<FragmentKnotChatDetailBinding, ChatDetai
             recyclerViewChat.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = chatAdapter
+                itemAnimator = null
 
                 addOnLayoutChangeListener(onLayoutChangeListener)
                 viewTreeObserver.addOnScrollChangedListener {
@@ -101,5 +102,10 @@ class ChatDetailFragment : BaseFragment<FragmentKnotChatDetailBinding, ChatDetai
 
     override fun onStart() {
         super.onStart()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.outChatRoom(chatDetailFragmentArgs.knotId)
     }
 }

@@ -2,6 +2,7 @@ package com.knot.presentation.ui.main.knotMain.detail.chat.viewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.knot.domain.enums.ChatType
 import com.knot.domain.vo.ChatVo
 import com.knot.presentation.databinding.RecyclerItemMyChatBinding
 
@@ -12,13 +13,16 @@ class MyChatViewHolder(
     init {
     }
 
-    fun bind(item : ChatVo) {
+    fun bind(item : ChatVo, type : ChatType) {
         binding.apply {
             textViewMyChat.text = item.content
             val readCount = getReadCount(item.readWho.values.toList())
             textViewReadCount.text = readCount.toString()
             if(readCount == 0) textViewReadCount.visibility = View.GONE
             else textViewReadCount.visibility = View.VISIBLE
+
+            if(type == ChatType.MY_SAME_TIME_CHAT) textViewChatTime.visibility = View.GONE
+            else textViewChatTime.visibility = View.VISIBLE
             textViewChatTime.text = item.time
         }
     }
