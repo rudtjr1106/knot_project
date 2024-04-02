@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <ImageButton
+            android:id="@+id/image_button_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_knot_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/bold_16"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_button_back"
+            tools:text="유니버설 디자인 조별과제" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@drawable/image_title_line"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_team_chat"
+            app:layout_constraintEnd_toEndOf="@id/text_view_team_chat"
+            app:layout_constraintStart_toStartOf="@id/text_view_team_chat" />
+
+        <TextView
+            android:id="@+id/text_view_team_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/main_knot_detail_team_chat_room"
+            android:textAppearance="@style/bold_24"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_button_back" />
+
+        <ImageView
+            android:id="@+id/image_view_people"
+            app:layout_constraintStart_toEndOf="@id/text_view_team_chat"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_team_chat"
+            android:layout_marginStart="11dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="14dp"
+            android:background="@drawable/ic_people_black"
+            android:layout_height="14dp"/>
+
+        <TextView
+            android:id="@+id/text_view_participate_people"
+            app:layout_constraintTop_toTopOf="@id/image_view_people"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_people"
+            app:layout_constraintStart_toEndOf="@id/image_view_people"
+            android:layout_marginStart="4dp"
+            tools:text="4"
+            android:textAppearance="@style/regular_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@id/text_view_team_chat"
+            app:layout_constraintBottom_toTopOf="@id/constraint_layout_insert_chat"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_insert_chat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:minHeight="40dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/image_view_send"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_send_ffcc00"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+            
+            <EditText
+                android:id="@+id/edit_text_chat"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_view_send"
+                android:background="@android:color/transparent"
+                android:textColor="@color/black"
+                android:textColorHint="@color/color_c4c4c4"
+                android:textAppearance="@style/medium_14"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="1dp"
+                android:hint="@string/main_knot_detail_chat_message_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_send"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_rectangle_filled_ffcc00_radius_4"
+                android:text="@string/word_send"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:textColor="@color/white"
+                android:textAppearance="@style/bold_14"
+                android:layout_width="72dp"
+                android:layout_height="28dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

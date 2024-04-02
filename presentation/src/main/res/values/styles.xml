@@ -39,6 +39,12 @@
         <item name="fontFamily">@font/pretendard_bold</item>
     </style>
 
+    <style name="bold_12">
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">14sp</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+    </style>
+
     <style name="bold_10">
         <item name="android:textSize">10sp</item>
         <item name="lineHeight">14sp</item>
@@ -85,6 +91,12 @@
         <item name="fontFamily">@font/pretendard_regular</item>
     </style>
 
+    <style name="regular_14">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">17sp</item>
+        <item name="fontFamily">@font/pretendard_regular</item>
+    </style>
+
     <style name="regular_12">
         <item name="android:textSize">12sp</item>
         <item name="lineHeight">14sp</item>
@@ -94,6 +106,12 @@
     <style name="regular_10">
         <item name="android:textSize">10sp</item>
         <item name="lineHeight">12sp</item>
+        <item name="fontFamily">@font/pretendard_regular</item>
+    </style>
+
+    <style name="regular_8">
+        <item name="android:textSize">8sp</item>
+        <item name="lineHeight">10sp</item>
         <item name="fontFamily">@font/pretendard_regular</item>
     </style>
 </resources>
