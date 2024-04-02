@@ -107,7 +107,8 @@ class KnotDetailViewModel @Inject constructor(
         }
         val list = mutableListOf<TeamStatisticsDetailVo>()
         knotDetailStateFlow.value.teamList.forEach {
-            list.add(TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getAllStatistics(it.value.id).toString()))
+            val vo = TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getAllStatistics(it.value.id).toString())
+            list.add(vo)
         }
         list.removeIf { it.id == UserInfo.info.id }
         updateOtherStatistics(list)

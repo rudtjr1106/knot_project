@@ -102,7 +102,8 @@ class StatisticsDetailViewModel @Inject constructor(
     private fun getAllTypeTeamStatistics() : List<TeamStatisticsVo>{
         val list = mutableListOf<TeamStatisticsDetailVo>()
         knotDetailStateFlow.value.teamList.forEach {
-            list.add(TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getAllStatistics(it.value.id).toString(), type = StatisticsDetailType.ALL))
+            val vo = TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getAllStatistics(it.value.id).toString(), type = StatisticsDetailType.ALL)
+            list.add(vo)
         }
         val sortedList = list.sortedByDescending { it.statistics.toDouble() }
         return listOf(TeamStatisticsVo(type = StatisticsDetailType.ALL, teamStatisticsList = sortedList))
@@ -111,7 +112,8 @@ class StatisticsDetailViewModel @Inject constructor(
     private fun getTodoTypeTeamStatistics() : List<TeamStatisticsVo>{
         val list = mutableListOf<TeamStatisticsDetailVo>()
         knotDetailStateFlow.value.teamList.forEach {
-            list.add(TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getTodoCompleteStatistics(it.value.id).toString(), type = StatisticsDetailType.TODO))
+            val vo = TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getTodoCompleteStatistics(it.value.id).toString(), type = StatisticsDetailType.TODO)
+            list.add(vo)
         }
         val sortedList = list.sortedByDescending { it.statistics.toDouble() }
         return listOf(TeamStatisticsVo(type = StatisticsDetailType.TODO, teamStatisticsList = sortedList))
@@ -120,7 +122,8 @@ class StatisticsDetailViewModel @Inject constructor(
     private fun getChatTypeTeamStatistics() : List<TeamStatisticsVo>{
         val list = mutableListOf<TeamStatisticsDetailVo>()
         knotDetailStateFlow.value.teamList.forEach {
-            list.add(TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getChatStatistics(it.value.id).toString(), type = StatisticsDetailType.CHAT))
+            val vo = TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getChatStatistics(it.value.id).toString(), type = StatisticsDetailType.CHAT)
+            list.add(vo)
         }
         val sortedList = list.sortedByDescending { it.statistics.toDouble() }
         return listOf(TeamStatisticsVo(type = StatisticsDetailType.CHAT, teamStatisticsList = sortedList))
@@ -129,7 +132,8 @@ class StatisticsDetailViewModel @Inject constructor(
     private fun getGatheringTypeTeamStatistics() : List<TeamStatisticsVo>{
         val list = mutableListOf<TeamStatisticsDetailVo>()
         knotDetailStateFlow.value.teamList.forEach {
-            list.add(TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getGatheringStatistics(it.value.id).toString(), type = StatisticsDetailType.GATHERING))
+            val vo = TeamStatisticsDetailVo(id = it.value.id, name = it.value.name, statistics = getGatheringStatistics(it.value.id).toString(), type = StatisticsDetailType.GATHERING)
+            list.add(vo)
         }
         val sortedList = list.sortedByDescending { it.statistics.toDouble() }
         return listOf(TeamStatisticsVo(type = StatisticsDetailType.GATHERING, teamStatisticsList = sortedList))
