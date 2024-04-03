@@ -181,4 +181,8 @@ class KnotDetailViewModel @Inject constructor(
     fun onClickStatistics(){
         emitEventFlow(KnotDetailEvent.GoToStatisticsEvent)
     }
+
+    fun onClickChat(){
+        emitEventFlow(KnotDetailEvent.GoToChatEvent)
+    }
 }
