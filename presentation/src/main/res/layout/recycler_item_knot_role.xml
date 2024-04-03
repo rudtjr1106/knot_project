@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bg_rectangle_filled_white_radius_8">
+
+        <TextView
+            android:id="@+id/text_view_host_or_member"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@style/bold_18"
+            tools:text="팀 장"
+            android:textColor="@color/color_ffcc00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_id"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_view_host_or_member"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/color_8c8c8c"
+            android:textAppearance="@style/medium_10"
+            tools:text="rudtjr1106"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_name"
+            app:layout_constraintTop_toBottomOf="@id/text_view_id"
+            app:layout_constraintStart_toStartOf="@id/text_view_id"
+            android:textColor="@color/black"
+            android:textAppearance="@style/medium_14"
+            tools:text="조경석"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_role"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_view_name"
+            android:layout_marginStart="66dp"
+            android:textColor="@color/color_8c8c8c"
+            android:textAppearance="@style/medium_10"
+            android:text="@string/word_role"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_text_role"
+            app:layout_constraintTop_toBottomOf="@id/text_view_role"
+            app:layout_constraintStart_toStartOf="@id/text_view_role"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textAppearance="@style/medium_14"
+            tools:text="PPT, 자료조사"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

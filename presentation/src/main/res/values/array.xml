@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="knot_menu_host">
+        <item>역할/룰 편집</item>
+        <item>매듭 편집</item>
+        <item>신청자 확인</item>
+    </string-array>
+</resources>

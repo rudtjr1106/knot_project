@@ -12,5 +12,6 @@ data class KnotDetailPageState(
     val todoList : StateFlow<List<TodoVo>>,
     val myAllStatistics : StateFlow<Int>,
     val lastChat: StateFlow<ChatVo>,
-    val otherStatisticsList : StateFlow<List<TeamStatisticsDetailVo>>
+    val otherStatisticsList : StateFlow<List<TeamStatisticsDetailVo>>,
+    val isHost : StateFlow<Boolean>
 ) : PageState

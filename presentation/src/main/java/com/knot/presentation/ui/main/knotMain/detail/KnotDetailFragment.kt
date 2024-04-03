@@ -9,6 +9,7 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.presentation.R
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentKnotDetailBinding
+import com.knot.presentation.ui.common.bottomsheet.CommonBottomSheet
 import com.knot.presentation.ui.main.knotMain.adapter.MainTodoListAdapter
 import com.knot.presentation.ui.main.knotMain.detail.adapter.TeamStatisticsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,6 +89,8 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
             KnotDetailEvent.GoToStatisticsEvent -> goToStatistics()
             KnotDetailEvent.GoToChatEvent -> goToChat()
             KnotDetailEvent.GoToTodoEvent -> goToTodo()
+            KnotDetailEvent.ShowBottomSheet -> showBottomSheet()
+            KnotDetailEvent.GoToEditRuleRoleEvent -> goToEditRuleAndRole()
         }
     }
 
@@ -104,6 +107,18 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
     private fun goToTodo(){
         val action = KnotDetailFragmentDirections.actionKnotDetailToTodoDetail(knotDetailFragmentArgs.knotId)
         findNavController().navigate(action)
+    }
+
+    private fun goToEditRuleAndRole(){
+        val action = KnotDetailFragmentDirections.actionKnotDetailToTodoDetail(knotDetailFragmentArgs.knotId)
+        findNavController().navigate(action)
+    }
+
+    private fun showBottomSheet(){
+        val list = resources.getStringArray(R.array.knot_menu_host).toList()
+        CommonBottomSheet.newInstance(list) {
+            viewModel.onClickBottomSheet(it, list)
+        }.show(parentFragmentManager, "")
     }
 
     override fun onStart() {
