@@ -12,18 +12,12 @@ import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
-import com.knot.domain.vo.TeamStatisticsVo
-import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.ui.main.knotMain.detail.statistics.StatisticsDetailPageState
 import com.knot.presentation.util.DateTimeFormatter
-import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -190,5 +184,9 @@ class ChatDetailViewModel @Inject constructor(
 
     fun outChatRoom(knotId: String){
         insideChatRoom(knotId, false)
+    }
+
+    fun onClickBack(){
+        emitEventFlow(ChatDetailEvent.GoToBackEvent)
     }
 }
