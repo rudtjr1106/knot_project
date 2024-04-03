@@ -1,16 +1,14 @@
 package com.knot.presentation.ui.main.knotMain.detail.chat
 
-import android.graphics.Rect
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentKnotChatDetailBinding
 import com.knot.presentation.ui.main.knotMain.detail.chat.adapter.ChatAdapter
-import com.knot.presentation.util.KnotLog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -75,9 +73,7 @@ class ChatDetailFragment : BaseFragment<FragmentKnotChatDetailBinding, ChatDetai
 
     private fun inspectEvent(event: ChatDetailEvent){
         when(event){
-            ChatDetailEvent.ScrollDownEvent -> {
-
-            }
+            ChatDetailEvent.GoToBackEvent -> findNavController().popBackStack()
         }
     }
 

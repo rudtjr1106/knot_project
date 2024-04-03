@@ -63,6 +63,10 @@
             android:id="@+id/action_knot_detail_to_chat_detail"
             app:destination="@id/chatDetailFragment"/>
 
+        <action
+            android:id="@+id/action_knot_detail_to_todo_detail"
+            app:destination="@id/todoDetailFragment"/>
+
     </fragment>
 
     <fragment
@@ -83,6 +87,18 @@
         android:name="com.knot.presentation.ui.main.knotMain.detail.chat.ChatDetailFragment"
         android:label="fragment_chat_detail"
         tools:layout="@layout/fragment_knot_chat_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/todoDetailFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.todo.TodoDetailFragment"
+        android:label="fragment_todo_detail"
+        tools:layout="@layout/fragment_knot_todo_detail">
 
         <argument
             android:name="knotId"
