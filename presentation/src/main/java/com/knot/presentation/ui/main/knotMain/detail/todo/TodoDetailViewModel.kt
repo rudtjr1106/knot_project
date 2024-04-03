@@ -8,7 +8,6 @@ import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TodoDetailVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,10 +49,9 @@ class TodoDetailViewModel @Inject constructor(
 
     private fun getTodoDetailList(list: List<TodoVo>) : List<TodoDetailVo>{
         val groupTodo = list.groupBy { it.userId }
-        val todoDetailList = groupTodo.map { (userId, todoList) ->
+        val todoDetailList = groupTodo.map { (_, todoList) ->
             TodoDetailVo(getSortedTodoList(todoList))
         }
-        KnotLog.D(todoDetailList.toString())
         return todoDetailList
     }
 
