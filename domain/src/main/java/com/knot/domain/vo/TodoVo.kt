@@ -10,4 +10,9 @@ data class TodoVo (
     val title : String = "",
     val todoId : String = "",
     val userId : String = "",
+    val userName : String = ""
+)
+
+data class TodoDetailVo(
+    val todoList : List<TodoVo> = emptyList()
 )
