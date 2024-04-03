@@ -110,7 +110,7 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
     }
 
     private fun goToEditRuleAndRole(){
-        val action = KnotDetailFragmentDirections.actionKnotDetailToTodoDetail(knotDetailFragmentArgs.knotId)
+        val action = KnotDetailFragmentDirections.actionKnotDetailToEditRoleAndRule(knotDetailFragmentArgs.knotId)
         findNavController().navigate(action)
     }
 

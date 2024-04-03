@@ -49,7 +49,6 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="@{vm.uiState.isHost() ? View.VISIBLE : View.GONE}"
                 android:onClick="@{()->vm.onClickMenu()}"
                 android:background="@drawable/ic_menu"
                 app:layout_constraintBottom_toBottomOf="@id/image_button_back"
