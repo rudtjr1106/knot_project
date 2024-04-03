@@ -7,13 +7,12 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TodoDetailVo
 import com.knot.domain.vo.TodoVo
-import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
 import com.knot.presentation.util.KnotLog
+import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -42,9 +41,10 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     private fun successGetKnotDetail(result : KnotVo){
-        val tooDetailList = getTodoDetailList(result.todoList.values.toList())
+        val todoDetailList = getTodoDetailList(result.todoList.values.toList())
+        val sortedTodoDetailList = getFirstMyName(todoDetailList)
         viewModelScope.launch {
-            todoListStateFlow.update { tooDetailList }
+            todoListStateFlow.update { sortedTodoDetailList }
         }
     }
 
@@ -59,6 +59,10 @@ class TodoDetailViewModel @Inject constructor(
 
     private fun getSortedTodoList(todoList : List<TodoVo>) : List<TodoVo>{
         return todoList.sortedWith(compareBy<TodoVo> { it.complete }.thenBy { LocalDate.parse(it.startDay) })
+    }
+
+    private fun getFirstMyName(list: List<TodoDetailVo>): List<TodoDetailVo> {
+        return list.sortedByDescending { it.todoList.any { todo -> todo.userId == UserInfo.info.id } }
     }
 
     fun onClickComplete(request: CheckKnotTodoRequest){
