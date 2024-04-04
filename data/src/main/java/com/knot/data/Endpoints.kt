@@ -8,4 +8,6 @@ object Endpoints {
     const val CHAT_READ_MEMBER = "readWho"
     const val KNOT_TODO = "todoList"
     const val TODO_COMPLETE = "complete"
+    const val KNOT_TEAM = "teamList"
+    const val KNOT_RULE = "rule"
 }

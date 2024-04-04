@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.knot.domain.vo.TeamUserVo
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentKnotEditRoleAndRuleBinding
@@ -25,7 +26,11 @@ class EditRoleAndRuleFragment : BaseFragment<FragmentKnotEditRoleAndRuleBinding,
     override val viewModel: EditRoleAndRuleViewModel by viewModels()
 
     private val knotRoleAdapter : KnotRoleAdapter by lazy {
-        KnotRoleAdapter()
+        KnotRoleAdapter(object : KnotRoleAdapter.KnotRoleDelegate{
+            override fun onChangedRole(teamUserVo: TeamUserVo) {
+                viewModel.updateTeamRole(teamUserVo)
+            }
+        })
     }
 
     override fun initView() {

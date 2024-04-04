@@ -63,11 +63,13 @@
             android:id="@+id/edit_text_role"
             app:layout_constraintTop_toBottomOf="@id/text_view_role"
             app:layout_constraintStart_toStartOf="@id/text_view_role"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="26dp"
             android:background="@android:color/transparent"
             android:textColor="@color/black"
             android:textAppearance="@style/medium_14"
             tools:text="PPT, 자료조사"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
