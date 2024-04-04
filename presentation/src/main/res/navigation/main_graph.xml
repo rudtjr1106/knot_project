@@ -67,6 +67,10 @@
             android:id="@+id/action_knot_detail_to_todo_detail"
             app:destination="@id/todoDetailFragment"/>
 
+        <action
+            android:id="@+id/action_knot_detail_to_edit_role_and_rule"
+            app:destination="@id/knotEditRoleAndRuleFragment"/>
+
     </fragment>
 
     <fragment
@@ -99,6 +103,18 @@
         android:name="com.knot.presentation.ui.main.knotMain.detail.todo.TodoDetailFragment"
         android:label="fragment_todo_detail"
         tools:layout="@layout/fragment_knot_todo_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotEditRoleAndRuleFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.menu.editRoleAndRule.EditRoleAndRuleFragment"
+        android:label="fragment_knot_edit_role_and_rule"
+        tools:layout="@layout/fragment_knot_edit_role_and_rule">
 
         <argument
             android:name="knotId"

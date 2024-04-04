@@ -7,4 +7,6 @@ sealed class KnotDetailEvent : Event {
     object GoToStatisticsEvent : KnotDetailEvent()
     object GoToChatEvent : KnotDetailEvent()
     object GoToTodoEvent : KnotDetailEvent()
+    object ShowBottomSheet : KnotDetailEvent()
+    object GoToEditRuleRoleEvent : KnotDetailEvent()
 }

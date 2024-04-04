@@ -20,6 +20,11 @@
     <string name="word_loading">로딩중...</string>
     <string name="word_all_statistics">종합 통계</string>
     <string name="word_send">보내기</string>
+    <string name="word_save">저장</string>
+    <string name="word_role">역할</string>
+    <string name="word_nothing">없음</string>
+    <string name="word_team_leader">팀 장</string>
+    <string name="word_team_member">팀 원</string>
 
     <!-- Sign -->
     <string name="sign_email">이메일로 시작하기</string>
@@ -69,5 +74,8 @@
     <string name="main_knot_detail_team_chat">팀 대화</string>
     <string name="main_knot_detail_team_chat_room">팀 대화방</string>
     <string name="main_knot_detail_chat_message_hint">메시지를 입력하세요.</string>
+
+    <!-- Main_Detail_Knot_Role_And_Rule_Edit -->
+    <string name="main_knot_rule_edit">룰 설정</string>
 
 </resources>

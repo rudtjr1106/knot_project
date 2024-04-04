@@ -7,6 +7,7 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
+import com.knot.domain.vo.SaveRoleAndRuleRequest
 import kotlinx.coroutines.flow.Flow
 
 interface KnotRepository {
@@ -16,4 +17,5 @@ interface KnotRepository {
     suspend fun checkKnotTodo(request: CheckKnotTodoRequest) : Flow<Response<Boolean>>
     suspend fun addChat(request: AddChatRequest) : Flow<Response<Boolean>>
     suspend fun insideChat(request: InsideChatRequest) : Flow<Response<InsideChatResponse>>
+    suspend fun saveRoleAndRule(request : SaveRoleAndRuleRequest) : Flow<Response<Boolean>>
 }

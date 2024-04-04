@@ -14,6 +14,7 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
+import com.knot.domain.vo.SaveRoleAndRuleRequest
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -192,5 +193,32 @@ object KnotServer {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+    }
+
+    suspend fun saveRoleAndRule(request : SaveRoleAndRuleRequest) : Response<Boolean> = suspendCoroutine {
+        knotRef.child(request.knotId).child(Endpoints.KNOT_TEAM).setValue(request.teamUserMap)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    saveRule(request) { isSuccess ->
+                        if(isSuccess) it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                        else it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                    }
+                }
+                else{
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                }
+            }
+    }
+
+    private fun saveRule(request: SaveRoleAndRuleRequest, callback : (Boolean) -> Unit) {
+        knotRef.child(request.knotId).child(Endpoints.KNOT_RULE).setValue(request.rule)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    callback(true)
+                }
+                else{
+                    callback(false)
+                }
+            }
     }
 }

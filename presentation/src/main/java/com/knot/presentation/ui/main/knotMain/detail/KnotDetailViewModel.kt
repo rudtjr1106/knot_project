@@ -9,6 +9,7 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TeamStatisticsDetailVo
 import com.knot.domain.vo.TodoVo
+import com.knot.presentation.R
 import com.knot.presentation.base.BaseViewModel
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,9 @@ class KnotDetailViewModel @Inject constructor(
     companion object{
         const val ALL_PERCENT_COUNT = 300
         const val PERCENT_COUNT = 100
+        const val EDIT_RULE_ROLE = 0
+        const val EDIT_KNOT = 1
+        const val CONFIRM_APPLICANT = 2
     }
 
     private val knotDetailStateFlow : MutableStateFlow<KnotVo> = MutableStateFlow(KnotVo())
@@ -36,13 +40,15 @@ class KnotDetailViewModel @Inject constructor(
     private val myAllStatisticsStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val lastChatStateFlow : MutableStateFlow<ChatVo> = MutableStateFlow(ChatVo())
     private val otherStatisticsListStateFlow : MutableStateFlow<List<TeamStatisticsDetailVo>> = MutableStateFlow(emptyList())
+    private val isHostStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: KnotDetailPageState = KnotDetailPageState(
         knotDetailStateFlow.asStateFlow(),
         todoListStateFlow.asStateFlow(),
         myAllStatisticsStateFlow.asStateFlow(),
         lastChatStateFlow.asStateFlow(),
-        otherStatisticsListStateFlow.asStateFlow()
+        otherStatisticsListStateFlow.asStateFlow(),
+        isHostStateFlow.asStateFlow()
     )
 
     private var chatList : List<ChatVo> = emptyList()
@@ -73,6 +79,7 @@ class KnotDetailViewModel @Inject constructor(
         updateTodoList(result.todoList)
         viewModelScope.launch {
             knotDetailStateFlow.update { result }
+            isHostStateFlow.update { result.leader == UserInfo.info.id }
             calculateMyStatistics()
             calculateOtherStatistics()
         }
@@ -188,5 +195,15 @@ class KnotDetailViewModel @Inject constructor(
 
     fun onClickTodo(){
         emitEventFlow(KnotDetailEvent.GoToTodoEvent)
+    }
+
+    fun onClickMenu(){
+        emitEventFlow(KnotDetailEvent.ShowBottomSheet)
+    }
+
+    fun onClickBottomSheet(selectItem : String, list : List<String>){
+        when(selectItem){
+            list[EDIT_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
+        }
     }
 }

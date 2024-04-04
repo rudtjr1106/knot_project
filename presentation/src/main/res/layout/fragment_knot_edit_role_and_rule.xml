@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.main.knotMain.detail.menu.editRoleAndRule.EditRoleAndRuleViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <ImageButton
+                android:id="@+id/image_button_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ic_back"
+                android:onClick="@{()->vm.onClickBack()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_knot_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.uiState.knotDetail.title}"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/image_button_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_button_back"
+                tools:text="유니버설 디자인 조별과제" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/word_save"
+                android:textAppearance="@style/medium_16"
+                android:textColor="@color/color_ffcc00"
+                android:onClick="@{()->vm.onClickSaveButton()}"
+                android:visibility="@{vm.uiState.isHost() ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/image_button_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_button_back" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_role_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_10"
+                android:paddingBottom="2dp"
+                app:layout_constraintTop_toBottomOf="@id/image_button_back">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/image_title_line"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_role"
+                    app:layout_constraintEnd_toEndOf="@id/text_view_role"
+                    app:layout_constraintStart_toStartOf="@id/text_view_role" />
+
+                <TextView
+                    android:id="@+id/text_view_role"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/word_role"
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_role" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_rule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_10"
+                android:minHeight="170dp"
+                android:paddingBottom="12dp"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_role_list">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/image_title_line"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_rule"
+                    app:layout_constraintEnd_toEndOf="@id/text_view_rule"
+                    app:layout_constraintStart_toStartOf="@id/text_view_rule" />
+
+                <TextView
+                    android:id="@+id/text_view_rule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/main_knot_rule_edit"
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/image_button_edit"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginEnd="10dp"
+                    android:onClick="@{()->vm.onClickEditRole()}"
+                    android:background="@drawable/ic_edit_c4c4c4"
+                    android:visibility="@{vm.uiState.isHost() ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_text_rule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@={vm.uiState.ruleText}"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:textAppearance="@style/medium_12"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_rule" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
