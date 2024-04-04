@@ -11,9 +11,9 @@
 
         <TextView
             android:id="@+id/text_view_id"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_button_cancel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_cancel"
             tools:text="rudtjr1106"
             android:textColor="@color/black"
             android:textAppearance="@style/medium_12"
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageButton
+            android:id="@+id/image_button_cancel"
             app:layout_constraintStart_toEndOf="@id/text_view_id"
             android:background="@drawable/ic_close_circle_8c8c8c"
             app:layout_constraintTop_toTopOf="parent"
