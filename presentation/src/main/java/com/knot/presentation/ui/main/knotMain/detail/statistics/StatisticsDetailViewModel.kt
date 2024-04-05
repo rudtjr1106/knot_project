@@ -9,6 +9,7 @@ import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TeamStatisticsDetailVo
 import com.knot.domain.vo.TeamStatisticsVo
 import com.knot.presentation.base.BaseViewModel
+import com.knot.presentation.util.KnotLog
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,6 @@ class StatisticsDetailViewModel @Inject constructor(
 ) : BaseViewModel<StatisticsDetailPageState>() {
 
     companion object{
-        const val ALL_PERCENT_COUNT = 300
         const val PERCENT_COUNT = 100
     }
 
@@ -42,6 +42,7 @@ class StatisticsDetailViewModel @Inject constructor(
     )
 
     private var chatList : List<ChatVo> = emptyList()
+    private var allStatisticsCount = 0
 
     fun getDetail(knotId : String){
         getKnotDetail(knotId)
@@ -140,15 +141,20 @@ class StatisticsDetailViewModel @Inject constructor(
     }
 
     private fun getAllStatistics(id: String): Int {
+        allStatisticsCount = 0
         val gatheringStatistics = getGatheringStatistics(id)
         val todoCompleteStatistics = getTodoCompleteStatistics(id)
         val chatStatistics = getChatStatistics(id)
         return (((gatheringStatistics + todoCompleteStatistics + chatStatistics) /
-                ALL_PERCENT_COUNT.toDouble()) * PERCENT_COUNT).roundToInt()
+                (allStatisticsCount * PERCENT_COUNT).toDouble()) * PERCENT_COUNT).roundToInt()
     }
 
     private fun getGatheringStatistics(id : String) : Int {
         val gatheringList = knotDetailStateFlow.value.gatheringList.values.toList()
+        if(gatheringList.isEmpty()){
+            return 0
+        }
+        allStatisticsCount++
         var participateCount = 0
         gatheringList.forEach { gathering ->
             gathering.participants.values.forEach { user ->
@@ -161,6 +167,10 @@ class StatisticsDetailViewModel @Inject constructor(
 
     private fun getTodoCompleteStatistics(id : String) : Int {
         val todoList = knotDetailStateFlow.value.todoList.values.toList()
+        if(todoList.isEmpty()){
+            return 0
+        }
+        allStatisticsCount++
         var todoCompleteCount = 0
         todoList.forEach { todo ->
             if((todo.userId == id) && todo.complete) todoCompleteCount++
@@ -171,6 +181,7 @@ class StatisticsDetailViewModel @Inject constructor(
 
     private fun getChatStatistics(id : String) : Int {
         var chatCount = 0
+        allStatisticsCount++
         chatList.forEach { chat ->
             if(chat.id == id) chatCount++
         }

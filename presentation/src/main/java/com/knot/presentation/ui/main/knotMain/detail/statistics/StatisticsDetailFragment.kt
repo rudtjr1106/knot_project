@@ -8,6 +8,7 @@ import com.knot.presentation.R
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentKnotStatisticsDetailBinding
 import com.knot.presentation.ui.main.knotMain.detail.statistics.adapter.StatisticsDetailAdapter
+import com.knot.presentation.util.KnotLog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

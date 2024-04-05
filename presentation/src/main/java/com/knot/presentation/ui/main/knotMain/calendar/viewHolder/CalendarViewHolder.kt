@@ -19,6 +19,7 @@ import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarAdapter
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarDayAdapter
 import com.knot.presentation.ui.main.knotMain.calendar.adapter.CalendarTodoAdapter
 import com.knot.presentation.util.DateTimeFormatter
+import com.knot.presentation.util.UserInfo
 import org.threeten.bp.LocalDate
 
 class CalendarViewHolder(
@@ -137,9 +138,11 @@ class CalendarViewHolder(
     private fun isTodoExist(todoMap : HashMap<String, TodoVo>, day : String) : Boolean{
         var isEqual = false
         todoMap.forEach {
-            val dayList = DateTimeFormatter.getDatesBetween(it.value.startDay, it.value.endDay)
-            dayList.forEach { todoDay ->
-                if(todoDay == day) isEqual = true
+            if(it.value.userId == UserInfo.info.id){
+                val dayList = DateTimeFormatter.getDatesBetween(it.value.startDay, it.value.endDay)
+                dayList.forEach { todoDay ->
+                    if(todoDay == day) isEqual = true
+                }
             }
         }
 
@@ -162,11 +165,13 @@ class CalendarViewHolder(
     private fun getTodoList(day: String) : List<CalendarTodoVo>{
         val todoList = mutableListOf<CalendarTodoVo>()
         knotVo.todoList.forEach { todo ->
-            val betweenDay = DateTimeFormatter.getDatesBetween(todo.value.startDay, todo.value.endDay)
-            betweenDay.forEach { dayItem ->
-                if(dayItem == day) todoList.add(
-                    CalendarTodoVo(type = CalendarTodoType.TODO, todo = todo.value)
-                )
+            if(todo.value.userId == UserInfo.info.id ){
+                val betweenDay = DateTimeFormatter.getDatesBetween(todo.value.startDay, todo.value.endDay)
+                betweenDay.forEach { dayItem ->
+                    if(dayItem == day) todoList.add(
+                        CalendarTodoVo(type = CalendarTodoType.TODO, todo = todo.value)
+                    )
+                }
             }
         }
 
