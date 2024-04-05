@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:paddingEnd="6dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bg_rectangle_fiiled_f2f2f2_radius_5"
         android:layout_height="wrap_content">
 

@@ -92,5 +92,8 @@
     <string name="main_create_knot_invite_member_hint">아이디로 사용자 초대</string>
     <string name="main_create_knot_invited_member">초대된 사용자</string>
 
+    <!-- Main_Edit_Knot -->
+    <string name="main_edit_knot">매듭 수정</string>
+
 
 </resources>

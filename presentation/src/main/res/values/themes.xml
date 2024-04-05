@@ -9,9 +9,4 @@
     <style name="Theme.App.RemoveSplash" parent="Base.Theme.Knot_project">
         <item name="android:windowIsTranslucent">true</item>
     </style>
-
-    <style name="CustomRadioButtonStyle" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="colorControlNormal">@color/color_ffcc00</item>
-        <item name="android:textColorPrimary">@color/color_ffcc00</item>
-    </style>
 </resources>

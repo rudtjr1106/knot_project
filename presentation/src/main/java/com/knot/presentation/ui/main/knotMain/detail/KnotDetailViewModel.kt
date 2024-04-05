@@ -9,7 +9,6 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TeamStatisticsDetailVo
 import com.knot.domain.vo.TodoVo
-import com.knot.presentation.R
 import com.knot.presentation.base.BaseViewModel
 import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -204,6 +203,7 @@ class KnotDetailViewModel @Inject constructor(
     fun onClickBottomSheet(selectItem : String, list : List<String>){
         when(selectItem){
             list[EDIT_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
+            list[EDIT_KNOT] -> emitEventFlow(KnotDetailEvent.GoToEditKnotEvent)
         }
     }
 }

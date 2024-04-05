@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="com.knot.domain.enums.CreateOrEditKnotType"/>
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.main.createOrEditKnot.CreateOrEditKnotViewModel" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +24,7 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="12dp"
+                android:onClick="@{()->vm.onClickBack()}"
                 android:background="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/main_create_knot"
+                android:text="@{vm.uiState.pageType == CreateOrEditKnotType.CREATE ? @string/main_create_knot : @string/main_edit_knot}"
                 android:textAppearance="@style/bold_24"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="12dp"
                     android:layout_marginTop="6dp"
+                    android:text="@={vm.uiState.title}"
                     android:background="@drawable/bg_rectangle_filled_f9f9f9_radius_5"
                     android:hint="@string/main_create_knot_title_hint"
                     android:paddingHorizontal="12dp"
@@ -91,6 +100,7 @@
                     android:layout_marginTop="6dp"
                     android:background="@drawable/bg_rectangle_filled_f9f9f9_radius_5"
                     android:gravity="top"
+                    android:text="@={vm.uiState.content}"
                     android:hint="@string/main_create_knot_introduce_hint"
                     android:minHeight="150dp"
                     android:paddingHorizontal="12dp"
@@ -114,7 +124,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/word_private"
-                        android:checked="true"
+                        android:background="@android:color/transparent"
+                        android:checked="@{vm.uiState.isPrivate()}"
                         android:textAppearance="@style/medium_14"
                         android:textColor="@color/black" />
 
@@ -123,6 +134,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
+                        android:background="@android:color/transparent"
+                        android:checked="@{!vm.uiState.isPrivate()}"
                         android:text="@string/word_public"
                         android:textAppearance="@style/medium_14"
                         android:textColor="@color/black" />
@@ -182,6 +195,7 @@
                     android:layout_marginStart="4dp"
                     android:textAppearance="@style/medium_14"
                     android:textColor="@color/black"
+                    android:text="@={vm.uiState.userId}"
                     android:textColorHint="@color/color_8c8c8c"
                     android:hint="@string/main_create_knot_invite_member_hint"
                     android:background="@android:color/transparent"
@@ -198,6 +212,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_rectangle_filled_ffcc00_radius_4"
                 android:text="@string/word_invite"
+                android:onClick="@{()->vm.onClickAddMember()}"
                 android:textAppearance="@style/bold_14"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -221,6 +236,7 @@
                 android:id="@+id/recycler_view_invited_member"
                 app:layout_constraintTop_toBottomOf="@id/text_view_invited_member"
                 android:layout_marginTop="4dp"
+                android:orientation="horizontal"
                 android:layout_marginHorizontal="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

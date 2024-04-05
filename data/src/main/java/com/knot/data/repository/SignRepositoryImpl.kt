@@ -30,4 +30,8 @@ class SignRepositoryImpl @Inject constructor() : SignRepository {
         emit(SignServer.checkAutoLogin())
     }
 
+    override suspend fun getUserInfo(request: String): Flow<Response<UserVo>> = flow {
+        emit(SignServer.getUserInfo(request))
+    }
+
 }

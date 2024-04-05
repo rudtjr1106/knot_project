@@ -2,6 +2,7 @@ package com.knot.data
 
 object Endpoints {
     const val USER = "user"
+    const val USER_ID = "id"
     const val KNOT = "knotList"
     const val CHAT = "chat"
     const val CHAT_MEMBER = "chatMember"
