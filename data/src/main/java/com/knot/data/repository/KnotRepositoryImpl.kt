@@ -46,4 +46,12 @@ class KnotRepositoryImpl @Inject constructor() : KnotRepository {
     override suspend fun saveRoleAndRule(request: SaveRoleAndRuleRequest): Flow<Response<Boolean>> = flow {
         emit(KnotServer.saveRoleAndRule(request))
     }
+
+    override suspend fun editKnot(request: KnotVo): Flow<Response<Boolean>> = flow {
+        emit(KnotServer.editKnot(request))
+    }
+
+    override suspend fun createKnot(request: KnotVo): Flow<Response<Boolean>> = flow {
+        emit(KnotServer.createKnot(request))
+    }
 }

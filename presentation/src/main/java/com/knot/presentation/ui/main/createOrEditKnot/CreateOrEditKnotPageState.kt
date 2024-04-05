@@ -13,6 +13,6 @@ data class CreateOrEditKnotPageState(
     var title : MutableStateFlow<String>,
     var content : MutableStateFlow<String>,
     var userId : MutableStateFlow<String>,
-    val isPrivate : StateFlow<Boolean>,
+    var isPrivate : MutableStateFlow<Boolean>,
     val teamList : StateFlow<HashMap<String, TeamUserVo>>
 ) : PageState

@@ -18,4 +18,6 @@ interface KnotRepository {
     suspend fun addChat(request: AddChatRequest) : Flow<Response<Boolean>>
     suspend fun insideChat(request: InsideChatRequest) : Flow<Response<InsideChatResponse>>
     suspend fun saveRoleAndRule(request : SaveRoleAndRuleRequest) : Flow<Response<Boolean>>
+    suspend fun editKnot(request: KnotVo) : Flow<Response<Boolean>>
+    suspend fun createKnot(request: KnotVo) : Flow<Response<Boolean>>
 }
