@@ -9,4 +9,5 @@ sealed class KnotDetailEvent : Event {
     object GoToTodoEvent : KnotDetailEvent()
     object ShowBottomSheet : KnotDetailEvent()
     object GoToEditRuleRoleEvent : KnotDetailEvent()
+    object GoToEditKnotEvent : KnotDetailEvent()
 }

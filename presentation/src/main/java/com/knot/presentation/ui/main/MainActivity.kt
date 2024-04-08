@@ -45,13 +45,16 @@ class MainActivity :
 
     private fun inspectEvent(event: MainActivityEvent) {
         when (event) {
-            MainActivityEvent.GoToCreateKnot -> {}
             MainActivityEvent.GoToKnotList -> {
                 navController.navigate(R.id.knotListFragment)
             }
 
             MainActivityEvent.GoToMain -> {
                 navController.navigate(R.id.mainFragment)
+            }
+
+            MainActivityEvent.GoToCreateKnot -> {
+                navController.navigate(R.id.createOrEditKnotFragment)
             }
 
             MainActivityEvent.GoToProfile -> {

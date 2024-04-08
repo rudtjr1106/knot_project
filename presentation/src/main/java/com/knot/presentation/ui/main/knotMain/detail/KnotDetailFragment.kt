@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.knot.domain.enums.CreateOrEditKnotType
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.presentation.R
 import com.knot.presentation.base.BaseFragment
@@ -91,6 +92,7 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
             KnotDetailEvent.GoToTodoEvent -> goToTodo()
             KnotDetailEvent.ShowBottomSheet -> showBottomSheet()
             KnotDetailEvent.GoToEditRuleRoleEvent -> goToEditRuleAndRole()
+            KnotDetailEvent.GoToEditKnotEvent -> goToEditKnot()
         }
     }
 
@@ -111,6 +113,11 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
 
     private fun goToEditRuleAndRole(){
         val action = KnotDetailFragmentDirections.actionKnotDetailToEditRoleAndRule(knotDetailFragmentArgs.knotId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToEditKnot(){
+        val action = KnotDetailFragmentDirections.actionKnotDetailToCreateOrEditKnot(knotDetailFragmentArgs.knotId, CreateOrEditKnotType.EDIT)
         findNavController().navigate(action)
     }
 

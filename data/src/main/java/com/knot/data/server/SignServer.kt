@@ -112,4 +112,25 @@ object SignServer {
             it.resume(Response(data = isLogin, result = ResultCode.TEST_ERROR))
         }
     }
+
+    suspend fun getUserInfo(request : String): Response<UserVo> = suspendCoroutine { coroutineScope ->
+        authRef.orderByChild(Endpoints.USER_ID).equalTo(request).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (data in snapshot.children) {
+                        val userData = data.getValue(UserVo::class.java)
+                        userData?.let {
+                            coroutineScope.resume(Response(data = userData, result = ResultCode.SUCCESS))
+                        }
+                    }
+                } else {
+                    coroutineScope.resume(Response(data = UserVo(), result = ResultCode.TEST_ERROR))
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                coroutineScope.resume(Response(data = UserVo(), result = ResultCode.TEST_ERROR))
+            }
+        })
+    }
 }

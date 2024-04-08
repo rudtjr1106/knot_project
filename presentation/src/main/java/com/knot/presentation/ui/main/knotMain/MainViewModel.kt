@@ -10,6 +10,7 @@ import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.MainLayoutVo
 import com.knot.domain.vo.TodoVo
 import com.knot.presentation.base.BaseViewModel
+import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,7 +51,7 @@ class MainViewModel @Inject constructor(
         val todoList = mutableListOf<TodoVo>()
         knotList.forEach{
             it.todoList.forEach { todo ->
-                todoList.add(todo.value)
+                if(todo.value.userId == UserInfo.info.id) todoList.add(todo.value)
             }
         }
         return getSortedTodoList(todoList)

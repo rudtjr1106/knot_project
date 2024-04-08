@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:paddingEnd="6dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_rectangle_filled_f2f2f2_radius_5"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_view_id"
+            app:layout_constraintTop_toTopOf="@id/image_button_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_cancel"
+            tools:text="rudtjr1106"
+            android:textColor="@color/black"
+            android:textAppearance="@style/medium_12"
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/image_button_cancel"
+            app:layout_constraintStart_toEndOf="@id/text_view_id"
+            android:background="@drawable/ic_close_circle_8c8c8c"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginVertical="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="16dp"
+            android:layout_height="16dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -15,6 +15,7 @@ import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.SaveRoleAndRuleRequest
+import com.knot.domain.vo.TeamUserVo
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -220,5 +221,72 @@ object KnotServer {
                     callback(false)
                 }
             }
+    }
+
+    suspend fun editKnot(request : KnotVo) : Response<Boolean> = suspendCoroutine {
+        knotRef.child(request.knotId).setValue(request)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    request.teamList.forEach { editUserKnot(request, it.value.uid) }
+                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                }
+                else{
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                }
+            }
+    }
+
+    suspend fun createKnot(request : KnotVo) : Response<Boolean> = suspendCoroutine {
+        var lastProseId = 1
+        knotRef.orderByChild(Endpoints.KNOT_ID).limitToLast(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (snapshot in dataSnapshot.children) {
+                        val knotVo = snapshot.getValue(KnotVo::class.java)
+                        knotVo?.let { knot ->
+                            lastProseId = extractNumberFromString(knot.knotId)?.plus(1) ?: -1
+                        }
+                    }
+                    val newRequest = request.copy(knotId = lastProseId.toString() + "번")
+
+                    db.getReference(Endpoints.KNOT).child(newRequest.knotId)
+                        .setValue(newRequest)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                addMyKnot(newRequest) { isSuccess ->
+                                    if(isSuccess) it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                                    else it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                                }
+                            } else {
+                                it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                            }
+                        }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                }
+            })
+    }
+
+    private fun addMyKnot(knot: KnotVo, callback: (Boolean) -> Unit) {
+        authRef.child(auth.uid.toString()).child(Endpoints.KNOT).child(knot.knotId).setValue(knot)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            }
+    }
+
+    private fun editUserKnot(knot: KnotVo, uid: String) {
+        authRef.child(uid).child(Endpoints.KNOT).child(knot.knotId).setValue(knot)
+    }
+
+    private fun extractNumberFromString(input: String): Int? {
+        val regex = Regex("\\d+")
+        val matchResult = regex.find(input)
+        return matchResult?.value?.toInt()
     }
 }
