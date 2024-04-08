@@ -5,4 +5,14 @@
         <item>매듭 편집</item>
         <item>신청자 확인</item>
     </string-array>
+
+    <string-array name="knot_category">
+        <item>마케팅</item>
+        <item>영상</item>
+        <item>디자인</item>
+        <item>취미</item>
+        <item>IT</item>
+        <item>자율</item>
+        <item>기타</item>
+    </string-array>
 </resources>

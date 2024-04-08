@@ -6,6 +6,7 @@ import com.knot.domain.usecase.knot.CreateKnotUseCase
 import com.knot.domain.usecase.knot.EditKnotUseCase
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
 import com.knot.domain.usecase.sign.GetUserInfoUseCase
+import com.knot.domain.vo.CategoryVo
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.TeamUserVo
 import com.knot.domain.vo.UserVo
@@ -36,6 +37,9 @@ class CreateOrEditKnotViewModel @Inject constructor(
     private val teamListStateFlow : MutableStateFlow<HashMap<String, TeamUserVo>> = MutableStateFlow(
         hashMapOf()
     )
+    private val categoryListStateFlow : MutableStateFlow<List<CategoryVo>> = MutableStateFlow(
+        emptyList()
+    )
 
     private var map : HashMap<String, TeamUserVo> = hashMapOf()
 
@@ -47,7 +51,8 @@ class CreateOrEditKnotViewModel @Inject constructor(
         contentStateFlow,
         userIdStateFlow,
         isPrivateStateFlow,
-        teamListStateFlow.asStateFlow()
+        teamListStateFlow.asStateFlow(),
+        categoryListStateFlow.asStateFlow()
     )
 
     fun getData(type : CreateOrEditKnotType, knotId : String){
@@ -74,7 +79,38 @@ class CreateOrEditKnotViewModel @Inject constructor(
             titleStateFlow.update { result.title }
             contentStateFlow.update { result.content }
             isPrivateStateFlow.update { result.privateKnot }
+            updateCategoryList(getCategoryList(result.category))
         }
+    }
+
+    fun updateEmptyCategoryList(list: List<String>){
+        val categoryList = mutableListOf<CategoryVo>()
+        list.forEach {
+            categoryList.add(CategoryVo(category = it, isSelected = false))
+        }
+        updateCategoryList(categoryList.sortedByDescending { it.category })
+    }
+
+    private fun getCategoryList(categoryVo: HashMap<String, Boolean>) : List<CategoryVo>{
+        val categoryList = mutableListOf<CategoryVo>()
+        categoryVo.forEach {
+            categoryList.add(CategoryVo(category = it.key, isSelected = it.value))
+        }
+        return categoryList.sortedByDescending { it.category }
+    }
+
+    private fun updateCategoryList(categoryList: List<CategoryVo>){
+        viewModelScope.launch {
+            categoryListStateFlow.update { categoryList }
+        }
+    }
+
+    fun onClickCategory(categoryVo: CategoryVo){
+        val newCategoryList = categoryListStateFlow.value.map {
+            if(it.category == categoryVo.category) it.copy(isSelected = !categoryVo.isSelected)
+            else it
+        }
+        updateCategoryList(newCategoryList)
     }
 
     fun onClickCancelMember(member : TeamUserVo){
@@ -149,6 +185,7 @@ class CreateOrEditKnotViewModel @Inject constructor(
 
     private fun getNewKnotRequest() : KnotVo {
         return KnotVo(
+            category = getKnotCategoryRequest(),
             content = contentStateFlow.value,
             leader = UserInfo.info.id,
             privateKnot = isPrivateStateFlow.value,
@@ -163,6 +200,7 @@ class CreateOrEditKnotViewModel @Inject constructor(
 
     private fun editKnot(){
         val request = knotDetailStateFlow.value.copy(
+            category = getKnotCategoryRequest(),
             content = contentStateFlow.value,
             privateKnot = isPrivateStateFlow.value,
             title = titleStateFlow.value
@@ -173,5 +211,13 @@ class CreateOrEditKnotViewModel @Inject constructor(
                 resultResponse(it, {onClickBack()})
             }
         }
+    }
+
+    private fun getKnotCategoryRequest() : HashMap<String, Boolean>{
+        val requestMap = hashMapOf<String, Boolean>()
+        categoryListStateFlow.value.forEach {
+            requestMap[it.category] = it.isSelected
+        }
+        return requestMap
     }
 }

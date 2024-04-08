@@ -29,6 +29,7 @@
     <string name="word_private">비공개</string>
     <string name="word_public">공개</string>
     <string name="word_invite">초대</string>
+    <string name="word_category">카테고리</string>
 
     <!-- Sign -->
     <string name="sign_email">이메일로 시작하기</string>
