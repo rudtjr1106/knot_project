@@ -101,7 +101,6 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     private fun calculateMyStatistics(){
-        allStatisticsCount = 0
         if(knotDetailStateFlow.value.knotId.isEmpty() || chatList.isEmpty()){
             return
         }
@@ -109,7 +108,6 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     private fun calculateOtherStatistics(){
-        allStatisticsCount = 0
         if(knotDetailStateFlow.value.knotId.isEmpty() || chatList.isEmpty()){
             return
         }
@@ -123,6 +121,7 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     private fun getAllStatistics(id : String) : Int {
+        allStatisticsCount = 0
         val gatheringStatistics = getGatheringStatistics(id)
         val todoCompleteStatistics = getTodoCompleteStatistics(id)
         val chatStatistics = getChatStatistics(id)

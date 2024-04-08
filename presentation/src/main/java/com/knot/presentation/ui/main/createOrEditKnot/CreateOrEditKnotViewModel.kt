@@ -123,6 +123,7 @@ class CreateOrEditKnotViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
+            showLoading()
             getUserInfoUseCase(userIdStateFlow.value).collect{
                 resultResponse(it, ::successGetUserInfo, ::errorGetUserInfo)
             }
