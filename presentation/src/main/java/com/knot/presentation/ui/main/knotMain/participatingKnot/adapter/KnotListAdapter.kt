@@ -18,7 +18,7 @@ class KnotListAdapter(
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is KnotListViewHolder -> holder.bind(currentList[position], (position + 1).toString())
+            is KnotListViewHolder -> holder.bind(currentList[position])
         }
     }
 

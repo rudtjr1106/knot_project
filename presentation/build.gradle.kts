@@ -84,6 +84,9 @@ dependencies {
     implementation(Google.FIREBASE_REALTIME_DB)
     implementation(Google.FIREBASE_FUNCTIONS)
 
+    //FLEX BOX
+    implementation(Google.FLEX_BOX)
+
     implementation(KAKAO.AUTH)
     implementation(Google.GLIDE)
 }

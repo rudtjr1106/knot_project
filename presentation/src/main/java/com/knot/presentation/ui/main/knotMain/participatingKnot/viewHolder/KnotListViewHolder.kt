@@ -1,10 +1,12 @@
 package com.knot.presentation.ui.main.knotMain.participatingKnot.viewHolder
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.knot.domain.vo.KnotVo
 import com.knot.presentation.R
 import com.knot.presentation.databinding.RecyclerItemParticiaptingKnotListBinding
 import com.knot.presentation.ui.main.knotMain.participatingKnot.adapter.KnotListAdapter
+import com.knot.presentation.util.UserInfo
 
 class KnotListViewHolder(
     private val binding: RecyclerItemParticiaptingKnotListBinding,
@@ -20,10 +22,9 @@ class KnotListViewHolder(
         }
     }
 
-    fun bind(item : KnotVo, position : String) {
+    fun bind(item : KnotVo) {
         knotVo = item
         binding.apply {
-            textViewKnotNumber.text = binding.root.context.getString(R.string.main_participating_knot_number, position)
             textViewKnotTitle.text = item.title
             textViewKnotContent.text = item.content
             textViewParticipatePeople.text = item.teamList.size.toString()

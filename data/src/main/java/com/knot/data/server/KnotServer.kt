@@ -15,6 +15,7 @@ import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.SaveRoleAndRuleRequest
+import com.knot.domain.vo.SearchKnotRequest
 import com.knot.domain.vo.TeamUserVo
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -73,6 +74,41 @@ object KnotServer {
                     coroutineScope.resume(Response(data = KnotVo(), result = ResultCode.TEST_ERROR))
                 }
             })
+    }
+
+    suspend fun getKnotList(request : SearchKnotRequest): Response<List<KnotVo>> = suspendCoroutine { coroutineScope ->
+        var knotList : List<KnotVo>
+        knotRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        knotList = getSearchedKnot(request, snapshot)
+                        coroutineScope.resume(Response(data = knotList, result = ResultCode.SUCCESS))
+                    } else {
+                        coroutineScope.resume(Response(data = emptyList(), result = ResultCode.TEST_ERROR))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    coroutineScope.resume(Response(data = emptyList(), result = ResultCode.TEST_ERROR))
+                }
+            })
+    }
+
+    private fun getSearchedKnot(request : SearchKnotRequest ,snapshot: DataSnapshot) : List<KnotVo>{
+        val list = mutableListOf<KnotVo>()
+        for (dataSnapshot in snapshot.children) {
+            val knotVo = dataSnapshot.getValue(KnotVo::class.java)
+            knotVo?.let {
+                if(request.category.isEmpty() && request.searchContent.isEmpty()) list.add(it)
+                if(request.searchContent.isNotEmpty()) {
+                    if(it.title == request.searchContent || it.content == request.searchContent) list.add(it)
+                }
+                if(request.category.isNotEmpty()) {
+                    if(it.category[request.category] == true) list.add(it)
+                }
+            }
+        }
+        return list
     }
 
     suspend fun getChatList(knotId: String) : Flow<Response<List<ChatVo>>> = callbackFlow {

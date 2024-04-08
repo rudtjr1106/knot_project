@@ -3,7 +3,7 @@ package com.knot.presentation.ui.main.createOrEditKnot
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.knot.domain.vo.CategoryVo
 import com.knot.domain.vo.TeamUserVo
 import com.knot.presentation.R
@@ -11,7 +11,6 @@ import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentCreateOrEditKnotBinding
 import com.knot.presentation.ui.main.createOrEditKnot.adapter.CategoryAdapter
 import com.knot.presentation.ui.main.createOrEditKnot.adapter.InvitedMemberAdapter
-import com.knot.presentation.util.KnotLog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -45,12 +44,12 @@ class CreateOrEditKnotFragment : BaseFragment<FragmentCreateOrEditKnotBinding, C
             vm = viewModel
 
             recyclerViewCategory.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = FlexboxLayoutManager(context)
                 adapter = categoryAdapter
             }
 
             recyclerViewInvitedMember.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = FlexboxLayoutManager(context)
                 adapter = invitedMemberAdapter
             }
             initCategory()

@@ -7,6 +7,7 @@
         android:id="@+id/constraint_layout_category"
         android:layout_width="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/bg_rectangle_filled_f2f2f2_radius_5"
         android:layout_height="wrap_content">
 
