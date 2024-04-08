@@ -99,12 +99,14 @@ object KnotServer {
         for (dataSnapshot in snapshot.children) {
             val knotVo = dataSnapshot.getValue(KnotVo::class.java)
             knotVo?.let {
-                if(request.category.isEmpty() && request.searchContent.isEmpty()) list.add(it)
-                if(request.searchContent.isNotEmpty()) {
-                    if(it.title == request.searchContent || it.content == request.searchContent) list.add(it)
-                }
-                if(request.category.isNotEmpty()) {
-                    if(it.category[request.category] == true) list.add(it)
+                if(!it.privateKnot){
+                    if(request.category.isEmpty() && request.searchContent.isEmpty()) list.add(it)
+                    if(request.searchContent.isNotEmpty()) {
+                        if(it.title == request.searchContent || it.content == request.searchContent) list.add(it)
+                    }
+                    if(request.category.isNotEmpty()) {
+                        if(it.category[request.category] == true) list.add(it)
+                    }
                 }
             }
         }
