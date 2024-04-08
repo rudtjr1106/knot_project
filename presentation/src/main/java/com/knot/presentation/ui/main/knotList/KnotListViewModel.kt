@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,7 +41,9 @@ class KnotListViewModel @Inject constructor(
     }
 
     private fun successGetKnotList(result : List<KnotVo>){
-        updateKnotList(result)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
+        val sortedList = result.sortedByDescending { LocalDateTime.parse(it.createdAt, formatter) }
+        updateKnotList(sortedList)
     }
 
     private fun updateKnotList(list : List<KnotVo>){

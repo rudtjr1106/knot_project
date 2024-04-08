@@ -119,6 +119,12 @@ object DateTimeFormatter {
         return currentDate.format(formatter)
     }
 
+    fun getTodayWithTime() : String {
+        val currentDate = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
+        return currentDate.format(formatter)
+    }
+
     fun isSunday(dateStr: String): Boolean {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = dateFormat.parse(dateStr)

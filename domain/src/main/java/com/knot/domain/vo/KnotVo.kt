@@ -3,6 +3,7 @@ package com.knot.domain.vo
 data class KnotVo (
     val category : HashMap<String, Boolean> = hashMapOf(),
     val content : String = "",
+    val createdAt : String = "",
     val gatheringList : HashMap<String, GatheringVo> = hashMapOf(),
     val knotId : String = "",
     val leader : String = "",
