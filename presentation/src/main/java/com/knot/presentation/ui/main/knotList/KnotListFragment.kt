@@ -1,6 +1,7 @@
 package com.knot.presentation.ui.main.knotList
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.knot.domain.vo.CategoryVo
@@ -74,7 +75,7 @@ class KnotListFragment : BaseFragment<FragmentKnotListBinding, KnotListPageState
             }
             launch {
                 viewModel.eventFlow.collect {
-
+                    inspectEvent(it as KnotListEvent)
                 }
             }
         }
@@ -82,6 +83,17 @@ class KnotListFragment : BaseFragment<FragmentKnotListBinding, KnotListPageState
 
     private fun initCategory(){
         viewModel.updateEmptyCategoryList(resources.getStringArray(R.array.knot_category).toList())
+    }
+
+    private fun inspectEvent(event: KnotListEvent){
+        when(event){
+            KnotListEvent.GoToSearchEvent -> goToSearch()
+        }
+    }
+
+    private fun goToSearch(){
+        val action = KnotListFragmentDirections.actionKnotListToKnotSearch()
+        findNavController().navigate(action)
     }
 
     override fun onStart() {

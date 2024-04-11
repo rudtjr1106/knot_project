@@ -131,6 +131,17 @@
         android:name="com.knot.presentation.ui.main.knotList.KnotListFragment"
         android:label="fragment_knot_list"
         tools:layout="@layout/fragment_knot_list">
+
+        <action
+            android:id="@+id/action_knot_list_to_knot_search"
+            app:destination="@id/knotSearchFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotSearchFragment"
+        android:name="com.knot.presentation.ui.main.knotList.search.KnotSearchFragment"
+        android:label="fragment_knot_search"
+        tools:layout="@layout/fragment_knot_search">
     </fragment>
 
     <fragment

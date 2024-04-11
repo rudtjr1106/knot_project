@@ -76,4 +76,8 @@ class KnotListViewModel @Inject constructor(
         updateCategoryList(newCategoryList)
     }
 
+    fun onClickSearch(){
+        emitEventFlow(KnotListEvent.GoToSearchEvent)
+    }
+
 }

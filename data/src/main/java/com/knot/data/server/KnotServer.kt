@@ -102,7 +102,7 @@ object KnotServer {
                 if(!it.privateKnot){
                     if(request.category.isEmpty() && request.searchContent.isEmpty()) list.add(it)
                     if(request.searchContent.isNotEmpty()) {
-                        if(it.title == request.searchContent || it.content == request.searchContent) list.add(it)
+                        if(it.title.contains(request.searchContent) || it.content.contains(request.searchContent)) list.add(it)
                     }
                     if(request.category.isNotEmpty()) {
                         if(it.category[request.category] == true) list.add(it)

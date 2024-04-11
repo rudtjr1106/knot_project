@@ -97,5 +97,7 @@
     <!-- Main_Edit_Knot -->
     <string name="main_edit_knot">매듭 수정</string>
 
+    <!-- Main_Knot_Search -->
+    <string name="main_knot_search_hint">검색어를 입력하세요.</string>
 
 </resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.main.knotList.search.KnotSearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+        
+        <ImageView
+            android:id="@+id/image_button_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="3dp"
+            android:background="@drawable/ic_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_search"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@id/image_button_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/image_button_back"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_text_search"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:text="@={vm.uiState.searchContent}"
+                android:textColor="@color/black"
+                android:hint="@string/main_knot_search_hint"
+                android:textAppearance="@style/medium_16"
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_view_empty_result"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAppearance="@style/bold_18"
+            android:text="결과 없음"
+            android:visibility="@{vm.uiState.isEmptyList() ? View.VISIBLE : View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_knot_list"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_search"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
