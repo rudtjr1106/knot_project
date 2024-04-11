@@ -139,6 +139,10 @@
         <action
             android:id="@+id/action_knot_list_to_knot_detail"
             app:destination="@id/knotDetailFragment"/>
+
+        <action
+            android:id="@+id/action_knot_list_to_knot_application_detail"
+            app:destination="@id/knotApplicationDetailFragment"/>
     </fragment>
 
     <fragment
@@ -150,6 +154,22 @@
         <action
             android:id="@+id/action_knot_search_to_knot_detail"
             app:destination="@id/knotDetailFragment"/>
+
+        <action
+            android:id="@+id/action_knot_search_to_knot_application_detail"
+            app:destination="@id/knotApplicationDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotApplicationDetailFragment"
+        android:name="com.knot.presentation.ui.main.knotList.application.detail.KnotApplicationDetailFragment"
+        android:label="fragment_knot_application_detail"
+        tools:layout="@layout/fragment_knot_application_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
     <fragment

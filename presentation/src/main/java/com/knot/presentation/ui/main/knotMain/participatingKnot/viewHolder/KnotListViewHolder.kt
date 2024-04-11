@@ -16,7 +16,7 @@ class KnotListViewHolder(
         binding.apply {
             constraintLayoutKnot.setOnClickListener {
                 if(knotVo.teamList.values.any { it.id == UserInfo.info.id }) listener.goToDetail(knotVo.knotId)
-                else listener.goToDetail(knotVo.knotId)
+                else listener.goToApplication(knotVo.knotId)
             }
         }
     }

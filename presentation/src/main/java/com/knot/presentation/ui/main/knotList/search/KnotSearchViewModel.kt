@@ -57,4 +57,8 @@ class KnotSearchViewModel @Inject constructor(
         }
     }
 
+    fun onClickBack(){
+        emitEventFlow(KnotSearchEvent.GoToBackEvent)
+    }
+
 }

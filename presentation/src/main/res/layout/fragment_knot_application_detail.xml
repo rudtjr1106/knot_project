@@ -3,12 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <import type="com.knot.domain.enums.CreateOrEditKnotType" />
-
         <variable
             name="vm"
-            type="com.knot.presentation.ui.main.createOrEditKnot.CreateOrEditKnotViewModel" />
+            type="com.knot.presentation.ui.main.knotList.application.detail.KnotApplicationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +77,7 @@
                         android:background="@drawable/bg_rectangle_filled_f9f9f9_radius_5"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="6dp"
-                        android:text="@={vm.uiState.title}"
+                        android:text="@{vm.uiState.knotDetail.title}"
                         android:textAppearance="@style/medium_14"
                         android:textColor="@color/black"
                         android:textColorHint="@color/color_c4c4c4"
@@ -109,7 +106,7 @@
                         android:minHeight="150dp"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="6dp"
-                        android:text="@={vm.uiState.content}"
+                        android:text="@{vm.uiState.knotDetail.content}"
                         android:textAppearance="@style/medium_14"
                         android:textColor="@color/black"
                         android:textColorHint="@color/color_c4c4c4"
@@ -126,6 +123,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="34dp"
+            android:onClick="@{()->vm.onClickApply()}"
             android:background="@drawable/bg_rectangle_filled_ffcc00_radius_10"
             android:text="@string/main_knot_application_apply"
             android:textAppearance="@style/bold_14"

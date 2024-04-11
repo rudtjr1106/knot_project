@@ -26,7 +26,7 @@ class KnotSearchFragment : BaseFragment<FragmentKnotSearchBinding, KnotSearchPag
             }
 
             override fun goToApplication(id: String) {
-                TODO("Not yet implemented")
+                goToApplicationKnotDetail(id)
             }
         })
     }
@@ -54,7 +54,7 @@ class KnotSearchFragment : BaseFragment<FragmentKnotSearchBinding, KnotSearchPag
             }
             launch {
                 viewModel.eventFlow.collect {
-
+                    inspectEvent(it as KnotSearchEvent)
                 }
             }
         }
@@ -73,8 +73,19 @@ class KnotSearchFragment : BaseFragment<FragmentKnotSearchBinding, KnotSearchPag
         }
     }
 
+    private fun inspectEvent(event: KnotSearchEvent){
+        when(event){
+            KnotSearchEvent.GoToBackEvent -> findNavController().popBackStack()
+        }
+    }
+
     private fun goToKnotDetail(knotId : String){
         val action = KnotSearchFragmentDirections.actionKnotSearchToKnotDetail(knotId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToApplicationKnotDetail(knotId : String){
+        val action = KnotSearchFragmentDirections.actionKnotSearchToKnotApplicationDetail(knotId)
         findNavController().navigate(action)
     }
 

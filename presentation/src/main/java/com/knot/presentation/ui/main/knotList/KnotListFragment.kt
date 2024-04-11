@@ -35,7 +35,7 @@ class KnotListFragment : BaseFragment<FragmentKnotListBinding, KnotListPageState
             }
 
             override fun goToApplication(id: String) {
-                TODO("Not yet implemented")
+                goToKnotApplicationDetail(id)
             }
         })
     }
@@ -99,6 +99,12 @@ class KnotListFragment : BaseFragment<FragmentKnotListBinding, KnotListPageState
         val action = KnotListFragmentDirections.actionKnotListToKnotDetail(knotId)
         findNavController().navigate(action)
     }
+
+    private fun goToKnotApplicationDetail(knotId : String){
+        val action = KnotListFragmentDirections.actionKnotListToKnotApplicationDetail(knotId)
+        findNavController().navigate(action)
+    }
+
 
     override fun onStart() {
         super.onStart()
