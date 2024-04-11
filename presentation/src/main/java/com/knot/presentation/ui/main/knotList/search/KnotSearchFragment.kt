@@ -2,10 +2,12 @@ package com.knot.presentation.ui.main.knotList.search
 
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentKnotSearchBinding
+import com.knot.presentation.ui.main.knotList.KnotListFragmentDirections
 import com.knot.presentation.ui.main.knotMain.participatingKnot.adapter.KnotListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -19,8 +21,12 @@ class KnotSearchFragment : BaseFragment<FragmentKnotSearchBinding, KnotSearchPag
 
     private val knotListAdapter : KnotListAdapter by lazy {
         KnotListAdapter(object : KnotListAdapter.KnotListDelegate{
-            override fun onClickKnot(id: String) {
-                //goToKnotDetail(id)
+            override fun goToDetail(id: String) {
+                goToKnotDetail(id)
+            }
+
+            override fun goToApplication(id: String) {
+                TODO("Not yet implemented")
             }
         })
     }
@@ -65,6 +71,11 @@ class KnotSearchFragment : BaseFragment<FragmentKnotSearchBinding, KnotSearchPag
                 }
             }
         }
+    }
+
+    private fun goToKnotDetail(knotId : String){
+        val action = KnotSearchFragmentDirections.actionKnotSearchToKnotDetail(knotId)
+        findNavController().navigate(action)
     }
 
     override fun onStart() {

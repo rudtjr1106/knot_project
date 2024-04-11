@@ -3,11 +3,8 @@ package com.knot.presentation.ui.main.knotMain.participatingKnot
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentParticipatingKnotBinding
-import com.knot.presentation.ui.main.knotMain.MainFragmentDirections
-import com.knot.presentation.ui.main.knotMain.adapter.MainParticipatingKnotAdapter
 import com.knot.presentation.ui.main.knotMain.participatingKnot.adapter.KnotListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,9 +18,11 @@ class ParticipatingKnotFragment : BaseFragment<FragmentParticipatingKnotBinding,
 
     private val knotListAdapter : KnotListAdapter by lazy {
         KnotListAdapter(object : KnotListAdapter.KnotListDelegate{
-            override fun onClickKnot(id: String) {
-                goToKnotDetail(id)
+            override fun goToDetail(id: String) {
+                goToDetail(id)
             }
+
+            override fun goToApplication(id: String) {}
         })
     }
 

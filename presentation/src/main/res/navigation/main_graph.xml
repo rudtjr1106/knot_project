@@ -135,6 +135,10 @@
         <action
             android:id="@+id/action_knot_list_to_knot_search"
             app:destination="@id/knotSearchFragment"/>
+
+        <action
+            android:id="@+id/action_knot_list_to_knot_detail"
+            app:destination="@id/knotDetailFragment"/>
     </fragment>
 
     <fragment
@@ -142,6 +146,10 @@
         android:name="com.knot.presentation.ui.main.knotList.search.KnotSearchFragment"
         android:label="fragment_knot_search"
         tools:layout="@layout/fragment_knot_search">
+
+        <action
+            android:id="@+id/action_knot_search_to_knot_detail"
+            app:destination="@id/knotDetailFragment"/>
     </fragment>
 
     <fragment

@@ -1,9 +1,7 @@
 package com.knot.presentation.ui.main.knotMain.participatingKnot.viewHolder
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.knot.domain.vo.KnotVo
-import com.knot.presentation.R
 import com.knot.presentation.databinding.RecyclerItemParticiaptingKnotListBinding
 import com.knot.presentation.ui.main.knotMain.participatingKnot.adapter.KnotListAdapter
 import com.knot.presentation.util.UserInfo
@@ -17,7 +15,8 @@ class KnotListViewHolder(
     init {
         binding.apply {
             constraintLayoutKnot.setOnClickListener {
-                listener.onClickKnot(knotVo.knotId)
+                if(knotVo.teamList.values.any { it.id == UserInfo.info.id }) listener.goToDetail(knotVo.knotId)
+                else listener.goToDetail(knotVo.knotId)
             }
         }
     }
