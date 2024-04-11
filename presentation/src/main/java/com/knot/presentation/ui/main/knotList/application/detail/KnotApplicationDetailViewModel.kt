@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
 import com.knot.domain.vo.KnotVo
 import com.knot.presentation.base.BaseViewModel
+import com.knot.presentation.util.KnotLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class KnotApplicationViewModel @Inject constructor(
+class KnotApplicationDetailViewModel @Inject constructor(
     private val getKnotDetailUseCase: GetKnotDetailUseCase
 ) : BaseViewModel<KnotApplicationDetailPageState>() {
 
@@ -38,11 +39,11 @@ class KnotApplicationViewModel @Inject constructor(
     }
 
     fun onClickApply(){
-        emitEventFlow(KnotApplicationEvent.GoToApplicationEvent(knotDetailStateFlow.value.knotId))
+        emitEventFlow(KnotApplicationDetailEvent.GoToApplicationEvent(knotDetailStateFlow.value.knotId))
     }
 
     fun onClickBack(){
-        emitEventFlow(KnotApplicationEvent.GoToBackEvent)
+        emitEventFlow(KnotApplicationDetailEvent.GoToBackEvent)
     }
 
 }

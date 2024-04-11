@@ -12,4 +12,5 @@ object Endpoints {
     const val TODO_COMPLETE = "complete"
     const val KNOT_TEAM = "teamList"
     const val KNOT_RULE = "rule"
+    const val KNOT_APPLY = "applicants"
 }

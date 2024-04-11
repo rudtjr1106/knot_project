@@ -9,6 +9,7 @@ import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
 import com.knot.domain.vo.AddChatRequest
+import com.knot.domain.vo.ApplyKnotRequest
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
@@ -320,6 +321,19 @@ object KnotServer {
 
     private fun editUserKnot(knot: KnotVo, uid: String) {
         authRef.child(uid).child(Endpoints.KNOT).child(knot.knotId).setValue(knot)
+    }
+
+    suspend fun applyKnot(request: ApplyKnotRequest) : Response<Boolean> = suspendCoroutine {
+        val newRequest = hashMapOf("moreInfo" to request.moreIntro, "user" to request.userVo)
+        knotRef.child(request.knotId).child(Endpoints.KNOT_APPLY).child(request.userVo.uid).setValue(newRequest)
+            .addOnCompleteListener { tast ->
+                if(tast.isSuccessful){
+                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                }
+                else{
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                }
+            }
     }
 
     private fun extractNumberFromString(input: String): Int? {

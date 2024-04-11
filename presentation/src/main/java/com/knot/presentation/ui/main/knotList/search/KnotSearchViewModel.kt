@@ -2,12 +2,9 @@ package com.knot.presentation.ui.main.knotList.search
 
 import androidx.lifecycle.viewModelScope
 import com.knot.domain.usecase.knot.GetKnotListUseCase
-import com.knot.domain.vo.CategoryVo
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.SearchKnotRequest
-import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseViewModel
-import com.knot.presentation.ui.main.knotList.KnotListPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

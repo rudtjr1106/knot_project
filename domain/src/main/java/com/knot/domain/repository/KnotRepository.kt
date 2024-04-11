@@ -2,6 +2,7 @@ package com.knot.domain.repository
 
 import com.knot.domain.base.Response
 import com.knot.domain.vo.AddChatRequest
+import com.knot.domain.vo.ApplyKnotRequest
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
@@ -22,4 +23,5 @@ interface KnotRepository {
     suspend fun saveRoleAndRule(request : SaveRoleAndRuleRequest) : Flow<Response<Boolean>>
     suspend fun editKnot(request: KnotVo) : Flow<Response<Boolean>>
     suspend fun createKnot(request: KnotVo) : Flow<Response<Boolean>>
+    suspend fun applyKnot(request : ApplyKnotRequest) : Flow<Response<Boolean>>
 }

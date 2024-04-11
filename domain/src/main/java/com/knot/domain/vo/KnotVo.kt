@@ -1,6 +1,7 @@
 package com.knot.domain.vo
 
 data class KnotVo (
+    val applicants : HashMap<String, ApplicantUserVo> = hashMapOf(),
     val category : HashMap<String, Boolean> = hashMapOf(),
     val content : String = "",
     val createdAt : String = "",

@@ -170,6 +170,22 @@
             android:name="knotId"
             android:defaultValue=""
             app:argType="string"/>
+
+        <action
+            android:id="@+id/action_knot_application_detail_to_knot_application_apply"
+            app:destination="@id/knotApplicationApplyFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotApplicationApplyFragment"
+        android:name="com.knot.presentation.ui.main.knotList.application.apply.KnotApplicationApplyFragment"
+        android:label="fragment_knot_application_apply"
+        tools:layout="@layout/fragment_knot_application_apply">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
     <fragment

@@ -4,10 +4,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.knot.presentation.PageState
 import com.knot.presentation.base.BaseFragment
 import com.knot.presentation.databinding.FragmentKnotSearchBinding
-import com.knot.presentation.ui.main.knotList.KnotListFragmentDirections
 import com.knot.presentation.ui.main.knotMain.participatingKnot.adapter.KnotListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
