@@ -1,6 +1,7 @@
 package com.knot.domain.vo
 
 data class UserVo(
+    val applyList : HashMap<String, UserApplyVo> = hashMapOf(),
     val email : String = "",
     val id : String = "",
     val intro : String = "",

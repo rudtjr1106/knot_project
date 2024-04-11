@@ -186,6 +186,11 @@
             android:name="knotId"
             android:defaultValue=""
             app:argType="string"/>
+
+        <argument
+            android:name="knotTitle"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
     <fragment

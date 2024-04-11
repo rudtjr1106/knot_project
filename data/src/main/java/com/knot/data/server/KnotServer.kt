@@ -328,6 +328,7 @@ object KnotServer {
         knotRef.child(request.knotId).child(Endpoints.KNOT_APPLY).child(request.userVo.uid).setValue(newRequest)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
+                    addMyApplyKnot(request)
                     it.resume(Response(data = true, result = ResultCode.SUCCESS))
                 }
                 else{
@@ -336,16 +337,26 @@ object KnotServer {
             }
     }
 
+    private fun addMyApplyKnot(request: ApplyKnotRequest){
+        val newRequest = hashMapOf("moreInfo" to request.moreIntro, "knotTitle" to request.knotTitle, "knotId" to request.knotId)
+        authRef.child(request.userVo.uid).child(Endpoints.USER_APPLY_LIST).child(request.knotId).setValue(newRequest)
+    }
+
     suspend fun cancelApplicationKnot(request : String) : Response<Boolean> = suspendCoroutine {
         knotRef.child(request).child(Endpoints.KNOT_APPLY).child(auth.uid.toString()).removeValue()
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
+                    cancelMyApplyKnot(request)
                     it.resume(Response(data = true, result = ResultCode.SUCCESS))
                 }
                 else{
                     it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
                 }
             }
+    }
+
+    private fun cancelMyApplyKnot(request: String){
+        authRef.child(auth.uid.toString()).child(Endpoints.USER_APPLY_LIST).child(request).removeValue()
     }
 
     private fun extractNumberFromString(input: String): Int? {

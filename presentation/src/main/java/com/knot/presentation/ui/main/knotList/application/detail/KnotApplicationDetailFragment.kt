@@ -39,13 +39,13 @@ class KnotApplicationDetailFragment : BaseFragment<FragmentKnotApplicationDetail
 
     private fun inspectEvent(event: KnotApplicationDetailEvent){
         when(event){
-            is KnotApplicationDetailEvent.GoToApplicationEvent -> goToApplyKnot(event.knotId)
+            is KnotApplicationDetailEvent.GoToApplicationEvent -> goToApplyKnot(event.knotId, event.knotTitle)
             KnotApplicationDetailEvent.GoToBackEvent -> findNavController().popBackStack()
         }
     }
 
-    private fun goToApplyKnot(knotId : String){
-        val action = KnotApplicationDetailFragmentDirections.actionKnotApplicationDetailToKnotApplicationApply(knotId)
+    private fun goToApplyKnot(knotId : String, knotTitle : String){
+        val action = KnotApplicationDetailFragmentDirections.actionKnotApplicationDetailToKnotApplicationApply(knotId, knotTitle)
         findNavController().navigate(action)
     }
 

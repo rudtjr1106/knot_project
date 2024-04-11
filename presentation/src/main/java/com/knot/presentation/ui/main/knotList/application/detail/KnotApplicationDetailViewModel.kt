@@ -45,7 +45,7 @@ class KnotApplicationDetailViewModel @Inject constructor(
 
     fun onClickApply(){
         if(isApplyKnotStateFlow.value) cancelApplication()
-        else emitEventFlow(KnotApplicationDetailEvent.GoToApplicationEvent(knotDetailStateFlow.value.knotId))
+        else emitEventFlow(KnotApplicationDetailEvent.GoToApplicationEvent(knotDetailStateFlow.value.knotId, knotDetailStateFlow.value.title))
     }
 
     private fun cancelApplication(){

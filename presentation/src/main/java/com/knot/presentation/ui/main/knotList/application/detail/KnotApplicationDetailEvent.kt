@@ -4,5 +4,5 @@ import com.knot.presentation.Event
 
 sealed class KnotApplicationDetailEvent : Event{
     object GoToBackEvent : KnotApplicationDetailEvent()
-    data class GoToApplicationEvent(val knotId : String) : KnotApplicationDetailEvent()
+    data class GoToApplicationEvent(val knotId : String, val knotTitle : String) : KnotApplicationDetailEvent()
 }

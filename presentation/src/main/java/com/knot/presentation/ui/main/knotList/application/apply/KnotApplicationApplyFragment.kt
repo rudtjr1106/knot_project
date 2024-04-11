@@ -20,7 +20,7 @@ class KnotApplicationApplyFragment : BaseFragment<FragmentKnotApplicationApplyBi
     override fun initView() {
         binding.apply {
             vm = viewModel
-            viewModel.setKnotId(knotApplicationApplyFragmentArgs.knotId)
+            viewModel.setKnot(knotApplicationApplyFragmentArgs.knotId, knotApplicationApplyFragmentArgs.knotTitle)
         }
     }
 
