@@ -24,4 +24,5 @@ interface KnotRepository {
     suspend fun editKnot(request: KnotVo) : Flow<Response<Boolean>>
     suspend fun createKnot(request: KnotVo) : Flow<Response<Boolean>>
     suspend fun applyKnot(request : ApplyKnotRequest) : Flow<Response<Boolean>>
+    suspend fun cancelApplicationKnot(request: String) : Flow<Response<Boolean>>
 }

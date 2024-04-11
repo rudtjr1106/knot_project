@@ -65,4 +65,8 @@ class KnotRepositoryImpl @Inject constructor() : KnotRepository {
     override suspend fun applyKnot(request: ApplyKnotRequest): Flow<Response<Boolean>> = flow {
         emit(KnotServer.applyKnot(request))
     }
+
+    override suspend fun cancelApplicationKnot(request : String): Flow<Response<Boolean>> = flow {
+        emit(KnotServer.cancelApplicationKnot(request))
+    }
 }
