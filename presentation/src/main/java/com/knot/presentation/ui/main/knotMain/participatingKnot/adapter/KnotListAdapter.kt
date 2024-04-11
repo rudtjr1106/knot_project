@@ -14,11 +14,12 @@ class KnotListAdapter(
 ) : ListAdapter<KnotVo, RecyclerView.ViewHolder>(KnotListDiffCallBack()) {
 
     interface KnotListDelegate {
-        fun onClickKnot(id : String)
+        fun goToDetail(id : String)
+        fun goToApplication(id : String)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is KnotListViewHolder -> holder.bind(currentList[position], (position + 1).toString())
+            is KnotListViewHolder -> holder.bind(currentList[position])
         }
     }
 

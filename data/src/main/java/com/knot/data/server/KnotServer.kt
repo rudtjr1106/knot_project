@@ -9,12 +9,14 @@ import com.knot.data.Endpoints
 import com.knot.domain.base.Response
 import com.knot.domain.resultCode.ResultCode
 import com.knot.domain.vo.AddChatRequest
+import com.knot.domain.vo.ApplyKnotRequest
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.SaveRoleAndRuleRequest
+import com.knot.domain.vo.SearchKnotRequest
 import com.knot.domain.vo.TeamUserVo
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -73,6 +75,43 @@ object KnotServer {
                     coroutineScope.resume(Response(data = KnotVo(), result = ResultCode.TEST_ERROR))
                 }
             })
+    }
+
+    suspend fun getKnotList(request : SearchKnotRequest): Response<List<KnotVo>> = suspendCoroutine { coroutineScope ->
+        var knotList : List<KnotVo>
+        knotRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        knotList = getSearchedKnot(request, snapshot)
+                        coroutineScope.resume(Response(data = knotList, result = ResultCode.SUCCESS))
+                    } else {
+                        coroutineScope.resume(Response(data = emptyList(), result = ResultCode.TEST_ERROR))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    coroutineScope.resume(Response(data = emptyList(), result = ResultCode.TEST_ERROR))
+                }
+            })
+    }
+
+    private fun getSearchedKnot(request : SearchKnotRequest ,snapshot: DataSnapshot) : List<KnotVo>{
+        val list = mutableListOf<KnotVo>()
+        for (dataSnapshot in snapshot.children) {
+            val knotVo = dataSnapshot.getValue(KnotVo::class.java)
+            knotVo?.let {
+                if(!it.privateKnot){
+                    if(request.category.isEmpty() && request.searchContent.isEmpty()) list.add(it)
+                    if(request.searchContent.isNotEmpty()) {
+                        if(it.title.contains(request.searchContent) || it.content.contains(request.searchContent)) list.add(it)
+                    }
+                    if(request.category.isNotEmpty()) {
+                        if(it.category[request.category] == true) list.add(it)
+                    }
+                }
+            }
+        }
+        return list
     }
 
     suspend fun getChatList(knotId: String) : Flow<Response<List<ChatVo>>> = callbackFlow {
@@ -282,6 +321,42 @@ object KnotServer {
 
     private fun editUserKnot(knot: KnotVo, uid: String) {
         authRef.child(uid).child(Endpoints.KNOT).child(knot.knotId).setValue(knot)
+    }
+
+    suspend fun applyKnot(request: ApplyKnotRequest) : Response<Boolean> = suspendCoroutine {
+        val newRequest = hashMapOf("moreInfo" to request.moreIntro, "user" to request.userVo)
+        knotRef.child(request.knotId).child(Endpoints.KNOT_APPLY).child(request.userVo.uid).setValue(newRequest)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    addMyApplyKnot(request)
+                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                }
+                else{
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                }
+            }
+    }
+
+    private fun addMyApplyKnot(request: ApplyKnotRequest){
+        val newRequest = hashMapOf("moreInfo" to request.moreIntro, "knotTitle" to request.knotTitle, "knotId" to request.knotId)
+        authRef.child(request.userVo.uid).child(Endpoints.USER_APPLY_LIST).child(request.knotId).setValue(newRequest)
+    }
+
+    suspend fun cancelApplicationKnot(request : String) : Response<Boolean> = suspendCoroutine {
+        knotRef.child(request).child(Endpoints.KNOT_APPLY).child(auth.uid.toString()).removeValue()
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    cancelMyApplyKnot(request)
+                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                }
+                else{
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+                }
+            }
+    }
+
+    private fun cancelMyApplyKnot(request: String){
+        authRef.child(auth.uid.toString()).child(Endpoints.USER_APPLY_LIST).child(request).removeValue()
     }
 
     private fun extractNumberFromString(input: String): Int? {

@@ -3,6 +3,7 @@ package com.knot.data
 object Endpoints {
     const val USER = "user"
     const val USER_ID = "id"
+    const val USER_APPLY_LIST = "applyList"
     const val KNOT = "knotList"
     const val KNOT_ID = "knotId"
     const val CHAT = "chat"
@@ -12,4 +13,5 @@ object Endpoints {
     const val TODO_COMPLETE = "complete"
     const val KNOT_TEAM = "teamList"
     const val KNOT_RULE = "rule"
+    const val KNOT_APPLY = "applicants"
 }

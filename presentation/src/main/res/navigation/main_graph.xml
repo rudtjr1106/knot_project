@@ -131,6 +131,66 @@
         android:name="com.knot.presentation.ui.main.knotList.KnotListFragment"
         android:label="fragment_knot_list"
         tools:layout="@layout/fragment_knot_list">
+
+        <action
+            android:id="@+id/action_knot_list_to_knot_search"
+            app:destination="@id/knotSearchFragment"/>
+
+        <action
+            android:id="@+id/action_knot_list_to_knot_detail"
+            app:destination="@id/knotDetailFragment"/>
+
+        <action
+            android:id="@+id/action_knot_list_to_knot_application_detail"
+            app:destination="@id/knotApplicationDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotSearchFragment"
+        android:name="com.knot.presentation.ui.main.knotList.search.KnotSearchFragment"
+        android:label="fragment_knot_search"
+        tools:layout="@layout/fragment_knot_search">
+
+        <action
+            android:id="@+id/action_knot_search_to_knot_detail"
+            app:destination="@id/knotDetailFragment"/>
+
+        <action
+            android:id="@+id/action_knot_search_to_knot_application_detail"
+            app:destination="@id/knotApplicationDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotApplicationDetailFragment"
+        android:name="com.knot.presentation.ui.main.knotList.application.detail.KnotApplicationDetailFragment"
+        android:label="fragment_knot_application_detail"
+        tools:layout="@layout/fragment_knot_application_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/action_knot_application_detail_to_knot_application_apply"
+            app:destination="@id/knotApplicationApplyFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotApplicationApplyFragment"
+        android:name="com.knot.presentation.ui.main.knotList.application.apply.KnotApplicationApplyFragment"
+        android:label="fragment_knot_application_apply"
+        tools:layout="@layout/fragment_knot_application_apply">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+
+        <argument
+            android:name="knotTitle"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
     <fragment

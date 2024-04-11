@@ -14,12 +14,12 @@ object Google {
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
     const val FIREBASE_FCM = "com.google.firebase:firebase-messaging-ktx"
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
-    const val FIREBASE_FIRE_STORE = "com.google.firebase:firebase-firestore"
     const val FIREBASE_REALTIME_DB = "com.google.firebase:firebase-database-ktx"
     const val FIREBASE_FUNCTIONS = "com.google.firebase:firebase-functions-ktx"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:${Versions.OKHTTP}"
     const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val FLEX_BOX = "com.google.android.flexbox:flexbox:${Versions.FLEX_BOX}"
 }
 
 object AndroidX{

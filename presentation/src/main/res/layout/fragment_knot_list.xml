@@ -14,13 +14,42 @@
         android:background="@color/background">
 
         <TextView
-            android:id="@+id/recycler_view_main"
+            android:id="@+id/text_view_knot_list"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="여기는 knotList"
-            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/bold_24"
+            android:text="@string/word_knot_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+        <ImageButton
+            app:layout_constraintTop_toTopOf="@id/text_view_knot_list"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_knot_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{()->vm.onClickSearch()}"
+            android:background="@drawable/ic_search_8c8c8c"
+            android:layout_width="24dp"
+            android:layout_height="24dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_category"
+            app:layout_constraintTop_toBottomOf="@id/text_view_knot_list"
+            app:layout_constraintStart_toStartOf="@id/text_view_knot_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_knot_list"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_category"
+            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

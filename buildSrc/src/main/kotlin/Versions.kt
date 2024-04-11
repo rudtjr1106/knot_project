@@ -14,6 +14,7 @@ object Versions {
     const val OKHTTP = "3.9.0"
     const val GSON = "2.8.2"
     const val GLIDE = "4.12.0"
+    const val FLEX_BOX = "3.0.0"
 
     /* [ Android ] */
     const val CORE = "1.12.0"
