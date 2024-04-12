@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.knot.presentation.ui.main.knotMain.detail.menu.applicants.detail.ApplicantsDetailViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <ImageButton
+                android:id="@+id/image_button_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ic_back"
+                android:onClick="@{()->vm.onClickBack()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_10"
+                android:paddingBottom="42dp"
+                app:layout_constraintTop_toBottomOf="@id/image_button_back">
+
+                <TextView
+                    android:id="@+id/text_view_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/black"
+                    android:text="@{vm.uiState.applicantUser.user.name}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="조경석" />
+
+                <TextView
+                    android:id="@+id/text_view_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{vm.uiState.applicantUser.user.id}"
+                    android:textAppearance="@style/medium_10"
+                    android:textColor="@color/color_8c8c8c"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_name"
+                    app:layout_constraintStart_toEndOf="@id/text_view_name"
+                    tools:text="조경석" />
+
+                <View
+                    android:id="@+id/image_view_divide_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/image_line_f2f2f2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_name" />
+
+                <TextView
+                    android:id="@+id/text_view_organization_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/sign_organization"
+                    android:textAppearance="@style/medium_12"
+                    android:textColor="@color/color_8c8c8c"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_divide_line" />
+
+                <TextView
+                    android:id="@+id/text_view_organization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:text="@{vm.uiState.applicantUser.user.organization}"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/bold_14"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_organization_title"
+                    tools:text="명지대학교" />
+
+                <TextView
+                    android:id="@+id/text_view_major_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/sign_major"
+                    android:textAppearance="@style/medium_12"
+                    android:textColor="@color/color_8c8c8c"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_organization" />
+
+                <TextView
+                    android:id="@+id/text_view_major"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:text="@{vm.uiState.applicantUser.user.major}"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/bold_14"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_major_title"
+                    tools:text="컴퓨터공학과" />
+
+                <TextView
+                    android:id="@+id/text_view_introduce_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/main_knot_application_my_intro"
+                    android:textAppearance="@style/medium_12"
+                    android:textColor="@color/color_8c8c8c"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_major" />
+
+                <TextView
+                    android:id="@+id/text_view_introduce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/bold_14"
+                    android:textColor="@color/black"
+                    android:text="@{vm.uiState.applicantUser.user.intro}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_introduce_title"
+                    tools:text="자기소개 입니다." />
+
+                <TextView
+                    android:id="@+id/text_view_more_intro_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/main_knot_application_my_pr"
+                    android:textAppearance="@style/medium_12"
+                    android:textColor="@color/color_8c8c8c"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_introduce" />
+
+                <TextView
+                    android:id="@+id/text_view_more_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:text="@{vm.uiState.applicantUser.moreInfo}"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/bold_14"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_more_intro_title"
+                    tools:text="자기소개 입니다." />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_reject"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_more_intro"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/button_approve"
+                    android:layout_marginEnd="9dp"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:background="@drawable/bg_rectangle_filled_f2f2f2_radius_8"
+                    android:textColor="@color/color_8c8c8c"
+                    android:text="@string/main_knot_application_reject"
+                    android:textAppearance="@style/bold_14"
+                    android:layout_marginTop="42dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_approve"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_more_intro"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="9dp"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    app:layout_constraintStart_toEndOf="@id/button_reject"
+                    android:background="@drawable/bg_rectangle_filled_ffcc00_radius_8"
+                    android:textColor="@color/white"
+                    android:text="@string/main_knot_application_approve"
+                    android:textAppearance="@style/bold_14"
+                    android:layout_marginTop="42dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

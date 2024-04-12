@@ -10,18 +10,18 @@ class KnotApplicantsViewHolder(
     private val listener : KnotApplicantsAdapter.KnotApplicantDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var applicantsUserVo: ApplicantUserVo
+    private lateinit var uid: String
 
     init {
         binding.apply {
             constraintLayoutUser.setOnClickListener {
-                listener.onClickCard(applicantsUserVo)
+                listener.onClickCard(uid)
             }
         }
     }
 
     fun bind(item : ApplicantUserVo) {
-        applicantsUserVo = item
+        uid = item.user.uid
         binding.apply {
             textViewName.text = item.user.name
             textViewMajor.text = item.user.major

@@ -22,8 +22,8 @@ class KnotApplicantsFragment : BaseFragment<FragmentKnotApplicantsBinding, KnotA
 
     private val knotApplicantsAdapter : KnotApplicantsAdapter by lazy {
         KnotApplicantsAdapter(object : KnotApplicantsAdapter.KnotApplicantDelegate{
-            override fun onClickCard(applicantVo: ApplicantUserVo) {
-                TODO("Not yet implemented")
+            override fun onClickCard(uid: String) {
+                goToDetail(uid)
             }
         })
     }
@@ -62,6 +62,11 @@ class KnotApplicantsFragment : BaseFragment<FragmentKnotApplicantsBinding, KnotA
         when(event){
             KnotApplicantsEvent.GoToBackEvent -> findNavController().popBackStack()
         }
+    }
+
+    private fun goToDetail(uid : String){
+        val action = KnotApplicantsFragmentDirections.actionKnotApplicantsToDetail(knotApplicantsFragmentArgs.knotId, uid)
+        findNavController().navigate(action)
     }
 
     override fun onStart() {

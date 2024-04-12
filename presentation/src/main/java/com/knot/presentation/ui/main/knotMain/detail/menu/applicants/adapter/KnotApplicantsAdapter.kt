@@ -14,7 +14,7 @@ class KnotApplicantsAdapter(
 ) : ListAdapter<ApplicantUserVo, RecyclerView.ViewHolder>(KnotApplicantDiffCallBack()) {
 
     interface KnotApplicantDelegate{
-        fun onClickCard(applicantVo: ApplicantUserVo)
+        fun onClickCard(uid: String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
