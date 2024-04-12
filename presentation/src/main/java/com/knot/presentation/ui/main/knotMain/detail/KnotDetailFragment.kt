@@ -90,7 +90,8 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
             KnotDetailEvent.GoToStatisticsEvent -> goToStatistics()
             KnotDetailEvent.GoToChatEvent -> goToChat()
             KnotDetailEvent.GoToTodoEvent -> goToTodo()
-            KnotDetailEvent.ShowBottomSheet -> showBottomSheet()
+            KnotDetailEvent.ShowHostBottomSheet -> showHostBottomSheet()
+            KnotDetailEvent.ShowGuestBottomSheet -> showGuestBottomSheet()
             KnotDetailEvent.GoToEditRuleRoleEvent -> goToEditRuleAndRole()
             KnotDetailEvent.GoToEditKnotEvent -> goToEditKnot()
             KnotDetailEvent.GoToKnotApplicantsEvent -> goToKnotApplicants()
@@ -127,10 +128,17 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
         findNavController().navigate(action)
     }
 
-    private fun showBottomSheet(){
+    private fun showHostBottomSheet(){
         val list = resources.getStringArray(R.array.knot_menu_host).toList()
         CommonBottomSheet.newInstance(list) {
-            viewModel.onClickBottomSheet(it, list)
+            viewModel.onClickHostBottomSheet(it, list)
+        }.show(parentFragmentManager, "")
+    }
+
+    private fun showGuestBottomSheet(){
+        val list = resources.getStringArray(R.array.knot_menu_guest).toList()
+        CommonBottomSheet.newInstance(list) {
+            viewModel.onClickGuestBottomSheet(it, list)
         }.show(parentFragmentManager, "")
     }
 

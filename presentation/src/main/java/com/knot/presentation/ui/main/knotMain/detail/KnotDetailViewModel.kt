@@ -31,10 +31,16 @@ class KnotDetailViewModel @Inject constructor(
 
     companion object{
         const val PERCENT_COUNT = 100
+
+        //HOST MENU
         const val EDIT_RULE_ROLE = 0
         const val EDIT_KNOT = 1
         const val CONFIRM_APPLICANT = 2
         const val DELETE_KNOT = 3
+
+        //GUEST MENU
+        const val CHECK_RULE_ROLE = 0
+        const val OUT_KNOT = 1
     }
 
     private val knotDetailStateFlow : MutableStateFlow<KnotVo> = MutableStateFlow(KnotVo())
@@ -211,15 +217,23 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     fun onClickMenu(){
-        emitEventFlow(KnotDetailEvent.ShowBottomSheet)
+        if(isHostStateFlow.value) emitEventFlow(KnotDetailEvent.ShowHostBottomSheet)
+        else emitEventFlow(KnotDetailEvent.ShowGuestBottomSheet)
     }
 
-    fun onClickBottomSheet(selectItem : String, list : List<String>){
+    fun onClickHostBottomSheet(selectItem : String, list : List<String>){
         when(selectItem){
             list[EDIT_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
             list[EDIT_KNOT] -> emitEventFlow(KnotDetailEvent.GoToEditKnotEvent)
             list[CONFIRM_APPLICANT] -> emitEventFlow(KnotDetailEvent.GoToKnotApplicantsEvent)
             list[DELETE_KNOT] -> deleteKnot()
+        }
+    }
+
+    fun onClickGuestBottomSheet(selectItem : String, list : List<String>){
+        when(selectItem){
+            list[CHECK_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
+            list[OUT_KNOT] -> {}//emitEventFlow(KnotDetailEvent.GoToEditKnotEvent)
         }
     }
 

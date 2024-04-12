@@ -414,6 +414,7 @@ object KnotServer {
 
     private fun deleteChatRoom(request: String) {
         chatRef.child(request).removeValue()
+        chatMemberRef.child(request).removeValue()
     }
 
     private fun deleteMyKnot(request: String) {
