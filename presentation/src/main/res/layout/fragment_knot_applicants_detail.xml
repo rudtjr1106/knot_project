@@ -11,12 +11,12 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background">
+            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/image_button_back"
@@ -180,6 +180,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/button_approve"
                     android:layout_marginEnd="9dp"
+                    android:onClick="@{()->vm.onClickReject()}"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:background="@drawable/bg_rectangle_filled_f2f2f2_radius_8"
                     android:textColor="@color/color_8c8c8c"
@@ -195,6 +196,7 @@
                     app:layout_constraintTop_toBottomOf="@id/text_view_more_intro"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="9dp"
+                    android:onClick="@{()->vm.onClickApprove()}"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     app:layout_constraintStart_toEndOf="@id/button_reject"
                     android:background="@drawable/bg_rectangle_filled_ffcc00_radius_8"

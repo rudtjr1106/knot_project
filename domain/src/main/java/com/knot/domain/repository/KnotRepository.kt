@@ -8,6 +8,7 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
+import com.knot.domain.vo.RejectOrApproveTeamRequest
 import com.knot.domain.vo.SaveRoleAndRuleRequest
 import com.knot.domain.vo.SearchKnotRequest
 import kotlinx.coroutines.flow.Flow
@@ -25,4 +26,6 @@ interface KnotRepository {
     suspend fun createKnot(request: KnotVo) : Flow<Response<Boolean>>
     suspend fun applyKnot(request : ApplyKnotRequest) : Flow<Response<Boolean>>
     suspend fun cancelApplicationKnot(request: String) : Flow<Response<Boolean>>
+    suspend fun approveKnotApplicant(request : RejectOrApproveTeamRequest) : Flow<Response<Boolean>>
+    suspend fun rejectKnotApplicant(request : RejectOrApproveTeamRequest) : Flow<Response<Boolean>>
 }

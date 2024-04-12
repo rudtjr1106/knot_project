@@ -15,6 +15,7 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
+import com.knot.domain.vo.RejectOrApproveTeamRequest
 import com.knot.domain.vo.SaveRoleAndRuleRequest
 import com.knot.domain.vo.SearchKnotRequest
 import com.knot.domain.vo.TeamUserVo
@@ -357,6 +358,46 @@ object KnotServer {
 
     private fun cancelMyApplyKnot(request: String){
         authRef.child(auth.uid.toString()).child(Endpoints.USER_APPLY_LIST).child(request).removeValue()
+    }
+
+    suspend fun approveKnotApplicant(request: RejectOrApproveTeamRequest) : Response<Boolean> = suspendCoroutine {
+        knotRef.child(request.knot.knotId).child(Endpoints.KNOT_APPLY).child(request.teamUserVo.uid).removeValue()
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    addTeamInKnot(request)
+                    addKnotInMy(request)
+                    removeMyApplication(request)
+                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                }
+                else{
+                    it.resume(Response(data = true, result = ResultCode.TEST_ERROR))
+                }
+            }
+    }
+
+    private fun addTeamInKnot(request : RejectOrApproveTeamRequest) {
+        knotRef.child(request.knot.knotId).child(Endpoints.KNOT_TEAM).child(request.teamUserVo.uid).setValue(request.teamUserVo)
+    }
+
+    private fun addKnotInMy(request : RejectOrApproveTeamRequest){
+        authRef.child(request.teamUserVo.uid).child(Endpoints.KNOT).child(request.knot.knotId).setValue(request.knot)
+    }
+
+    private fun removeMyApplication(request: RejectOrApproveTeamRequest){
+        authRef.child(request.teamUserVo.uid).child(Endpoints.USER_APPLY_LIST).child(request.knot.knotId).removeValue()
+    }
+
+    suspend fun rejectKnotApplicant(request: RejectOrApproveTeamRequest) : Response<Boolean> = suspendCoroutine {
+        knotRef.child(request.knot.knotId).child(Endpoints.KNOT_APPLY).child(request.teamUserVo.uid).removeValue()
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    removeMyApplication(request)
+                    it.resume(Response(data = true, result = ResultCode.SUCCESS))
+                }
+                else{
+                    it.resume(Response(data = true, result = ResultCode.TEST_ERROR))
+                }
+            }
     }
 
     private fun extractNumberFromString(input: String): Int? {
