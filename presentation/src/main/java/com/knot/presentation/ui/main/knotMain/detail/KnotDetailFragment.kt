@@ -93,6 +93,7 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
             KnotDetailEvent.ShowBottomSheet -> showBottomSheet()
             KnotDetailEvent.GoToEditRuleRoleEvent -> goToEditRuleAndRole()
             KnotDetailEvent.GoToEditKnotEvent -> goToEditKnot()
+            KnotDetailEvent.GoToKnotApplicantsEvent -> goToKnotApplicants()
         }
     }
 
@@ -118,6 +119,11 @@ class KnotDetailFragment : BaseFragment<FragmentKnotDetailBinding, KnotDetailPag
 
     private fun goToEditKnot(){
         val action = KnotDetailFragmentDirections.actionKnotDetailToCreateOrEditKnot(knotDetailFragmentArgs.knotId, CreateOrEditKnotType.EDIT)
+        findNavController().navigate(action)
+    }
+
+    private fun goToKnotApplicants(){
+        val action = KnotDetailFragmentDirections.actionKnotDetailToApplicants(knotDetailFragmentArgs.knotId)
         findNavController().navigate(action)
     }
 

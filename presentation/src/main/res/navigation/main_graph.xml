@@ -75,6 +75,10 @@
             android:id="@+id/action_knot_detail_to_create_or_edit_knot"
             app:destination="@id/createOrEditKnotFragment"/>
 
+        <action
+            android:id="@+id/action_knot_detail_to_applicants"
+            app:destination="@id/knotApplicantsFragment"/>
+
     </fragment>
 
     <fragment
@@ -122,6 +126,39 @@
 
         <argument
             android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotApplicantsFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.menu.applicants.KnotApplicantsFragment"
+        android:label="fragment_knot_applicants"
+        tools:layout="@layout/fragment_knot_applicants">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/action_knot_applicants_to_detail"
+            app:destination="@id/knotApplicantsDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotApplicantsDetailFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.menu.applicants.detail.ApplicantsDetailFragment"
+        android:label="fragment_knot_applicants_detail"
+        tools:layout="@layout/fragment_knot_applicants_detail">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+
+        <argument
+            android:name="userUid"
             android:defaultValue=""
             app:argType="string"/>
     </fragment>

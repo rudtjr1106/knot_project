@@ -10,6 +10,7 @@ import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.InsideChatRequest
 import com.knot.domain.vo.InsideChatResponse
 import com.knot.domain.vo.KnotVo
+import com.knot.domain.vo.RejectOrApproveTeamRequest
 import com.knot.domain.vo.SaveRoleAndRuleRequest
 import com.knot.domain.vo.SearchKnotRequest
 import kotlinx.coroutines.flow.Flow
@@ -68,5 +69,13 @@ class KnotRepositoryImpl @Inject constructor() : KnotRepository {
 
     override suspend fun cancelApplicationKnot(request : String): Flow<Response<Boolean>> = flow {
         emit(KnotServer.cancelApplicationKnot(request))
+    }
+
+    override suspend fun approveKnotApplicant(request: RejectOrApproveTeamRequest): Flow<Response<Boolean>> = flow {
+        emit(KnotServer.approveKnotApplicant(request))
+    }
+
+    override suspend fun rejectKnotApplicant(request: RejectOrApproveTeamRequest): Flow<Response<Boolean>> = flow {
+        emit(KnotServer.rejectKnotApplicant(request))
     }
 }

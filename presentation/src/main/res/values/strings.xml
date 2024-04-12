@@ -101,10 +101,14 @@
     <string name="main_knot_search_hint">검색어를 입력하세요.</string>
 
     <!-- Main_Knot_Application -->
+    <string name="main_knot_application_applicants">신청자 목록</string>
     <string name="main_knot_application_detail">상세 페이지</string>
     <string name="main_knot_application_apply">신청하기</string>
+    <string name="main_knot_application_my_pr">신청내용</string>
     <string name="main_knot_application_cancel">취소하기</string>
     <string name="main_knot_application_my_intro">자기소개</string>
     <string name="main_knot_application_my_intro_hint">프로필의 추가적인 설명이나,\n매듭의 모집 공고와 어울리는 자기소개를 써보세요!</string>
+    <string name="main_knot_application_reject">거절하기</string>
+    <string name="main_knot_application_approve">승인하기</string>
 
 </resources>
