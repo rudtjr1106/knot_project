@@ -101,6 +101,7 @@
     <string name="main_knot_search_hint">검색어를 입력하세요.</string>
 
     <!-- Main_Knot_Application -->
+    <string name="main_knot_application_applicants">신청자 목록</string>
     <string name="main_knot_application_detail">상세 페이지</string>
     <string name="main_knot_application_apply">신청하기</string>
     <string name="main_knot_application_cancel">취소하기</string>

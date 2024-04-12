@@ -75,6 +75,10 @@
             android:id="@+id/action_knot_detail_to_create_or_edit_knot"
             app:destination="@id/createOrEditKnotFragment"/>
 
+        <action
+            android:id="@+id/action_knot_detail_to_applicants"
+            app:destination="@id/knotApplicantsFragment"/>
+
     </fragment>
 
     <fragment
@@ -119,6 +123,18 @@
         android:name="com.knot.presentation.ui.main.knotMain.detail.menu.editRoleAndRule.EditRoleAndRuleFragment"
         android:label="fragment_knot_edit_role_and_rule"
         tools:layout="@layout/fragment_knot_edit_role_and_rule">
+
+        <argument
+            android:name="knotId"
+            android:defaultValue=""
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/knotApplicantsFragment"
+        android:name="com.knot.presentation.ui.main.knotMain.detail.menu.applicants.KnotApplicantsFragment"
+        android:label="fragment_knot_applicants"
+        tools:layout="@layout/fragment_knot_applicants">
 
         <argument
             android:name="knotId"

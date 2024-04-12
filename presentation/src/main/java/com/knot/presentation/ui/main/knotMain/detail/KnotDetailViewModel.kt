@@ -214,6 +214,7 @@ class KnotDetailViewModel @Inject constructor(
         when(selectItem){
             list[EDIT_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
             list[EDIT_KNOT] -> emitEventFlow(KnotDetailEvent.GoToEditKnotEvent)
+            list[CONFIRM_APPLICANT] -> emitEventFlow(KnotDetailEvent.GoToKnotApplicantsEvent)
         }
     }
 }
