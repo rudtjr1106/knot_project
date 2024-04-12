@@ -5,6 +5,7 @@ import com.knot.domain.usecase.knot.CheckKnotTodoUseCase
 import com.knot.domain.usecase.knot.DeleteKnotUseCase
 import com.knot.domain.usecase.knot.GetChatListUseCase
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
+import com.knot.domain.usecase.knot.OutKnotUseCase
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
@@ -27,14 +28,21 @@ class KnotDetailViewModel @Inject constructor(
     private val getChatListUseCase: GetChatListUseCase,
     private val checkKnotTodoUseCase: CheckKnotTodoUseCase,
     private val deleteKnotUseCase: DeleteKnotUseCase,
+    private val outKnotUseCase: OutKnotUseCase
 ) : BaseViewModel<KnotDetailPageState>() {
 
     companion object{
         const val PERCENT_COUNT = 100
+
+        //HOST MENU
         const val EDIT_RULE_ROLE = 0
         const val EDIT_KNOT = 1
         const val CONFIRM_APPLICANT = 2
         const val DELETE_KNOT = 3
+
+        //GUEST MENU
+        const val CHECK_RULE_ROLE = 0
+        const val OUT_KNOT = 1
     }
 
     private val knotDetailStateFlow : MutableStateFlow<KnotVo> = MutableStateFlow(KnotVo())
@@ -211,15 +219,31 @@ class KnotDetailViewModel @Inject constructor(
     }
 
     fun onClickMenu(){
-        emitEventFlow(KnotDetailEvent.ShowBottomSheet)
+        if(isHostStateFlow.value) emitEventFlow(KnotDetailEvent.ShowHostBottomSheet)
+        else emitEventFlow(KnotDetailEvent.ShowGuestBottomSheet)
     }
 
-    fun onClickBottomSheet(selectItem : String, list : List<String>){
+    fun onClickHostBottomSheet(selectItem : String, list : List<String>){
         when(selectItem){
             list[EDIT_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
             list[EDIT_KNOT] -> emitEventFlow(KnotDetailEvent.GoToEditKnotEvent)
             list[CONFIRM_APPLICANT] -> emitEventFlow(KnotDetailEvent.GoToKnotApplicantsEvent)
             list[DELETE_KNOT] -> deleteKnot()
+        }
+    }
+
+    fun onClickGuestBottomSheet(selectItem : String, list : List<String>){
+        when(selectItem){
+            list[CHECK_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
+            list[OUT_KNOT] -> outKnot()
+        }
+    }
+
+    private fun outKnot(){
+        viewModelScope.launch {
+            outKnotUseCase(knotDetailStateFlow.value).collect{
+                resultResponse(it, {onClickBack() })
+            }
         }
     }
 

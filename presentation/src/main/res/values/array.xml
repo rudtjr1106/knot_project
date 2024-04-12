@@ -7,6 +7,11 @@
         <item>매듭 삭제</item>
     </string-array>
 
+    <string-array name="knot_menu_guest">
+        <item>역할/룰 확인</item>
+        <item>매듭 나가기</item>
+    </string-array>
+
     <string-array name="knot_category">
         <item>마케팅</item>
         <item>영상</item>

@@ -364,7 +364,6 @@ object KnotServer {
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     addTeamInKnot(request)
-                    addKnotInMy(request)
                     removeMyApplication(request)
                     it.resume(Response(data = true, result = ResultCode.SUCCESS))
                 }
@@ -375,11 +374,20 @@ object KnotServer {
     }
 
     private fun addTeamInKnot(request : RejectOrApproveTeamRequest) {
-        knotRef.child(request.knot.knotId).child(Endpoints.KNOT_TEAM).child(request.teamUserVo.uid).setValue(request.teamUserVo)
+        knotRef.child(request.knot.knotId).child(Endpoints.KNOT_TEAM).child(request.teamUserVo.uid).setValue(request.teamUserVo).addOnCompleteListener {
+            if(it.isSuccessful){
+                val newMap = request.knot.teamList
+                newMap[request.teamUserVo.uid] = request.teamUserVo
+                val newRequest = request.knot.copy(
+                    teamList = newMap
+                )
+                request.knot.teamList.forEach { updateKnotInTeam(it.value.uid, newRequest) }
+            }
+        }
     }
 
-    private fun addKnotInMy(request : RejectOrApproveTeamRequest){
-        authRef.child(request.teamUserVo.uid).child(Endpoints.KNOT).child(request.knot.knotId).setValue(request.knot)
+    private fun updateKnotInTeam(uid : String, knotVo: KnotVo){
+        authRef.child(uid).child(Endpoints.KNOT).child(knotVo.knotId).setValue(knotVo)
     }
 
     private fun removeMyApplication(request: RejectOrApproveTeamRequest){
@@ -414,10 +422,30 @@ object KnotServer {
 
     private fun deleteChatRoom(request: String) {
         chatRef.child(request).removeValue()
+        chatMemberRef.child(request).removeValue()
     }
 
     private fun deleteMyKnot(request: String) {
         authRef.child(auth.uid.toString()).child(Endpoints.KNOT).child(request).removeValue()
+    }
+
+    suspend fun outKnot(request: KnotVo) : Response<Boolean> = suspendCoroutine {
+        knotRef.child(request.knotId).child(Endpoints.KNOT_TEAM).child(auth.uid.toString()).removeValue().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                request.teamList.values.forEach {
+                    if(it.uid != auth.uid.toString()) deleteMeInOtherKnot(it.uid, request.knotId)
+                }
+                deleteMyKnot(request.knotId)
+                it.resume(Response(data = true, result = ResultCode.SUCCESS))
+            }
+            else{
+                it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+            }
+        }
+    }
+
+    private fun deleteMeInOtherKnot(uid: String, knotId : String) {
+        authRef.child(uid).child(Endpoints.KNOT).child(knotId).child(Endpoints.KNOT_TEAM).child(auth.uid.toString()).removeValue()
     }
 
     private fun extractNumberFromString(input: String): Int? {
