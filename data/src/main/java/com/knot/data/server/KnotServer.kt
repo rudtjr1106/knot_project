@@ -364,7 +364,6 @@ object KnotServer {
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     addTeamInKnot(request)
-                    addKnotInMy(request)
                     removeMyApplication(request)
                     it.resume(Response(data = true, result = ResultCode.SUCCESS))
                 }
@@ -375,11 +374,15 @@ object KnotServer {
     }
 
     private fun addTeamInKnot(request : RejectOrApproveTeamRequest) {
-        knotRef.child(request.knot.knotId).child(Endpoints.KNOT_TEAM).child(request.teamUserVo.uid).setValue(request.teamUserVo)
+        knotRef.child(request.knot.knotId).child(Endpoints.KNOT_TEAM).child(request.teamUserVo.uid).setValue(request.teamUserVo).addOnCompleteListener {
+            if(it.isSuccessful){
+                request.knot.teamList.forEach { addKnotInTeam(it.value.uid, request.knot) }
+            }
+        }
     }
 
-    private fun addKnotInMy(request : RejectOrApproveTeamRequest){
-        authRef.child(request.teamUserVo.uid).child(Endpoints.KNOT).child(request.knot.knotId).setValue(request.knot)
+    private fun addKnotInTeam(uid : String, knotVo: KnotVo){
+        authRef.child(uid).child(Endpoints.KNOT).child(knotVo.knotId).setValue(knotVo)
     }
 
     private fun removeMyApplication(request: RejectOrApproveTeamRequest){
