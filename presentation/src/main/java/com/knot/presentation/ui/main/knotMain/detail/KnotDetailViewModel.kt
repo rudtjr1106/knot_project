@@ -5,6 +5,7 @@ import com.knot.domain.usecase.knot.CheckKnotTodoUseCase
 import com.knot.domain.usecase.knot.DeleteKnotUseCase
 import com.knot.domain.usecase.knot.GetChatListUseCase
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
+import com.knot.domain.usecase.knot.OutKnotUseCase
 import com.knot.domain.vo.ChatVo
 import com.knot.domain.vo.CheckKnotTodoRequest
 import com.knot.domain.vo.KnotVo
@@ -27,6 +28,7 @@ class KnotDetailViewModel @Inject constructor(
     private val getChatListUseCase: GetChatListUseCase,
     private val checkKnotTodoUseCase: CheckKnotTodoUseCase,
     private val deleteKnotUseCase: DeleteKnotUseCase,
+    private val outKnotUseCase: OutKnotUseCase
 ) : BaseViewModel<KnotDetailPageState>() {
 
     companion object{
@@ -233,7 +235,15 @@ class KnotDetailViewModel @Inject constructor(
     fun onClickGuestBottomSheet(selectItem : String, list : List<String>){
         when(selectItem){
             list[CHECK_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
-            list[OUT_KNOT] -> {}//emitEventFlow(KnotDetailEvent.GoToEditKnotEvent)
+            list[OUT_KNOT] -> outKnot()
+        }
+    }
+
+    private fun outKnot(){
+        viewModelScope.launch {
+            outKnotUseCase(knotDetailStateFlow.value).collect{
+                resultResponse(it, {onClickBack() })
+            }
         }
     }
 
