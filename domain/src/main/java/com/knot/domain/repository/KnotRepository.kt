@@ -28,4 +28,5 @@ interface KnotRepository {
     suspend fun cancelApplicationKnot(request: String) : Flow<Response<Boolean>>
     suspend fun approveKnotApplicant(request : RejectOrApproveTeamRequest) : Flow<Response<Boolean>>
     suspend fun rejectKnotApplicant(request : RejectOrApproveTeamRequest) : Flow<Response<Boolean>>
+    suspend fun deleteKnot(request: String) : Flow<Response<Boolean>>
 }
