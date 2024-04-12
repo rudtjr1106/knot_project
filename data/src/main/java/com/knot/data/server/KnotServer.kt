@@ -18,7 +18,6 @@ import com.knot.domain.vo.KnotVo
 import com.knot.domain.vo.RejectOrApproveTeamRequest
 import com.knot.domain.vo.SaveRoleAndRuleRequest
 import com.knot.domain.vo.SearchKnotRequest
-import com.knot.domain.vo.TeamUserVo
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -174,7 +173,7 @@ object KnotServer {
     }
 
     suspend fun addChat(request : AddChatRequest) : Response<Boolean> = suspendCoroutine {
-        val key = request.chat.id + "-" + request.time
+        val key = request.time + "-" + request.chat.id
         chatRef.child(request.knotId).child(request.chat.date).child(key).setValue(request.chat)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
@@ -370,7 +369,7 @@ object KnotServer {
                     it.resume(Response(data = true, result = ResultCode.SUCCESS))
                 }
                 else{
-                    it.resume(Response(data = true, result = ResultCode.TEST_ERROR))
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
                 }
             }
     }
@@ -395,9 +394,30 @@ object KnotServer {
                     it.resume(Response(data = true, result = ResultCode.SUCCESS))
                 }
                 else{
-                    it.resume(Response(data = true, result = ResultCode.TEST_ERROR))
+                    it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
                 }
             }
+    }
+
+    suspend fun deleteKnot(request: String) : Response<Boolean> = suspendCoroutine {
+        knotRef.child(request).removeValue().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                deleteMyKnot(request)
+                deleteChatRoom(request)
+                it.resume(Response(data = true, result = ResultCode.SUCCESS))
+            }
+            else{
+                it.resume(Response(data = false, result = ResultCode.TEST_ERROR))
+            }
+        }
+    }
+
+    private fun deleteChatRoom(request: String) {
+        chatRef.child(request).removeValue()
+    }
+
+    private fun deleteMyKnot(request: String) {
+        authRef.child(auth.uid.toString()).child(Endpoints.KNOT).child(request).removeValue()
     }
 
     private fun extractNumberFromString(input: String): Int? {

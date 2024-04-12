@@ -78,4 +78,8 @@ class KnotRepositoryImpl @Inject constructor() : KnotRepository {
     override suspend fun rejectKnotApplicant(request: RejectOrApproveTeamRequest): Flow<Response<Boolean>> = flow {
         emit(KnotServer.rejectKnotApplicant(request))
     }
+
+    override suspend fun deleteKnot(request: String): Flow<Response<Boolean>> = flow {
+        emit(KnotServer.deleteKnot(request))
+    }
 }

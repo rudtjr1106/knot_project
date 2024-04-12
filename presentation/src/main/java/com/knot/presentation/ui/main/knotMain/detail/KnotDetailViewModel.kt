@@ -2,6 +2,7 @@ package com.knot.presentation.ui.main.knotMain.detail
 
 import androidx.lifecycle.viewModelScope
 import com.knot.domain.usecase.knot.CheckKnotTodoUseCase
+import com.knot.domain.usecase.knot.DeleteKnotUseCase
 import com.knot.domain.usecase.knot.GetChatListUseCase
 import com.knot.domain.usecase.knot.GetKnotDetailUseCase
 import com.knot.domain.vo.ChatVo
@@ -14,6 +15,7 @@ import com.knot.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +25,8 @@ import kotlin.math.roundToInt
 class KnotDetailViewModel @Inject constructor(
     private val getKnotDetailUseCase: GetKnotDetailUseCase,
     private val getChatListUseCase: GetChatListUseCase,
-    private val checkKnotTodoUseCase: CheckKnotTodoUseCase
+    private val checkKnotTodoUseCase: CheckKnotTodoUseCase,
+    private val deleteKnotUseCase: DeleteKnotUseCase,
 ) : BaseViewModel<KnotDetailPageState>() {
 
     companion object{
@@ -31,6 +34,7 @@ class KnotDetailViewModel @Inject constructor(
         const val EDIT_RULE_ROLE = 0
         const val EDIT_KNOT = 1
         const val CONFIRM_APPLICANT = 2
+        const val DELETE_KNOT = 3
     }
 
     private val knotDetailStateFlow : MutableStateFlow<KnotVo> = MutableStateFlow(KnotVo())
@@ -215,6 +219,18 @@ class KnotDetailViewModel @Inject constructor(
             list[EDIT_RULE_ROLE] -> emitEventFlow(KnotDetailEvent.GoToEditRuleRoleEvent)
             list[EDIT_KNOT] -> emitEventFlow(KnotDetailEvent.GoToEditKnotEvent)
             list[CONFIRM_APPLICANT] -> emitEventFlow(KnotDetailEvent.GoToKnotApplicantsEvent)
+            list[DELETE_KNOT] -> deleteKnot()
+        }
+    }
+
+    private fun deleteKnot(){
+        if(knotDetailStateFlow.value.teamList.size != 1){
+            return // TODO 팀원이 전부 나가야 된다는 Dialog
+        }
+        viewModelScope.launch {
+            deleteKnotUseCase(knotDetailStateFlow.value.knotId).collect{
+                resultResponse(it, { onClickBack() })
+            }
         }
     }
 }
